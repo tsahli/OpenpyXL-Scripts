@@ -3,10 +3,13 @@
 # Calculates hanger data and prepares label for mail merge
 
 import openpyxl, pprint, time
+from openpyxl.styles import Alignment
+print("\nReadMe:\nColumn A: Site Area\nColumn B: Hanger ID\nColumn C: Attachment 1 Elevation\nColumn D: Material\nColumn E: Support Span\nColumn F: Support 1 Cut Length\n\nLAST ROW IS NOT COUNTED\n\n")
 excelSheetName = raw_input('Enter Name of Excel Sheet: ')
 
+
 wb = openpyxl.load_workbook(excelSheetName + '.xlsx')
-sheet = wb.get_sheet_by_name('Sheet1')
+sheet = wb.get_sheet_by_name(excelSheetName)
 
 createdSheet = wb.create_sheet()
 createdSheet.title = 'Total Strut'
@@ -25,16 +28,43 @@ strutTypeList = []
 strutTypeListTotal = []
 allthreadList = []
 allthreadListTotal = []
-next_strut_length_row = 1
-next_assembly_row = 1
-next_allthread_row = 1
-next_concat_row = 1
+next_strut_length_row = 4
+next_assembly_row = 4
+next_allthread_row = 4
+next_concat_row = 2
+
+# below creates title blocks for each created sheet
+
+createdSheet.merge_cells('A1:B2')
+title = createdSheet.cell(row = 1, column = 1)
+title.value = 'Total Strut'
+title.alignment = Alignment(horizontal = 'center', vertical = 'center')
+createdSheet.cell(row = 3, column = 1).value = "Strut Type"
+createdSheet.cell(row = 3, column = 2).value = "Quantity"
+
+createdAllthreadSheet.merge_cells('A1:B2')
+title = createdAllthreadSheet.cell(row = 1, column = 1)
+title.value = 'Total Allthread'
+title.alignment = Alignment(horizontal = 'center', vertical = 'center')
+createdAllthreadSheet.cell(row = 3, column = 1).value = "Allthread Length"
+createdAllthreadSheet.cell(row = 3, column = 2).value = "Quantity"
+
+createdAssemblySheet.merge_cells('A1:B2')
+title = createdAssemblySheet.cell(row = 1, column = 1)
+title.value = 'Assembly Name and Quantity'
+title.alignment = Alignment(horizontal = 'center', vertical = 'center')
+createdAssemblySheet.cell(row = 3, column = 1).value = "Assembly Name"
+createdAssemblySheet.cell(row = 3, column = 2).value = "Quantity"
+
+createdConcatSheet.cell(row = 1, column = 1).value = "PRINT_ME"
+
+# Below generates 2 lists of values
 
 for row in range(4, sheet.max_row):
     hangerID = sheet['B' + str(row)].value
     hangerList.append(hangerID)
 
-    strutType = sheet['D' + str(row)].value + ' ' + sheet['E' + str(row)].value
+    strutType = sheet['D' + str(row)].value + ': ' + sheet['E' + str(row)].value
     strutTypeList.append(strutType)
 
     allthreadLength = sheet['F' + str(row)].value
@@ -53,9 +83,13 @@ for row in range(4, sheet.max_row):
         hangerListTotal.append(hangerID)
 
         # Below creates the concatenation to be used in mail merge
-    label = areaName + " Tag: " + hangerID + " TOU: " + topOfStrut + "                                       " + strutType + " // Allthread Length: " + allthreadLength
+    label = areaName + " Tag: " + hangerID + "                                                           TOU: " + topOfStrut + "                                                                    " + strutType + "                                                               Allthread Length: " + allthreadLength
     createdConcatSheet.cell(column = 1, row = next_concat_row, value = label)
     next_concat_row += 1
+
+allthreadListTotal.sort()
+strutTypeListTotal.sort()
+hangerListTotal.sort()
 
         # Below prints total counts on each created sheet
 for x in hangerListTotal:
@@ -70,9 +104,9 @@ for x in strutTypeListTotal:
 
 for x in allthreadListTotal:
     createdAllthreadSheet.cell(column = 1, row = next_allthread_row, value = x)
-    createdAllthreadSheet.cell(column = 2, row = next_allthread_row, value = allthreadList.count(x))
+    createdAllthreadSheet.cell(column = 2, row = next_allthread_row, value = (allthreadList.count(x) * 2))
     next_allthread_row += 1
 
 wb.save(excelSheetName + '.xlsx')
 print('------------------------Done------------------------')
-time.sleep(5)
+time.sleep(3)
