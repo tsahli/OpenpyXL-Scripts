@@ -1,7 +1,7 @@
 #! python
 # EmergencyLabelFinder.py - separates cells searched for from those that don't meet criteria
 
-import openpyxl, pprint, time
+import openpyxl, time
 excelSheetName = input('Enter Name of Excel Sheet: ')
 startingLetters = []
 startingLetter = ''
@@ -25,7 +25,7 @@ next_row = 1
 for row in range(1, sheet.max_row + 1):
     label = sheet['A' + str(row)].value
     labelString = str(label) # This variable might not be needed
-    if labelString.startswith(tuple(startingLetters)):
+    if labelString.startswith(tuple(startingLetters)): # List must be converted to tuple to use startswith
         createdEMsheet.cell(column = 1, row = next_EM_row, value = label)
         next_EM_row += 1
     elif label: # Using implicit booleanness of label object. If false skip
@@ -34,4 +34,3 @@ for row in range(1, sheet.max_row + 1):
 
 wb.save(excelSheetName + '.xlsx')
 print('------------------------Done------------------------')
-time.sleep(3)
