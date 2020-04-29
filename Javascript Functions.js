@@ -46,7 +46,6 @@ function addBusinessDays(startingDateField, resultingDateField, daysToAdjust) {
     }
 }
 
-
 function toTitleCase() {
 	var words = this.getField("Name");
     words.value = words.value.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
@@ -249,19 +248,26 @@ function wrapClearing(fullWrapField, customWrapField) {
 }
 
 //CONDUIT SIZE - MATERIAL - RADIUS - WRAPPING
-function setDescription(descField, checkField) {
-    var setCheck = this.getField(checkField).value;
-    var desc = this.getField(descField);
-    if (setCheck != "" || setCheck != "---") {
-        desc.value = desc.value + " " + setCheck;
+function setDesc(descField, sizeField, materialField, radiusField, customWrapField) {
+    var desc = this.getField(descField).value;
+    var size = this.getField(sizeField).value;
+    var material = this.getField(materialField).value;
+    var radius = this.getField(radiusField).value;
+    var customWrap = this.getField(customWrapField).value;
+    
+    desc = "";
+    
+    if (size == "" || size == "---") {
+        desc = "PLEASE FILL OUT ALL DETAILS, THEN SELECT A QTY";
     }
-/*     if (setCheck == "Yes") {
-        desc.value = "Hello there, this sure did work!";
+    else if (customWrap == "") {
+        desc = size + " - " + material + " - " + radius + " - FULL WRAP"; 
     }
     else {
-        desc.value = "";
-    } */
+        desc = size + " - " + material + " - " + radius + " - " + customWrap;
+    }
 }
+
 
 function setFactHeight(conduitSizeField, materialField, radiusField, factHeightField) {
     let threeQuartersGRC = {
