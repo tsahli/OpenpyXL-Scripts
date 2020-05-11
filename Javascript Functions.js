@@ -248,27 +248,6 @@ function wrapClearing(fullWrapField, customWrapField) {
 }
 
 //CONDUIT SIZE - MATERIAL - RADIUS - WRAPPING
-function setDesc(descField, sizeField, materialField, radiusField, customWrapField) {
-    var desc = this.getField(descField).value;
-    var size = this.getField(sizeField).value;
-    var material = this.getField(materialField).value;
-    var radius = this.getField(radiusField).value;
-    var customWrap = this.getField(customWrapField).value;
-    
-    desc = "";
-    
-    if (size == "" || size == "---") {
-        desc = "PLEASE FILL OUT ALL DETAILS, THEN SELECT A QTY";
-    }
-    else if (customWrap == "") {
-        desc = size + " - " + material + " - " + radius + " - FULL WRAP";
-    }
-    else {
-        desc = size + " - " + material + " - " + radius + " - " + customWrap + " WRAP";
-    }
-}
-
-//CONDUIT SIZE - MATERIAL - RADIUS - WRAPPING
 function setDescTwo(descField, sizeField, materialField, radiusField, customWrapField) {
     var desc = this.getField(descField);
     var size = this.getField(sizeField).value;
