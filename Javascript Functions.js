@@ -264,7 +264,28 @@ function setDesc(descField, sizeField, materialField, radiusField, customWrapFie
         desc = size + " - " + material + " - " + radius + " - FULL WRAP";
     }
     else {
-        desc = size + " - " + material + " - " + radius + " - " + customWrap;
+        desc = size + " - " + material + " - " + radius + " - " + customWrap + " WRAP";
+    }
+}
+
+//CONDUIT SIZE - MATERIAL - RADIUS - WRAPPING
+function setDescTwo(descField, sizeField, materialField, radiusField, customWrapField) {
+    var desc = this.getField(descField);
+    var size = this.getField(sizeField).value;
+    var material = this.getField(materialField).value;
+    var radius = this.getField(radiusField).value;
+    var customWrap = this.getField(customWrapField).value;
+    
+    desc.value = "";
+    
+    if (size == "" || size == "---" || material == "" || material == "---" || radius == "" || radius == "---") {
+        desc.value = "SELECT A SIZE, MATERIAL, AND RADIUS";
+    }
+    else if (customWrap == "") {
+        desc.value = size + " - " + material + " - " + radius + " - FULL WRAP";
+    }
+    else {
+        desc.value = size + " - " + material + " - " + radius + " - " + customWrap + " WRAP";
     }
 }
 
