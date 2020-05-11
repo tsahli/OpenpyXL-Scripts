@@ -261,7 +261,7 @@ function setDesc(descField, sizeField, materialField, radiusField, customWrapFie
         desc = "PLEASE FILL OUT ALL DETAILS, THEN SELECT A QTY";
     }
     else if (customWrap == "") {
-        desc = size + " - " + material + " - " + radius + " - FULL WRAP"; 
+        desc = size + " - " + material + " - " + radius + " - FULL WRAP";
     }
     else {
         desc = size + " - " + material + " - " + radius + " - " + customWrap;
