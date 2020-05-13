@@ -248,19 +248,23 @@ function wrapClearing(fullWrapField, customWrapField) {
 }
 
 //CONDUIT SIZE - MATERIAL - RADIUS - WRAPPING
-function setDescTwo(descField, sizeField, materialField, radiusField, customWrapField) {
+function setDescTwo(descField, sizeField, materialField, radiusField, customWrapField, fullWrapField) {
     var desc = this.getField(descField);
     var size = this.getField(sizeField).value;
     var material = this.getField(materialField).value;
     var radius = this.getField(radiusField).value;
     var customWrap = this.getField(customWrapField).value;
+    var fullWrap = this.getField(fullWrapField).value;
     
     desc.value = "";
     
     if (size == "" || size == "---" || material == "" || material == "---" || radius == "" || radius == "---") {
         desc.value = "SELECT A SIZE, MATERIAL, AND RADIUS";
     }
-    else if (customWrap == "") {
+    else if (customWrap == "" && fullWrap == "Off") {
+        desc.value = size + " - " + material + " - " + radius + " - UNWRAPPED";
+    }
+    else if (customWrap == "" && fullWrap == "Yes") {
         desc.value = size + " - " + material + " - " + radius + " - FULL WRAP";
     }
     else {
