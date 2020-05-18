@@ -274,10 +274,19 @@ function setDescTwo(descField, sizeField, materialField, radiusField, customWrap
 
 // to fill out material req descriptions
 function materialReq() {
-    var qty1 = this.getField('QTY 1').value;
-    var qty2 = this.getField('QTY 2').value;
-    var qty3 = this.getField('QTY 3').value;
-    var qty4 = this.getField('QTY 4').value;
+    function sizeMachine(size, material, radius) {
+        return size.toString() + " " + material + " " + radius.toString();
+    }
+    function fittingMachine(size, fitting) {
+        return size.toString() + " " + fitting;
+    }
+    function nippleMachine(size, nippleHeight, nipple) {
+        return size.toString() + "x" + nippleHeight.toString() + " " + nipple;
+    }
+    var qty1 = this.getField('QTY #1').value;
+    var qty2 = this.getField('QTY #2').value;
+    var qty3 = this.getField('QTY #3').value;
+    var qty4 = this.getField('QTY #4').value;
     var size1 = this.getField('CONDUIT SIZE TYPE 1').value;
     var size2 = this.getField('CONDUIT SIZE TYPE 2').value;
     var size3 = this.getField('CONDUIT SIZE TYPE 3').value;
@@ -322,7 +331,28 @@ function materialReq() {
     var fittingX2 = this.getField('FITTING X TYPE 2').value;
     var fittingX3 = this.getField('FITTING X TYPE 3').value;
     var fittingX4 = this.getField('FITTING X TYPE 4').value;
+
+    var sizeList = [];
+    var fittingsList = [];
+    var nippleList = [];
+
+    sizeList.push(sizeMachine(size1, material1, radius1));
+    sizeList.push(sizeMachine(size2, material2, radius2));
+    sizeList.push(sizeMachine(size3, material3, radius3));
+    sizeList.push(sizeMachine(size4, material4, radius4));
+
+    var sizeCount = {};
+    sizeList.forEach(function(i) { sizeCount[i] = (sizeCount[i] || 0) + 1;});
+
+    var i = 0;
+    for (var element in sizeCount) {
+        this.getField('DESC ' + i).value = element;
+        this.getField('QTY ' + i).value = sizeCount[element];
+        i++;
+    }
+
 }
+
 
 function nippleHeight(nippleField, overallHeightField, factHeightField) {
     var nippleHeight = this.getField(nippleField);
