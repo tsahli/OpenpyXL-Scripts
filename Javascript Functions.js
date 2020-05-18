@@ -272,6 +272,68 @@ function setDescTwo(descField, sizeField, materialField, radiusField, customWrap
     }
 }
 
+// to fill out material req descriptions
+function materialReq() {
+    var qty1 = this.getField('QTY 1').value;
+    var qty2 = this.getField('QTY 2').value;
+    var qty3 = this.getField('QTY 3').value;
+    var qty4 = this.getField('QTY 4').value;
+    var size1 = this.getField('CONDUIT SIZE TYPE 1').value;
+    var size2 = this.getField('CONDUIT SIZE TYPE 2').value;
+    var size3 = this.getField('CONDUIT SIZE TYPE 3').value;
+    var size4 = this.getField('CONDUIT SIZE TYPE 4').value;
+    var material1 = this.getField('MATERIAL TYPE 1').value;
+    var material2 = this.getField('MATERIAL TYPE 2').value;
+    var material3 = this.getField('MATERIAL TYPE 3').value;
+    var material4 = this.getField('MATERIAL TYPE 4').value;
+    var radius1 = this.getField('RADIUS TYPE 1').value;
+    var radius2 = this.getField('RADIUS TYPE 2').value;
+    var radius3 = this.getField('RADIUS TYPE 3').value;
+    var radius4 = this.getField('RADIUS TYPE 4').value;
+    var fittingA1 = this.getField('FITTING A TYPE 1').value;
+    var fittingA2 = this.getField('FITTING A TYPE 2').value;
+    var fittingA3 = this.getField('FITTING A TYPE 3').value;
+    var fittingA4 = this.getField('FITTING A TYPE 4').value;
+    var fittingZ1 = this.getField('FITTING Z TYPE 1').value;
+    var fittingZ2 = this.getField('FITTING Z TYPE 2').value;
+    var fittingZ3 = this.getField('FITTING Z TYPE 3').value;
+    var fittingZ4 = this.getField('FITTING Z TYPE 4').value;
+    var nippleB1 = this.getField('NIPPLE B TYPE 1').value;
+    var nippleB2 = this.getField('NIPPLE B TYPE 2').value;
+    var nippleB3 = this.getField('NIPPLE B TYPE 3').value;
+    var nippleB4 = this.getField('NIPPLE B TYPE 4').value;
+    var topNippleHeight1 = this.getField('TOP NIPPLE HEIGHT TYPE 1').value;
+    var topNippleHeight2 = this.getField('TOP NIPPLE HEIGHT TYPE 2').value;
+    var topNippleHeight3 = this.getField('TOP NIPPLE HEIGHT TYPE 3').value;
+    var topNippleHeight4 = this.getField('TOP NIPPLE HEIGHT TYPE 4').value;
+    var fittingC1 = this.getField('FITTING C TYPE 1').value;
+    var fittingC2 = this.getField('FITTING C TYPE 2').value;
+    var fittingC3 = this.getField('FITTING C TYPE 3').value;
+    var fittingC4 = this.getField('FITTING C TYPE 4').value;
+    var nippleY1 = this.getField('NIPPLE Y TYPE 1').value;
+    var nippleY2 = this.getField('NIPPLE Y TYPE 2').value;
+    var nippleY3 = this.getField('NIPPLE Y TYPE 3').value;
+    var nippleY4 = this.getField('NIPPLE Y TYPE 4').value;
+    var bottomNippleLength1 = this.getField('BOTTOM NIPPLE LENGTH TYPE 1').value;
+    var bottomNippleLength2 = this.getField('BOTTOM NIPPLE LENGTH TYPE 2').value;
+    var bottomNippleLength3 = this.getField('BOTTOM NIPPLE LENGTH TYPE 3').value;
+    var bottomNippleLength4 = this.getField('BOTTOM NIPPLE LENGTH TYPE 4').value;
+    var fittingX1 = this.getField('FITTING X TYPE 1').value;
+    var fittingX2 = this.getField('FITTING X TYPE 2').value;
+    var fittingX3 = this.getField('FITTING X TYPE 3').value;
+    var fittingX4 = this.getField('FITTING X TYPE 4').value;
+}
+
+function nippleHeight(nippleField, overallHeightField, factHeightField) {
+    var nippleHeight = this.getField(nippleField);
+    var overallHeight = this.getField(overallHeightField).value;
+    var factHeight = this.getField(factHeightField).value;
+
+    if (overallHeight != "") {
+        nippleHeight.value = parseFloat(overallHeight) - factHeight.replace(/[^0-9.]/g, '');
+    }
+}
+
 
 function setFactHeight(conduitSizeField, materialField, radiusField, factHeightField) {
     let threeQuartersGRC = {
