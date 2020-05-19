@@ -278,10 +278,10 @@ function materialReq() {
         return size.toString() + " " + material + " " + radius.toString();
     }
     function fittingMachine(size, fitting) {
-        return size.toString() + " " + fitting;
+        return size.toString() + " " + fitting.toString() + " FITTING";
     }
     function nippleMachine(size, nippleHeight, nipple) {
-        return size.toString() + "x" + nippleHeight.toString() + " " + nipple;
+        return size.toString() + "x" + nippleHeight.toString() + " " + nipple.toString() + " NIPPLE";
     }
     var qty1 = this.getField('QTY #1').value;
     var qty2 = this.getField('QTY #2').value;
@@ -341,8 +341,40 @@ function materialReq() {
     sizeList.push(sizeMachine(size3, material3, radius3));
     sizeList.push(sizeMachine(size4, material4, radius4));
 
+    fittingsList.push(fittingMachine(size1, fittingA1));
+    fittingsList.push(fittingMachine(size1, fittingZ1));
+    fittingsList.push(fittingMachine(size1, fittingC1));
+    fittingsList.push(fittingMachine(size1, fittingX1));
+    fittingsList.push(fittingMachine(size2, fittingA2));
+    fittingsList.push(fittingMachine(size2, fittingZ2));
+    fittingsList.push(fittingMachine(size2, fittingC2));
+    fittingsList.push(fittingMachine(size2, fittingX2));
+    fittingsList.push(fittingMachine(size3, fittingA3));
+    fittingsList.push(fittingMachine(size3, fittingZ3));
+    fittingsList.push(fittingMachine(size3, fittingC3));
+    fittingsList.push(fittingMachine(size3, fittingX3));
+    fittingsList.push(fittingMachine(size4, fittingA4));
+    fittingsList.push(fittingMachine(size4, fittingZ4));
+    fittingsList.push(fittingMachine(size4, fittingC4));
+    fittingsList.push(fittingMachine(size4, fittingX4));
+
+    nippleList.push(nippleMachine(size1, topNippleHeight1, nippleB1));
+    nippleList.push(nippleMachine(size2, topNippleHeight2, nippleB2));
+    nippleList.push(nippleMachine(size3, topNippleHeight3, nippleB3));
+    nippleList.push(nippleMachine(size4, topNippleHeight4, nippleB4));
+    nippleList.push(nippleMachine(size1, bottomNippleLength1, nippleY1));
+    nippleList.push(nippleMachine(size2, bottomNippleLength2, nippleY2));
+    nippleList.push(nippleMachine(size3, bottomNippleLength3, nippleY3));
+    nippleList.push(nippleMachine(size4, bottomNippleLength4, nippleY4));
+
     var sizeCount = {};
     sizeList.forEach(function(i) { sizeCount[i] = (sizeCount[i] || 0) + 1;});
+
+    var fittingCount = {};
+    fittingsList.forEach(function(i) { fittingCount[i] = (fittingCount[i] || 0) + 1;});
+
+    var nippleCount = {};
+    nippleList.forEach(function(i) { nippleCount[i] = (nippleCount[i] || 0) + 1;});
 
     var i = 0;
     for (var element in sizeCount) {
@@ -351,6 +383,17 @@ function materialReq() {
         i++;
     }
 
+    for (var element in fittingCount) {
+        this.getField('DESC ' + i).value = element;
+        this.getField('QTY ' + i).value = fittingCount[element];
+        i++;
+    }
+
+    for (var element in nippleCount) {
+        this.getField('DESC ' + i).value = element;
+        this.getField('QTY ' + i).value = nippleCount[element];
+        i++;
+    }
 }
 
 
