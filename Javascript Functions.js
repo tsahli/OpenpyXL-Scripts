@@ -434,10 +434,12 @@ function materialReq() {
 function nippleHeight(nippleField, overallHeightField, factHeightField) {
     var nippleHeight = this.getField(nippleField);
     var overallHeight = this.getField(overallHeightField).value;
+    var overallHeightF = this.getField(overallHeightField);
     var factHeight = this.getField(factHeightField).value;
 
     if (overallHeight != "") {
-        nippleHeight.value = parseFloat(overallHeight) - factHeight.replace(/[^0-9.]/g, '');
+        nippleHeight.value = parseFloat(overallHeight) - factHeight.replace(/[^0-9.]/g, '') + '"';
+        overallHeightF.value = overallHeight + '"';
     }
 }
 
