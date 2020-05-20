@@ -274,15 +274,43 @@ function setDescTwo(descField, sizeField, materialField, radiusField, customWrap
 
 // to fill out material req descriptions
 function materialReq() {
+    function countInArray(array) {
+        var count = 0;
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] === '---') {
+                count++;
+            }
+        }
+        return count;
+    }
+
     function sizeMachine(size, material, radius) {
-        return size.toString() + " " + material + " " + radius.toString();
+        var arr = [size, material, radius];
+        var count = countInArray(arr);
+        if (count == 0) {
+            return size.toString() + " " + material + " " + radius.toString();
+        }
+        else { return null; }
     }
+
     function fittingMachine(size, fitting) {
-        return size.toString() + " " + fitting.toString() + " FITTING";
+        var arr = [size, fitting];
+        var count = countInArray(arr);
+        if (count == 0) {
+            return size.toString() + " " + fitting.toString() + " FITTING";
+        }
+        else { return null; }
     }
+
     function nippleMachine(size, nippleHeight, nipple) {
-        return size.toString() + "x" + nippleHeight.toString() + " " + nipple.toString() + " NIPPLE";
+        var arr = [size, nippleHeight, nipple];
+        var count = countInArray(arr);
+        if (count == 0) {
+            return size.toString() + "x" + nippleHeight.toString() + " " + nipple.toString() + " NIPPLE";
+        }
+        else { return null; }
     }
+
     var qty1 = this.getField('QTY #1').value;
     var qty2 = this.getField('QTY #2').value;
     var qty3 = this.getField('QTY #3').value;
@@ -378,21 +406,27 @@ function materialReq() {
 
     var i = 0;
     for (var element in sizeCount) {
-        this.getField('DESC ' + i).value = element;
-        this.getField('QTY ' + i).value = sizeCount[element];
-        i++;
+        if (element != 'null') {
+            this.getField('DESC ' + i).value = element;
+            this.getField('QTY ' + i).value = sizeCount[element];
+            i++;
+        }
     }
 
     for (var element in fittingCount) {
-        this.getField('DESC ' + i).value = element;
-        this.getField('QTY ' + i).value = fittingCount[element];
-        i++;
+        if (element != 'null') {
+            this.getField('DESC ' + i).value = element;
+            this.getField('QTY ' + i).value = fittingCount[element];
+            i++;
+        }
     }
 
     for (var element in nippleCount) {
-        this.getField('DESC ' + i).value = element;
-        this.getField('QTY ' + i).value = nippleCount[element];
-        i++;
+        if (element != 'null') {
+            this.getField('DESC ' + i).value = element;
+            this.getField('QTY ' + i).value = nippleCount[element];
+            i++;
+        }
     }
 }
 
