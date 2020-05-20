@@ -1,32 +1,32 @@
 
 function time() {
-	var fld = this.getField("out");
-	var empt = this.getField("out").value;
-	if (empt == ""){
-	fld.value = util.printd("hh:MM tt", new Date());
-	}
+    var fld = this.getField("out");
+    var empt = this.getField("out").value;
+    if (empt == "") {
+        fld.value = util.printd("hh:MM tt", new Date());
+    }
 } time();
 
 
 function getSunday() {
-var fld = this.getField("WeekEnding");
-var empt = this.getField("WeekEnding").value;
-if (empt == ""){
-	var current = new Date();   
-	var weekstart = current.getDate() - current.getDay() + 1;
-	var weekend = weekstart + 6;
-	var sunday = new Date(current.setDate(weekend));
-	fld.value = util.printd("mm/dd/yy", sunday);
-	}
+    var fld = this.getField("WeekEnding");
+    var empt = this.getField("WeekEnding").value;
+    if (empt == "") {
+        var current = new Date();
+        var weekstart = current.getDate() - current.getDay() + 1;
+        var weekend = weekstart + 6;
+        var sunday = new Date(current.setDate(weekend));
+        fld.value = util.printd("mm/dd/yy", sunday);
+    }
 } getSunday();
 
 
 function date() {
- var fld = this.getField("DateField");
- var empt = this.getField("DateField").value;
- if (empt == "") {
-	fld.value = util.printd("mm/dd/yy",new Date());
-	}
+    var fld = this.getField("DateField");
+    var empt = this.getField("DateField").value;
+    if (empt == "") {
+        fld.value = util.printd("mm/dd/yy", new Date());
+    }
 } date();
 
 function addBusinessDays(startingDateField, resultingDateField, daysToAdjust) {
@@ -35,7 +35,7 @@ function addBusinessDays(startingDateField, resultingDateField, daysToAdjust) {
     while (daysToAdjust > 0) {
         var tmp = new Date();
         tmp.setDate(startingDate.getDate() + counter++);
-        switch(tmp.getDay()) {
+        switch (tmp.getDay()) {
             case 0: case 6: break;
             default:
                 daysToAdjust--;
@@ -47,25 +47,25 @@ function addBusinessDays(startingDateField, resultingDateField, daysToAdjust) {
 }
 
 function toTitleCase() {
-	var words = this.getField("Name");
-    words.value = words.value.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    var words = this.getField("Name");
+    words.value = words.value.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
 } toTitleCase();
 
 
 function toAllCaps() {
-	var words = this.getField("Name");
-    words.value = words.value.replace(/\w\S*/g, function(txt){return txt.toUpperCase();});
+    var words = this.getField("Name");
+    words.value = words.value.replace(/\w\S*/g, function (txt) { return txt.toUpperCase(); });
 } toAllCaps();
 
 
 function mailTo() {
-var cToAddr = this.getField("SendToEmail").value;
-var name = this.getField("EmployeeName").value;
-var weekending = this.getField("WeekEnding").value;
-var cSubLine = "Timecard from " + name;
-var cBody = "Week ending: " + weekending;
+    var cToAddr = this.getField("SendToEmail").value;
+    var name = this.getField("EmployeeName").value;
+    var weekending = this.getField("WeekEnding").value;
+    var cSubLine = "Timecard from " + name;
+    var cBody = "Week ending: " + weekending;
 
-this.mailDoc({bUI: true, cTo: cToAddr, cSubject: cSubLine, cMsg: cBody});
+    this.mailDoc({ bUI: true, cTo: cToAddr, cSubject: cSubLine, cMsg: cBody });
 } mailTo();
 
 function vacationTime() {
@@ -78,24 +78,24 @@ function vacationTime() {
 } vacationTime();
 
 function validateForm() {
-	var x = this.getField("EmployeeName").value;
-	var y = this.getField("EmployeeNumber").value;
-	var z = this.getField("WeekEnding").value;
-	var w = this.getField("Injury").value;
-	
-	if (x == "") {
+    var x = this.getField("EmployeeName").value;
+    var y = this.getField("EmployeeNumber").value;
+    var z = this.getField("WeekEnding").value;
+    var w = this.getField("Injury").value;
+
+    if (x == "") {
         alert("Name must be filled out.");
         return false;
     }
-	if (y == "") {
-		alert("Employee number must be filled out.");
-		return false;
-	}
-	if (z == "") {
+    if (y == "") {
+        alert("Employee number must be filled out.");
+        return false;
+    }
+    if (z == "") {
         alert("Week ending must be filled out.");
         return false;
     }
-	if (w == "") {
+    if (w == "") {
         alert("Injury box must be selected.");
         return false;
     }
@@ -165,7 +165,7 @@ function fittingAZ(materialField, fittingField) {
 function fittingCX(nippleMaterialField, fittingAZField, fittingCXField) {
     var nippleMaterial = this.getField(nippleMaterialField).value;
     var fittingAZMaterial = this.getField(fittingAZField).value;
-    
+
     if (nippleMaterial == "---" && fittingAZMaterial == "GRC CPL") {
         this.getField(fittingCXField).setItems(["---", "CONN SS", "CONN CMP", "CONN RT"]);
     }
@@ -255,9 +255,9 @@ function setDescTwo(descField, sizeField, materialField, radiusField, customWrap
     var radius = this.getField(radiusField).value;
     var customWrap = this.getField(customWrapField).value;
     var fullWrap = this.getField(fullWrapField).value;
-    
+
     desc.value = "";
-    
+
     if (size == "" || size == "---" || material == "" || material == "---" || radius == "" || radius == "---") {
         desc.value = "SELECT A SIZE, MATERIAL, AND RADIUS";
     }
@@ -364,45 +364,74 @@ function materialReq() {
     var fittingsList = [];
     var nippleList = [];
 
-    sizeList.push(sizeMachine(size1, material1, radius1));
-    sizeList.push(sizeMachine(size2, material2, radius2));
-    sizeList.push(sizeMachine(size3, material3, radius3));
-    sizeList.push(sizeMachine(size4, material4, radius4));
+    if (qty1 != '' && qty1 != '0') {
+        var count = 0;
+        while (count < qty1) {
+            sizeList.push(sizeMachine(size1, material1, radius1));
+            fittingsList.push(fittingMachine(size1, fittingA1));
+            fittingsList.push(fittingMachine(size1, fittingZ1));
+            fittingsList.push(fittingMachine(size1, fittingC1));
+            fittingsList.push(fittingMachine(size1, fittingX1));
+            nippleList.push(nippleMachine(size1, topNippleHeight1, nippleB1));
+            nippleList.push(nippleMachine(size1, bottomNippleLength1, nippleY1));
+            count++;
+        }
+    }
 
-    fittingsList.push(fittingMachine(size1, fittingA1));
-    fittingsList.push(fittingMachine(size1, fittingZ1));
-    fittingsList.push(fittingMachine(size1, fittingC1));
-    fittingsList.push(fittingMachine(size1, fittingX1));
-    fittingsList.push(fittingMachine(size2, fittingA2));
-    fittingsList.push(fittingMachine(size2, fittingZ2));
-    fittingsList.push(fittingMachine(size2, fittingC2));
-    fittingsList.push(fittingMachine(size2, fittingX2));
-    fittingsList.push(fittingMachine(size3, fittingA3));
-    fittingsList.push(fittingMachine(size3, fittingZ3));
-    fittingsList.push(fittingMachine(size3, fittingC3));
-    fittingsList.push(fittingMachine(size3, fittingX3));
-    fittingsList.push(fittingMachine(size4, fittingA4));
-    fittingsList.push(fittingMachine(size4, fittingZ4));
-    fittingsList.push(fittingMachine(size4, fittingC4));
-    fittingsList.push(fittingMachine(size4, fittingX4));
+    if (qty2 != '' && qty2 != '0') {
+        var count = 0;
+        while (count < qty2) {
+            sizeList.push(sizeMachine(size2, material2, radius2));
+            fittingsList.push(fittingMachine(size2, fittingA2));
+            fittingsList.push(fittingMachine(size2, fittingZ2));
+            fittingsList.push(fittingMachine(size2, fittingC2));
+            fittingsList.push(fittingMachine(size2, fittingX2));
+            nippleList.push(nippleMachine(size2, topNippleHeight2, nippleB2));
+            nippleList.push(nippleMachine(size2, bottomNippleLength2, nippleY2));
+            count++;
+        }
+    }
 
-    nippleList.push(nippleMachine(size1, topNippleHeight1, nippleB1));
-    nippleList.push(nippleMachine(size2, topNippleHeight2, nippleB2));
-    nippleList.push(nippleMachine(size3, topNippleHeight3, nippleB3));
-    nippleList.push(nippleMachine(size4, topNippleHeight4, nippleB4));
-    nippleList.push(nippleMachine(size1, bottomNippleLength1, nippleY1));
-    nippleList.push(nippleMachine(size2, bottomNippleLength2, nippleY2));
-    nippleList.push(nippleMachine(size3, bottomNippleLength3, nippleY3));
-    nippleList.push(nippleMachine(size4, bottomNippleLength4, nippleY4));
+    if (qty3 != '' && qty3 != '0') {
+        var count = 0;
+        while (count < qty3) {
+            sizeList.push(sizeMachine(size3, material3, radius3));
+            fittingsList.push(fittingMachine(size3, fittingA3));
+            fittingsList.push(fittingMachine(size3, fittingZ3));
+            fittingsList.push(fittingMachine(size3, fittingC3));
+            fittingsList.push(fittingMachine(size3, fittingX3));
+            nippleList.push(nippleMachine(size3, topNippleHeight3, nippleB3));
+            nippleList.push(nippleMachine(size3, bottomNippleLength3, nippleY3));
+            count++;
+        }
+    }
+
+    if (qty4 != '' && qty4 != '0') {
+        var count = 0;
+        while (count < qty4) {
+            sizeList.push(sizeMachine(size4, material4, radius4));
+            fittingsList.push(fittingMachine(size4, fittingA4));
+            fittingsList.push(fittingMachine(size4, fittingZ4));
+            fittingsList.push(fittingMachine(size4, fittingC4));
+            fittingsList.push(fittingMachine(size4, fittingX4));
+            nippleList.push(nippleMachine(size4, topNippleHeight4, nippleB4));
+            nippleList.push(nippleMachine(size4, bottomNippleLength4, nippleY4));
+            count++;
+        }
+    }
+
+    sizeList.sort();
+    fittingsList.sort();
+    nippleList.sort();
 
     var sizeCount = {};
-    sizeList.forEach(function(i) { sizeCount[i] = (sizeCount[i] || 0) + 1;});
+    sizeList.forEach(function (i) { sizeCount[i] = (sizeCount[i] || 0) + 1; });
 
     var fittingCount = {};
-    fittingsList.forEach(function(i) { fittingCount[i] = (fittingCount[i] || 0) + 1;});
+    fittingsList.forEach(function (i) { fittingCount[i] = (fittingCount[i] || 0) + 1; });
 
     var nippleCount = {};
-    nippleList.forEach(function(i) { nippleCount[i] = (nippleCount[i] || 0) + 1;});
+    nippleList.forEach(function (i) { nippleCount[i] = (nippleCount[i] || 0) + 1; });
 
     var i = 0;
     for (var element in sizeCount) {
@@ -452,7 +481,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '30°x4-1/2"(STANDARD)': 'N/A',
         '22.5°x4-1/2"(STANDARD)': 'N/A'
     };
-    
+
     let oneInchGRC = {
         '---': '---',
         '90°x5-3/4"(STANDARD)': '±9.5"',
@@ -480,7 +509,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x36"': 'N/A',
         '22.5°x48"': 'N/A'
     };
-    
+
     let oneAndQuarterGRC = {
         '---': '---',
         '90°x7-1/4"(STANDARD)': '±12"',
@@ -508,7 +537,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x36"': 'N/A',
         '22.5°x48"': 'N/A'
     };
-    
+
     let oneAndHalfGRC = {
         '---': '---',
         '90°x8-1/4"(STANDARD)': '±13"',
@@ -536,7 +565,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x36"': 'N/A',
         '22.5°x48"': 'N/A'
     };
-    
+
     let twoGRC = {
         '---': '---',
         '90°x9-1/2"(STANDARD)': '±15.5"',
@@ -564,7 +593,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x36"': 'N/A',
         '22.5°x48"': 'N/A'
     };
-    
+
     let twoAndHalfGRC = {
         '---': '---',
         '90°x10-1/2"(STANDARD)': '±18"',
@@ -592,7 +621,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x36"': 'N/A',
         '22.5°x48"': 'N/A'
     };
-    
+
     let threeGRC = {
         '---': '---',
         '90°x13"(STANDARD)': '±21.5"',
@@ -624,7 +653,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x48"': 'N/A',
         '22.5°x60"': 'N/A'
     };
-    
+
     let threeAndHalfGRC = {
         '---': '---',
         '90°x15"(STANDARD)': '±25"',
@@ -648,7 +677,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x36"': 'N/A',
         '22.5°x48"': 'N/A'
     };
-    
+
     let fourGRC = {
         '---': '---',
         '90°x16"(STANDARD)': '±26"',
@@ -676,7 +705,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x48"': 'N/A',
         '22.5°x60"': 'N/A'
     };
-    
+
     let fiveGRC = {
         '---': '---',
         '90°x24"(STANDARD)': '±37.5"',
@@ -696,7 +725,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x48"': 'N/A',
         '22.5°x60"': 'N/A'
     };
-    
+
     let sixGRC = {
         '---': '---',
         '90°x30"(STANDARD)': '±49"',
@@ -716,7 +745,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x48"': 'N/A',
         '22.5°x60"': 'N/A'
     };
-    
+
     let threeQuartersPVC = {
         '---': '---',
         '90°x4-1/2"(STANDARD)': '±6.5"',
@@ -724,7 +753,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '30°x4-1/2"(STANDARD)': 'N/A',
         '22.5°x4-1/2"(STANDARD)': 'N/A'
     };
-    
+
     let onePVC = {
         '---': '---',
         '90°x5-3/4"(STANDARD)': '±8"',
@@ -749,7 +778,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x30"': 'N/A',
         '22.5°x36"': 'N/A'
     };
-    
+
     let oneAndQuarterPVC = {
         '---': '---',
         '90°x7-1/4"(STANDARD)': '±10"',
@@ -774,7 +803,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x24"': 'N/A',
         '22.5°x36"': 'N/A'
     };
-    
+
     let oneAndHalfPVC = {
         '---': '---',
         '90°x8-1/4"(STANDARD)': '±11"',
@@ -799,7 +828,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x36"': 'N/A',
         '22.5°x48"': 'N/A'
     };
-    
+
     let twoPVC = {
         '---': '---',
         '90°x9-1/2"(STANDARD)': '±13"',
@@ -828,7 +857,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x36"': 'N/A',
         '22.5°x48"': 'N/A'
     };
-    
+
     let twoAndHalfPVC = {
         '---': '---',
         '90°x10-1/2"(STANDARD)': '±15"',
@@ -855,7 +884,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x36"': 'N/A',
         '22.5°x48"': 'N/A'
     };
-    
+
     let threePVC = {
         '---': '---',
         '90°x13"(STANDARD)': '±18"',
@@ -886,7 +915,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x36"': 'N/A',
         '22.5°x48"': 'N/A'
     };
-    
+
     let threeAndHalfPVC = {
         '---': '---',
         '90°x15"(STANDARD)': '±20"',
@@ -907,7 +936,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x24"': 'N/A',
         '22.5°x36"': 'N/A'
     };
-    
+
     let fourPVC = {
         '---': '---',
         '90°x16"(STANDARD)': '±21.5"',
@@ -935,7 +964,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x48"': 'N/A',
         '22.5°x60"': 'N/A'
     };
-    
+
     let fivePVC = {
         '---': '---',
         '90°x24"(STANDARD)': '±30.5"',
@@ -956,7 +985,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x48"': 'N/A',
         '22.5°x60"': 'N/A'
     };
-    
+
     let sixPVC = {
         '---': '---',
         '90°x30"(STANDARD)': '±37"',
@@ -976,7 +1005,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x48"': 'N/A',
         '22.5°x60"': 'N/A'
     };
-    
+
     let threeQuartersFG = {
         '---': '---',
         '90°x12"(STANDARD)': '±18.5"',
@@ -994,7 +1023,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x24"': 'N/A',
         '22.5°x36"': 'N/A'
     };
-    
+
     let oneFG = {
         '---': '---',
         '90°x12"(STANDARD)': '±18.5"',
@@ -1012,7 +1041,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x24"': 'N/A',
         '22.5°x36"': 'N/A'
     };
-    
+
     let oneAndQuarterFG = {
         '---': '---',
         '90°x12"(STANDARD)': '±19"',
@@ -1030,7 +1059,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x24"': 'N/A',
         '22.5°x36"': 'N/A'
     };
-    
+
     let oneAndHalfFG = {
         '---': '---',
         '90°x12"(STANDARD)': '±19"',
@@ -1048,7 +1077,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x24"': 'N/A',
         '22.5°x36"': 'N/A'
     };
-    
+
     let twoFG = {
         '---': '---',
         '90°x12"(STANDARD)': '±19"',
@@ -1066,7 +1095,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x24"': 'N/A',
         '22.5°x36"': 'N/A'
     };
-    
+
     let twoAndHalfFG = {
         '---': '---',
         '90°x12"(STANDARD)': '±19.5"',
@@ -1084,7 +1113,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x24"': 'N/A',
         '22.5°x36"': 'N/A'
     };
-    
+
     let threeFG = {
         '---': '---',
         '90°x24"(STANDARD)': '±31.5"',
@@ -1101,7 +1130,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x24"': 'N/A',
         '22.5°x36"': 'N/A'
     };
-    
+
     let fourFG = {
         '---': '---',
         '90°x24"(STANDARD)': '±32"',
@@ -1115,7 +1144,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x24"(STANDARD)': 'N/A',
         '22.5°x36"': 'N/A'
     };
-    
+
     let fiveFG = {
         '---': '---',
         '90°x36"(STANDARD)': '±44"',
@@ -1125,7 +1154,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '30°x36"(STANDARD)': 'N/A',
         '22.5°x36"(STANDARD)': 'N/A'
     };
-    
+
     let sixFG = {
         '---': '---',
         '90°x36"(STANDARD)': '±45.5',
@@ -1135,7 +1164,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '30°x36"(STANDARD)': 'N/A',
         '22.5°x36"(STANDARD)': 'N/A'
     };
-    
+
     let threeQuartersEMT = {
         '---': '---',
         '90°x4-1/2"(STANDARD)': '±7.5"',
@@ -1143,7 +1172,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '30°x4-1/2"(STANDARD)': 'N/A',
         '22.5°x4-1/2"(STANDARD)': 'N/A'
     };
-    
+
     let oneEMT = {
         '---': '---',
         '90°x5-3/4"(STANDARD)': '±9.5"',
@@ -1151,7 +1180,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '30°x5-3/4"(STANDARD)': 'N/A',
         '22.5°x5-3/4"(STANDARD)': 'N/A'
     };
-    
+
     let oneAndQuarterEMT = {
         '---': '---',
         '90°x7-1/4"(STANDARD)': '±12"',
@@ -1171,7 +1200,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x36"': 'N/A',
         '22.5°x48"': 'N/A'
     };
-    
+
     let oneAndHalfEMT = {
         '---': '---',
         '90°x8-1/4"(STANDARD)': '±13"',
@@ -1191,7 +1220,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x36"': 'N/A',
         '22.5°x48"': 'N/A'
     };
-    
+
     let twoEMT = {
         '---': '---',
         '90°x9-1/2"(STANDARD)': '±14"',
@@ -1215,7 +1244,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x36"': 'N/A',
         '22.5°x48"': 'N/A'
     };
-    
+
     let twoAndHalfEMT = {
         '---': '---',
         '90°x10-1/2"(STANDARD)': '±18"',
@@ -1236,7 +1265,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x36"': 'N/A',
         '22.5°x48"': 'N/A'
     };
-    
+
     let threeEMT = {
         '---': '---',
         '90°x13"(STANDARD)': '±20.5"',
@@ -1260,7 +1289,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x36"': 'N/A',
         '22.5°x48"': 'N/A'
     };
-    
+
     let threeAndHalfEMT = {
         '---': '---',
         '90°x15"(STANDARD)': '±23.5"',
@@ -1284,7 +1313,7 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x36"': 'N/A',
         '22.5°x48"': 'N/A'
     };
-    
+
     let fourEMT = {
         '---': '---',
         '90°x16"(STANDARD)': '±25.5"',
@@ -1308,13 +1337,13 @@ function setFactHeight(conduitSizeField, materialField, radiusField, factHeightF
         '22.5°x36"': 'N/A',
         '22.5°x48"': 'N/A'
     };
-    
+
     //conduitSizeField, materialField, radiusField, factHeightField
     var conduitSize = this.getField(conduitSizeField).value;
     var radiusSize = this.getField(radiusField).value;
     var material = this.getField(materialField).value;
     var factHeightField = this.getField(factHeightField);
-    
+
     if (radiusSize == "---") {
         factHeightField.value = "";
     }
@@ -1492,7 +1521,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '30x4-1/2"(FACTORY)': 'N/A',
         '22.5x4-1/2"(FACTORY)': 'N/A'
     };
-    
+
     let oneInchGRC = {
         '90x5-3/4"(FACTORY)': '±9.5"',
         '90x18"': '±28.5"',
@@ -1519,7 +1548,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x36"': 'N/A',
         '22.5x48"': 'N/A'
     };
-    
+
     let oneAndQuarterGRC = {
         '90x7-1/4"(FACTORY)': '±12"',
         '90x18"': '±28.5',
@@ -1546,7 +1575,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x36"': 'N/A',
         '22.5x48"': 'N/A'
     };
-    
+
     let oneAndHalfGRC = {
         '90x8-1/4"(FACTORY)': '±13"',
         '90x18"': '±28.5"',
@@ -1573,7 +1602,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x36"': 'N/A',
         '22.5x48"': 'N/A'
     };
-    
+
     let twoGRC = {
         '90x9-1/2"(FACTORY)': '±15.5"',
         '90x18"': '±29"',
@@ -1600,7 +1629,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x36"': 'N/A',
         '22.5x48"': 'N/A'
     };
-    
+
     let twoAndHalfGRC = {
         '90x10-1/2"(FACTORY)': '±18"',
         '90x18"': '±25.5"',
@@ -1627,7 +1656,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x36"': 'N/A',
         '22.5x48"': 'N/A'
     };
-    
+
     let threeGRC = {
         '90x13"(FACTORY)': '±21.5"',
         '90x18"': '±26"',
@@ -1658,7 +1687,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x48"': 'N/A',
         '22.5x60"': 'N/A'
     };
-    
+
     let threeAndHalfGRC = {
         '90x15"(FACTORY)': '±25"',
         '90x24"': '±37"',
@@ -1681,7 +1710,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x36"': 'N/A',
         '22.5x48"': 'N/A'
     };
-    
+
     let fourGRC = {
         '90x16"(FACTORY)': '±26"',
         '90x24"': '±37.5"',
@@ -1708,7 +1737,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x48"': 'N/A',
         '22.5x60"': 'N/A'
     };
-    
+
     let fiveGRC = {
         '90x24"(FACTORY)': '±37.5"',
         '90x36"': '±53.5"',
@@ -1727,7 +1756,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x48"': 'N/A',
         '22.5x60"': 'N/A'
     };
-    
+
     let sixGRC = {
         '90x30"(FACTORY)': '±49"',
         '90x36"': '±54"',
@@ -1746,14 +1775,14 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x48"': 'N/A',
         '22.5x60"': 'N/A'
     };
-    
+
     let threeQuartersPVC = {
         '90x4-1/2"(FACTORY)': '±6.5"',
         '45x4-1/2"(FACTORY)': 'N/A',
         '30x4-1/2"(FACTORY)': 'N/A',
         '22.5x4-1/2"(FACTORY)': 'N/A'
     };
-    
+
     let onePVC = {
         '90x5-3/4"(FACTORY)': '±8"',
         '90x18"': '±20.5"',
@@ -1777,7 +1806,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x30"': 'N/A',
         '22.5x36"': 'N/A'
     };
-    
+
     let oneAndQuarterPVC = {
         '90x7-1/4"(FACTORY)': '±10"',
         '90x18"': '±21"',
@@ -1801,7 +1830,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x24"': 'N/A',
         '22.5x36"': 'N/A'
     };
-    
+
     let oneAndHalfPVC = {
         '90x8-1/4"(FACTORY)': '±11"',
         '90x18"': '±21"',
@@ -1825,7 +1854,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x36"': 'N/A',
         '22.5x48"': 'N/A'
     };
-    
+
     let twoPVC = {
         '90x9-1/2"(FACTORY)': '±13"',
         '90x18"': '±21"',
@@ -1853,7 +1882,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x36"': 'N/A',
         '22.5x48"': 'N/A'
     };
-    
+
     let twoAndHalfPVC = {
         '90x10-1/2"(FACTORY)': '±15"',
         '90x18"': '±22.5"',
@@ -1879,7 +1908,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x36"': 'N/A',
         '22.5x48"': 'N/A'
     };
-    
+
     let threePVC = {
         '90x13"(FACTORY)': '±18"',
         '90x18"': '±23"',
@@ -1909,7 +1938,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x36"': 'N/A',
         '22.5x48"': 'N/A'
     };
-    
+
     let threeAndHalfPVC = {
         '90x15"(FACTORY)': '±20"',
         '90x24"': '±29"',
@@ -1929,7 +1958,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x24"': 'N/A',
         '22.5x36"': 'N/A'
     };
-    
+
     let fourPVC = {
         '90x16"(FACTORY)': '±21.5"',
         '90x24"': '±29.5"',
@@ -1956,7 +1985,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x48"': 'N/A',
         '22.5x60"': 'N/A'
     };
-    
+
     let fivePVC = {
         '90x24"(FACTORY)': '±30.5"',
         '90x30"': '±36.5"',
@@ -1976,7 +2005,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x48"': 'N/A',
         '22.5x60"': 'N/A'
     };
-    
+
     let sixPVC = {
         '90x30"(FACTORY)': '±37"',
         '90x36"': '±43"',
@@ -1995,7 +2024,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x48"': 'N/A',
         '22.5x60"': 'N/A'
     };
-    
+
     let threeQuartersFG = {
         '90x12"(FACTORY)': '±18.5"',
         '90x24"': '±30.5"',
@@ -2012,7 +2041,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x24"': 'N/A',
         '22.5x36"': 'N/A'
     };
-    
+
     let oneFG = {
         '90x12"(FACTORY)': '±18.5"',
         '90x24"': '±30.5"',
@@ -2029,7 +2058,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x24"': 'N/A',
         '22.5x36"': 'N/A'
     };
-    
+
     let oneAndQuarterFG = {
         '90x12"(FACTORY)': '±19"',
         '90x24"': '±31"',
@@ -2046,7 +2075,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x24"': 'N/A',
         '22.5x36"': 'N/A'
     };
-    
+
     let oneAndHalfFG = {
         '90x12"(FACTORY)': '±19"',
         '90x24"': '±31"',
@@ -2063,7 +2092,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x24"': 'N/A',
         '22.5x36"': 'N/A'
     };
-    
+
     let twoFG = {
         '90x12"(FACTORY)': '±19"',
         '90x24"': '±31"',
@@ -2080,7 +2109,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x24"': 'N/A',
         '22.5x36"': 'N/A'
     };
-    
+
     let twoAndHalfFG = {
         '90x12"(FACTORY)': '±19.5"',
         '90x24"': '±31.5"',
@@ -2097,7 +2126,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x24"': 'N/A',
         '22.5x36"': 'N/A'
     };
-    
+
     let threeFG = {
         '90x24"(FACTORY)': '±31.5"',
         '90x36"': '±43.5"',
@@ -2113,7 +2142,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x24"': 'N/A',
         '22.5x36"': 'N/A'
     };
-    
+
     let fourFG = {
         '90x24"(FACTORY)': '±32"',
         '90x36"': '±44"',
@@ -2126,7 +2155,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x24"(FACTORY)': 'N/A',
         '22.5x36"': 'N/A'
     };
-    
+
     let fiveFG = {
         '90x36"(FACTORY)': '±44"',
         '90x48"': '±57"',
@@ -2135,7 +2164,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '30x36"(FACTORY)': 'N/A',
         '22.5x36"(FACTORY)': 'N/A'
     };
-    
+
     let sixFG = {
         '90x36"(FACTORY)': '±45.5',
         '90x48"': '±57.5',
@@ -2144,21 +2173,21 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '30x36"(FACTORY)': 'N/A',
         '22.5x36"(FACTORY)': 'N/A'
     };
-    
+
     let threeQuartersEMT = {
         '90x4-1/2"(FACTORY)': '±7.5"',
         '45x4-1/2"(FACTORY)': 'N/A',
         '30x4-1/2"(FACTORY)': 'N/A',
         '22.5x4-1/2"(FACTORY)': 'N/A'
     };
-    
+
     let oneEMT = {
         '90x5-3/4"(FACTORY)': '±9.5"',
         '45x5-3/4"(FACTORY)': 'N/A',
         '30x5-3/4"(FACTORY)': 'N/A',
         '22.5x5-3/4"(FACTORY)': 'N/A'
     };
-    
+
     let oneAndQuarterEMT = {
         '90x7-1/4"(FACTORY)': '±12"',
         '90x24"': '±35.5"',
@@ -2177,7 +2206,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x36"': 'N/A',
         '22.5x48"': 'N/A'
     };
-    
+
     let oneAndHalfEMT = {
         '90x8-1/4"(FACTORY)': '±13"',
         '90x24"': '±35.5"',
@@ -2196,7 +2225,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x36"': 'N/A',
         '22.5x48"': 'N/A'
     };
-    
+
     let twoEMT = {
         '90x9-1/2"(FACTORY)': '±14"',
         '90x24"': '±36"',
@@ -2219,7 +2248,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x36"': 'N/A',
         '22.5x48"': 'N/A'
     };
-    
+
     let twoAndHalfEMT = {
         '90x10-1/2"(FACTORY)': '±18"',
         '90x24"': '±36"',
@@ -2239,7 +2268,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x36"': 'N/A',
         '22.5x48"': 'N/A'
     };
-    
+
     let threeEMT = {
         '90x13"(FACTORY)': '±20.5"',
         '90x24"': '±36"',
@@ -2262,7 +2291,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x36"': 'N/A',
         '22.5x48"': 'N/A'
     };
-    
+
     let threeAndHalfEMT = {
         '90x15"(FACTORY)': '±23.5"',
         '90x24"': '±36.5"',
@@ -2285,7 +2314,7 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x36"': 'N/A',
         '22.5x48"': 'N/A'
     };
-    
+
     let fourEMT = {
         '90x16"(FACTORY)': '±25.5"',
         '90x24"': '±37"',
@@ -2308,10 +2337,10 @@ function radiusSize(sizeField, materialField, radiusField, factHeightField) {
         '22.5x36"': 'N/A',
         '22.5x48"': 'N/A'
     };
-    
+
     var conduitSize = this.getField(sizeField);
     var material = this.getField(materialField);
-    
+
     if (conduitSize.value == "---") {
         this.getField(radiusField).setItems([""]);
     }
