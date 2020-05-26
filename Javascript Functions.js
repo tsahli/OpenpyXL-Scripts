@@ -288,21 +288,49 @@ function materialReq() {
         return count;
     }
 
-    function wrapAmount(size) {
-        let areas = {
-            '3/4"': 32.3,
-            '1"': 51.2,
-            '1-1/4"': 81,
-            '1-1/2"': 108.6,
-            '2"': 149.6,
-            '2-1/2"': 217.6,
-            '3"': 312.5,
-            '3-1/2"': 441.2,
-            '4"': 575.4,
-            '5"': 1035.2,
-            '6"': 1636.4
+    function wrapAmount(size, fullWrap, customWrap, topNipple, bottomNipple) {
+        let lengths = {
+            '3/4"': 12.2,
+            '1"': 15.5,
+            '1-1/4"': 19.6,
+            '1-1/2"': 20.8,
+            '2"': 25.1,
+            '2-1/2"': 29.2,
+            '3"': 34.6,
+            '3-1/2"': 40.1,
+            '4"': 40.7,
+            '5"': 59.2,
+            '6"': 78.6
         };
-        return areas[size];
+        let circumferences = {
+            '3/4"': 2.6,
+            '1"': 3.3,
+            '1-1/4"': 4.1,
+            '1-1/2"': 5.2,
+            '2"': 6,
+            '2-1/2"': 7.5,
+            '3"': 9,
+            '3-1/2"': 11,
+            '4"': 14.1,
+            '5"': 17.5,
+            '6"': 20.8
+        };
+        var len = lengths[size];
+        var circum = circumferences[size];
+        if (topNipple == "") {
+            topNipple = 0;
+        }
+        if (bottomNipple == "") {
+            bottomNipple = 0;
+        }
+        if (fullWrap == "Yes") {
+            len += parseFloat(topNipple) + parseFloat(bottomNipple);
+            var lateralSurfaceArea = len * circum;
+            return lateralSurfaceArea;
+        }
+        else {
+            return parseFloat(customWrap) * circum;
+        }
     }
 
     function dottieRolls(wrapTotal) {
@@ -389,6 +417,14 @@ function materialReq() {
     var fittingX2 = this.getField('FITTING X TYPE 2').value;
     var fittingX3 = this.getField('FITTING X TYPE 3').value;
     var fittingX4 = this.getField('FITTING X TYPE 4').value;
+    var fullWrap1 = this.getField('FULL WRAP TYPE 1').value;
+    var fullWrap2 = this.getField('FULL WRAP TYPE 2').value;
+    var fullWrap3 = this.getField('FULL WRAP TYPE 3').value;
+    var fullWrap4 = this.getField('FULL WRAP TYPE 4').value;
+    var customWrap1 = this.getField('CUSTOM WRAP HEIGHT TYPE 1').value;
+    var customWrap2 = this.getField('CUSTOM WRAP HEIGHT TYPE 2').value;
+    var customWrap3 = this.getField('CUSTOM WRAP HEIGHT TYPE 3').value;
+    var customWrap4 = this.getField('CUSTOM WRAP HEIGHT TYPE 4').value;
 
     var sizeList = [];
     var fittingsList = [];
@@ -405,7 +441,7 @@ function materialReq() {
             fittingsList.push(fittingMachine(size1, fittingX1));
             nippleList.push(nippleMachine(size1, topNippleHeight1, nippleB1));
             nippleList.push(nippleMachine(size1, bottomNippleLength1, nippleY1));
-            wrapHeightList.push(wrapAmount(size1));
+            wrapHeightList.push(wrapAmount(size1, fullWrap1, customWrap1, topNippleHeight1, bottomNippleLength1));
             count++;
         }
     }
@@ -420,7 +456,7 @@ function materialReq() {
             fittingsList.push(fittingMachine(size2, fittingX2));
             nippleList.push(nippleMachine(size2, topNippleHeight2, nippleB2));
             nippleList.push(nippleMachine(size2, bottomNippleLength2, nippleY2));
-            wrapHeightList.push(wrapAmount(size2));
+            wrapHeightList.push(wrapAmount(size2, fullWrap2, customWrap2, topNippleHeight2, bottomNippleLength2));
             count++;
         }
     }
@@ -435,7 +471,7 @@ function materialReq() {
             fittingsList.push(fittingMachine(size3, fittingX3));
             nippleList.push(nippleMachine(size3, topNippleHeight3, nippleB3));
             nippleList.push(nippleMachine(size3, bottomNippleLength3, nippleY3));
-            wrapHeightList.push(wrapAmount(size3));
+            wrapHeightList.push(wrapAmount(size3, fullWrap3, customWrap3, topNippleHeight3, bottomNippleLength3));
             count++;
         }
     }
@@ -450,7 +486,7 @@ function materialReq() {
             fittingsList.push(fittingMachine(size4, fittingX4));
             nippleList.push(nippleMachine(size4, topNippleHeight4, nippleB4));
             nippleList.push(nippleMachine(size4, bottomNippleLength4, nippleY4));
-            wrapHeightList.push(wrapAmount(size4));
+            wrapHeightList.push(wrapAmount(size4, fullWrap4, customWrap4, topNippleHeight4, bottomNippleLength4));
             count++;
         }
     }
@@ -498,8 +534,10 @@ function materialReq() {
         wrapTotal += wrapHeightList[index];
     }
 
-    this.getField('QTY ' + i).value = dottieRolls(wrapTotal);
-    this.getField('DESC ' + i).value = 'DOTTIE TAPE ROLLS';
+    this.getField('QTY ' + i).value = wrapAmount(size1, fullWrap1, customWrap1, topNippleHeight1, bottomNippleLength1);
+    this.getField('DESC ' + i).value = 'DOTTIE TAPE INCHES';
+    // this.getField('QTY ' + i).value = dottieRolls(wrapTotal);
+    // this.getField('DESC ' + i).value = 'DOTTIE TAPE ROLLS';
 
 }
 
