@@ -288,6 +288,42 @@ function materialReq() {
         return count;
     }
 
+    function ductTapeAmount(size, topCap, bottomCap) {
+        let endLengths = {
+            '3/4"': 9,
+            '1"': 11,
+            '1-1/4"': 13,
+            '1-1/2"': 15,
+            '2"': 23,
+            '2-1/2"': 26,
+            '3"': 32,
+            '3-1/2"': 46,
+            '4"': 52,
+            '5"': 68,
+            '6"': 75
+        };
+        var len = endLengths[size];
+        if (topCap == 'Yes' && bottomCap == 'Yes') {
+            return len * 2;
+        }
+        else if (topCap == 'Yes' || bottomCap == 'Yes') {
+            return len;
+        }
+        else { return 0; }
+    }
+
+    function ductTapeRolls(ductTapeTotal) {
+        var rolls = ductTapeTotal / 1620;
+        var roundedRolls = Math.round(rolls);
+        if (rolls == 0) {
+            return 0;
+        }
+        else if (roundedRolls < 1) {
+            return 1;
+        }
+        else { return roundedRolls; }
+    }
+
     function wrapAmount(size, fullWrap, customWrap, topNipple, bottomNipple) {
         let lengths = {
             '3/4"': 12.2,
@@ -328,15 +364,21 @@ function materialReq() {
             var lateralSurfaceArea = len * circum;
             return lateralSurfaceArea;
         }
-        else {
+        else if (customWrap != "") {
             return parseFloat(customWrap) * circum;
+        }
+        else {
+            return 0;
         }
     }
 
     function dottieRolls(wrapTotal) {
         var rolls = wrapTotal / 1200;
         var roundedRolls = Math.round(rolls);
-        if (roundedRolls < 1) {
+        if (rolls == 0) {
+            return 0;
+        }
+        else if (roundedRolls < 1) {
             return 1;
         }
         else { return roundedRolls; }
@@ -425,11 +467,20 @@ function materialReq() {
     var customWrap2 = this.getField('CUSTOM WRAP HEIGHT TYPE 2').value;
     var customWrap3 = this.getField('CUSTOM WRAP HEIGHT TYPE 3').value;
     var customWrap4 = this.getField('CUSTOM WRAP HEIGHT TYPE 4').value;
+    var ductTapeTop1 = this.getField('TOP TYPE 1').value;
+    var ductTapeTop2 = this.getField('TOP TYPE 2').value;
+    var ductTapeTop3 = this.getField('TOP TYPE 3').value;
+    var ductTapeTop4 = this.getField('TOP TYPE 4').value;
+    var ductTapeBottom1 = this.getField('BOTTOM TYPE 1').value;
+    var ductTapeBottom2 = this.getField('BOTTOM TYPE 2').value;
+    var ductTapeBottom3 = this.getField('BOTTOM TYPE 3').value;
+    var ductTapeBottom4 = this.getField('BOTTOM TYPE 4').value;
 
     var sizeList = [];
     var fittingsList = [];
     var nippleList = [];
     var wrapHeightList = [];
+    var ductTapeLenList = [];
 
     if (qty1 != '' && qty1 != '0') {
         var count = 0;
@@ -442,6 +493,7 @@ function materialReq() {
             nippleList.push(nippleMachine(size1, topNippleHeight1, nippleB1));
             nippleList.push(nippleMachine(size1, bottomNippleLength1, nippleY1));
             wrapHeightList.push(wrapAmount(size1, fullWrap1, customWrap1, topNippleHeight1, bottomNippleLength1));
+            ductTapeLenList.push(ductTapeAmount(size1, ductTapeTop1, ductTapeBottom1));
             count++;
         }
     }
@@ -457,6 +509,7 @@ function materialReq() {
             nippleList.push(nippleMachine(size2, topNippleHeight2, nippleB2));
             nippleList.push(nippleMachine(size2, bottomNippleLength2, nippleY2));
             wrapHeightList.push(wrapAmount(size2, fullWrap2, customWrap2, topNippleHeight2, bottomNippleLength2));
+            ductTapeLenList.push(ductTapeAmount(size2, ductTapeTop2, ductTapeBottom2));
             count++;
         }
     }
@@ -472,6 +525,7 @@ function materialReq() {
             nippleList.push(nippleMachine(size3, topNippleHeight3, nippleB3));
             nippleList.push(nippleMachine(size3, bottomNippleLength3, nippleY3));
             wrapHeightList.push(wrapAmount(size3, fullWrap3, customWrap3, topNippleHeight3, bottomNippleLength3));
+            ductTapeLenList.push(ductTapeAmount(size3, ductTapeTop3, ductTapeBottom3));
             count++;
         }
     }
@@ -487,6 +541,7 @@ function materialReq() {
             nippleList.push(nippleMachine(size4, topNippleHeight4, nippleB4));
             nippleList.push(nippleMachine(size4, bottomNippleLength4, nippleY4));
             wrapHeightList.push(wrapAmount(size4, fullWrap4, customWrap4, topNippleHeight4, bottomNippleLength4));
+            ductTapeLenList.push(ductTapeAmount(size4, ductTapeTop4, ductTapeBottom4));
             count++;
         }
     }
@@ -506,6 +561,7 @@ function materialReq() {
 
     var i = 0;
     var wrapTotal = 0;
+    var ductTapeTotal = 0;
     for (var element in sizeCount) {
         if (element != 'null') {
             this.getField('DESC ' + i).value = element;
@@ -534,11 +590,24 @@ function materialReq() {
         wrapTotal += wrapHeightList[index];
     }
 
-    this.getField('QTY ' + i).value = wrapAmount(size1, fullWrap1, customWrap1, topNippleHeight1, bottomNippleLength1);
-    this.getField('DESC ' + i).value = 'DOTTIE TAPE INCHES';
-    // this.getField('QTY ' + i).value = dottieRolls(wrapTotal);
-    // this.getField('DESC ' + i).value = 'DOTTIE TAPE ROLLS';
+    for (var index = 0; index < ductTapeLenList.length; index++) {
+        ductTapeTotal += ductTapeLenList[index];
+    }
 
+    var dotRolls = dottieRolls(wrapTotal);
+    var ductRolls = ductTapeRolls(ductTapeTotal);
+
+    if (dotRolls != 0) {
+        this.getField('QTY ' + i).value = dotRolls;
+        this.getField('DESC ' + i).value = 'DOTTIE TAPE ROLLS';
+        i++;
+    }
+
+    if (ductRolls != 0) {
+        this.getField('QTY ' + i).value = ductRolls;
+        this.getField('DESC ' + i).value = 'DUCT TAPE ROLLS';
+        i++;
+    }
 }
 
 
