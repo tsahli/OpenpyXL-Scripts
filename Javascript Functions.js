@@ -188,7 +188,7 @@ function fittingCX(nippleMaterialField, fittingAZField, fittingCXField) {
         this.getField(fittingCXField).setItems(["---", "PVC FA", "PVC MA", "PVC BELL", "PVC CPL", "GRC CPL"]);
     }
     else if (nippleMaterial == "IMC") {
-        this.getField(fittingCXField).setItems(["---", "GRC CPL", "GRD INS BS", "PVC FA", "PVC MA", "GRC BELL", "GRC CONN SS", "GRC CONN SS", "GRC CONN CMP", "GRC CONN RT", "GRC COUP CMP", "GRC COUP RT"]);
+        this.getField(fittingCXField).setItems(["---", "GRC CPL", "GRD INS BS", "PVC FA", "PVC MA", "GRC BELL", "GRC CONN SS", "GRC CONN CMP", "GRC CONN RT", "GRC COUP CMP", "GRC COUP RT"]);
     }
     else if (nippleMaterial == "EMT") {
         this.getField(fittingCXField).setItems(["---", "EMT CONN SS", "EMT CONN CMP", "EMT CONN RT", "EMT CPL SS", "EMT CPL CMP", "EMT CPL RT"]);
