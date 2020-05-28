@@ -393,6 +393,25 @@ function materialReq() {
         else { return null; }
     }
 
+    function sizeMachineFG(size, material, radius, fittingA, fittingZ) {
+        var arr = [size, material, radius];
+        var count = countInArray(arr);
+        if (count == 0) {
+            if (fittingA != '---' && fittingZ != '---') {
+                return size.toString() + " " + material + " " + radius.toString() + " ELBOW W/ " + fittingA + " & " + fittingZ + " FITTINGS";
+            }
+            else if (fittingA != '---' && fittingZ == '---') {
+                return size.toString() + " " + material + " " + radius.toString() + " ELBOW W/ " + fittingA + " FITTING";
+            }
+            else if (fittingA == '---' && fittingZ != '---') {
+                return size.toString() + " " + material + " " + radius.toString() + " ELBOW W/ " + fittingZ + " FITTING";
+            }
+            else {
+                return size.toString() + " " + material + " " + radius.toString() + " ELBOW W/ NO FITTINGS";
+            }
+        }
+    }
+
     function fittingMachine(size, fitting) {
         var arr = [size, fitting];
         var count = countInArray(arr);
@@ -485,9 +504,14 @@ function materialReq() {
     if (qty1 != '' && qty1 != '0') {
         var count = 0;
         while (count < qty1) {
-            sizeList.push(sizeMachine(size1, material1, radius1));
-            fittingsList.push(fittingMachine(size1, fittingA1));
-            fittingsList.push(fittingMachine(size1, fittingZ1));
+            if (material1 == 'FG') {
+                sizeList.push(sizeMachineFG(size1, material1, radius1, fittingA1, fittingZ1))
+            }
+            else {
+                sizeList.push(sizeMachine(size1, material1, radius1));
+                fittingsList.push(fittingMachine(size1, fittingA1));
+                fittingsList.push(fittingMachine(size1, fittingZ1));
+            }
             fittingsList.push(fittingMachine(size1, fittingC1));
             fittingsList.push(fittingMachine(size1, fittingX1));
             nippleList.push(nippleMachine(size1, topNippleHeight1, nippleB1));
@@ -501,6 +525,14 @@ function materialReq() {
     if (qty2 != '' && qty2 != '0') {
         var count = 0;
         while (count < qty2) {
+            if (material2 == 'FG') {
+                sizeList.push(sizeMachineFG(size2, material2, radius2, fittingA2, fittingZ2));
+            }
+            else {
+                sizeList.push(sizeMachine(size2, material2, radius2));
+                fittingsList.push(fittingMachine(size2, fittingA2));
+                fittingsList.push(fittingMachine(size2, fittingZ2));
+            }
             sizeList.push(sizeMachine(size2, material2, radius2));
             fittingsList.push(fittingMachine(size2, fittingA2));
             fittingsList.push(fittingMachine(size2, fittingZ2));
@@ -517,9 +549,14 @@ function materialReq() {
     if (qty3 != '' && qty3 != '0') {
         var count = 0;
         while (count < qty3) {
-            sizeList.push(sizeMachine(size3, material3, radius3));
-            fittingsList.push(fittingMachine(size3, fittingA3));
-            fittingsList.push(fittingMachine(size3, fittingZ3));
+            if (material3 == 'FG') {
+                sizeList.push(sizeMachineFG(size3, material3, radius3, fittingA3, fittingZ3));
+            }
+            else {
+                sizeList.push(sizeMachine(size3, material3, radius3));
+                fittingsList.push(fittingMachine(size3, fittingA3));
+                fittingsList.push(fittingMachine(size3, fittingZ3));
+            }
             fittingsList.push(fittingMachine(size3, fittingC3));
             fittingsList.push(fittingMachine(size3, fittingX3));
             nippleList.push(nippleMachine(size3, topNippleHeight3, nippleB3));
@@ -533,9 +570,14 @@ function materialReq() {
     if (qty4 != '' && qty4 != '0') {
         var count = 0;
         while (count < qty4) {
-            sizeList.push(sizeMachine(size4, material4, radius4));
-            fittingsList.push(fittingMachine(size4, fittingA4));
-            fittingsList.push(fittingMachine(size4, fittingZ4));
+            if (material4 == 'FG') {
+                sizeList.push(sizeMachineFG(size4, material4, radius4, fittingA4, fittingZ4));
+            }
+            else {
+                sizeList.push(sizeMachine(size4, material4, radius4));
+                fittingsList.push(fittingMachine(size4, fittingA4));
+                fittingsList.push(fittingMachine(size4, fittingZ4));
+            }
             fittingsList.push(fittingMachine(size4, fittingC4));
             fittingsList.push(fittingMachine(size4, fittingX4));
             nippleList.push(nippleMachine(size4, topNippleHeight4, nippleB4));
