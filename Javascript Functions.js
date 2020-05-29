@@ -313,7 +313,7 @@ function materialReq() {
     }
 
     function ductTapeRolls(ductTapeTotal) {
-        var rolls = ductTapeTotal / 1620;
+        var rolls = ductTapeTotal / 2160;
         var roundedRolls = Math.round(rolls);
         if (rolls == 0) {
             return 0;
