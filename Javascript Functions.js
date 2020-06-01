@@ -139,32 +139,42 @@ function copy(copyFromField, copyToField) {
     }
 }
 
-function fittingAZ(materialField, fittingField) {
+function fittingAZ(materialField, fittingField, sizeField) {
     var conduitMaterial = this.getField(materialField);
+    var size = this.getField(sizeField).value;
     if (conduitMaterial.value == "---") {
         this.getField(fittingField).setItems([""]);
     }
     else if (conduitMaterial.value == "GRC") {
         this.getField(fittingField).setItems([""]);
-        this.getField(fittingField).setItems(["---", "GRC CPL", "PVC FA", "GRD INS BS", "GRC BELL", "RED DOT"]);
+        if (size == '3/4"' || size == '1"' || size == '1-1/4"') {
+            this.getField(fittingField).setItems(["---", "GRC CPL", "PVC FA", "GRD INS BS", "GRC BELL", "RED DOT", "GRC TO EMT COMP CPL", "GRC TO EMT SS CPL"]);
+        }
+        else if (size == '1-1/2"' || size == '2"' || size == '2-1/2"' || size == '3"') {
+            this.getField(fittingField).setItems(["---", "GRC CPL", "PVC FA", "GRD INS BS", "GRC BELL", "RED DOT", "GRC TO EMT COMP CPL"]);
+        }
+        else {
+            this.getField(fittingField).setItems(["---", "GRC CPL", "PVC FA", "GRD INS BS", "GRC BELL", "RED DOT"]);
+        }
     }
     else if (conduitMaterial.value == "PVC") {
         this.getField(fittingField).setItems([""]);
-        this.getField(fittingField).setItems(["---", "MALE ADP", "FEMALE ADP", "COUPLING", "PVC BELL"]);
+        this.getField(fittingField).setItems(["---", "PVC MA", "PVC FA", "PVC CPL", "PVC BELL"]);
     }
     else if (conduitMaterial.value == "FG") {
         this.getField(fittingField).setItems([""]);
-        this.getField(fittingField).setItems(["---", "PVC CPL", "MA PVC", "FA PVC", "PVC STB"]);
+        this.getField(fittingField).setItems(["---", "PVC CPL", "PVC MA", "PVC FA", "PVC STUB"]);
     }
     else if (conduitMaterial.value == "EMT") {
         this.getField(fittingField).setItems([""]);
-        this.getField(fittingField).setItems(["---", "CPL SS", "CPL CMP", "CPL RT", "CONN SS", "CONN CMP", "CONN RT"]);
+        this.getField(fittingField).setItems(["---", "EMT CPL SS", "EMT CPL CMP", "EMT CPL RT", "EMT CONN SS", "EMT CONN CMP", "EMT CONN RT"]);
     }
 }
 
-function fittingCX(nippleMaterialField, fittingAZField, fittingCXField) {
+function fittingCX(nippleMaterialField, fittingAZField, fittingCXField, sizeField) {
     var nippleMaterial = this.getField(nippleMaterialField).value;
     var fittingAZMaterial = this.getField(fittingAZField).value;
+    var size = this.getField(sizeField).value;
 
     if (nippleMaterial == "---" && fittingAZMaterial == "GRC CPL") {
         this.getField(fittingCXField).setItems(["---", "CONN SS", "CONN CMP", "CONN RT"]);
@@ -172,53 +182,72 @@ function fittingCX(nippleMaterialField, fittingAZField, fittingCXField) {
     else if (nippleMaterial == "---" && fittingAZMaterial == "MALE ADP") {
         this.getField(fittingCXField).setItems(["---", "GRC CPL"]);
     }
-    else if (nippleMaterial == "---" && fittingAZMaterial == "MA PVC") {
+    else if (nippleMaterial == "---" && fittingAZMaterial == "PVC MA") {
         this.getField(fittingCXField).setItems(["---", "GRC CPL"]);
     }
-    else if (nippleMaterial == "---" && fittingAZMaterial == "CONN SS") {
+    else if (nippleMaterial == "---" && fittingAZMaterial == "EMT CONN SS") {
         this.getField(fittingCXField).setItems(["---", "GRC CPL", "PVC FA"]);
     }
-    else if (nippleMaterial == "---" && fittingAZMaterial == "CONN CMP") {
+    else if (nippleMaterial == "---" && fittingAZMaterial == "EMT CONN CMP") {
         this.getField(fittingCXField).setItems(["---", "GRC CPL", "PVC FA"]);
     }
-    else if (nippleMaterial == "---" && fittingAZMaterial == "CONN RT") {
+    else if (nippleMaterial == "---" && fittingAZMaterial == "EMT CONN RT") {
         this.getField(fittingCXField).setItems(["---", "GRC CPL", "PVC FA"]);
     }
     else if (nippleMaterial == "PVC") {
         this.getField(fittingCXField).setItems(["---", "PVC FA", "PVC MA", "PVC BELL", "PVC CPL", "GRC CPL"]);
     }
     else if (nippleMaterial == "IMC") {
-        this.getField(fittingCXField).setItems(["---", "GRC CPL", "GRD INS BS", "PVC FA", "PVC MA", "GRC BELL", "GRC CONN SS", "GRC CONN CMP", "GRC CONN RT", "GRC COUP CMP", "GRC COUP RT"]);
+        if (size == '3/4"' || size == '1"' || size == '1-1/4"') {
+            this.getField(fittingCXField).setItems(["---", "GRC CPL", "GRD INS BS", "PVC FA", "PVC MA", "GRC BELL", "GRC CONN SS", "GRC CONN CMP", "GRC CONN RT", "GRC COUP CMP", "GRC COUP RT", "GRC TO EMT COMP CPL", "GRC TO EMT SS CPL"]);
+        }
+        else if (size == '1-1/2"' || size == '2"' || size == '2-1/2"' || size == '3"') {
+            this.getField(fittingCXField).setItems(["---", "GRC CPL", "GRD INS BS", "PVC FA", "PVC MA", "GRC BELL", "GRC CONN SS", "GRC CONN CMP", "GRC CONN RT", "GRC COUP CMP", "GRC COUP RT", "GRC TO EMT COMP CPL"]);
+        }
+        else {
+            this.getField(fittingCXField).setItems(["---", "GRC CPL", "GRD INS BS", "PVC FA", "PVC MA", "GRC BELL", "GRC CONN SS", "GRC CONN CMP", "GRC CONN RT", "GRC COUP CMP", "GRC COUP RT"]);
+        }
     }
     else if (nippleMaterial == "EMT") {
         this.getField(fittingCXField).setItems(["---", "EMT CONN SS", "EMT CONN CMP", "EMT CONN RT", "EMT CPL SS", "EMT CPL CMP", "EMT CPL RT"]);
     }
     else if (nippleMaterial == "GRC") {
-        this.getField(fittingCXField).setItems(["---", "GRC CPL", "GRD INS BS", "PVC FA", "PVC MA", "GRC BELL", "GRC CONN SS", "GRC CONN CMP", "GRC CONN RT", "GRC COUP CMP", "GRC COUP RT"]);
+        if (size == '3/4"' || size == '1"' || size == '1-1/4"') {
+            this.getField(fittingCXField).setItems(["---", "GRC CPL", "GRD INS BS", "PVC FA", "PVC MA", "GRC BELL", "GRC CONN SS", "GRC CONN CMP", "GRC CONN RT", "GRC COUP CMP", "GRC COUP RT", "GRC TO EMT COMP CPL", "GRC TO EMT SS CPL"]);
+        }
+        else if (size == '1-1/2"' || size == '2"' || size == '2-1/2"' || size == '3"') {
+            this.getField(fittingCXField).setItems(["---", "GRC CPL", "GRD INS BS", "PVC FA", "PVC MA", "GRC BELL", "GRC CONN SS", "GRC CONN CMP", "GRC CONN RT", "GRC COUP CMP", "GRC COUP RT", "GRC TO EMT COMP CPL"]);
+        }
+        else {
+            this.getField(fittingCXField).setItems(["---", "GRC CPL", "GRD INS BS", "PVC FA", "PVC MA", "GRC BELL", "GRC CONN SS", "GRC CONN CMP", "GRC CONN RT", "GRC COUP CMP", "GRC COUP RT"]);
+        }
     }
     else {
         this.getField(fittingCXField).setItems(["---"]);
     }
 }
 
-function nippleMaterial(fittingAZField, nippleField) {
+function nippleMaterial(fittingAZField, nippleField, materialField) {
     var fittingMaterial = this.getField(fittingAZField).value;
+    var conduitMaterial = this.getField(materialField).value;
     if (fittingMaterial == "---") {
         this.getField(nippleField).setItems([""]);
     }
     else if (fittingMaterial == "GRC CPL") {
         this.getField(nippleField).setItems(["---", "IMC", "GRC"]);
     }
-    else if (fittingMaterial == "COUPLING" || fittingMaterial == "PVC CPL" || fittingMaterial == "PVC FA") {
+    else if (fittingMaterial == "PVC CPL") {
         this.getField(nippleField).setItems(["---", "PVC"]);
     }
-    else if (fittingMaterial == "FEMALE ADP") {
-        this.getField(nippleField).setItems(["---", "IMC", "GRC"]);
+    else if (fittingMaterial == "PVC FA") {
+        if (conduitMaterial == "GRC") {
+            this.getField(nippleField).setItems(["---", "PVC"]);
+        }
+        else {
+            this.getField(nippleField).setItems(["---", "IMC", "GRC"]);
+        }
     }
-    else if (fittingMaterial == "FA PVC") {
-        this.getField(nippleField).setItems(["---", "IMC", "GRC"]);
-    }
-    else if (fittingMaterial == "CPL SS" || fittingMaterial == "CPL CMP" || fittingMaterial == "CPL RT") {
+    else if (fittingMaterial == "EMT CPL SS" || fittingMaterial == "EMT CPL CMP" || fittingMaterial == "EMT CPL RT") {
         this.getField(nippleField).setItems(["---", "EMT"]);
     }
     else {
@@ -666,7 +695,24 @@ function nippleHeight(nippleField, overallHeightField, factHeightField) {
         }
         else {
             overallHeightF.value = parseFloat(overallHeight) + '"';
-            nippleHeight.value = calc + '"'
+            nippleHeight.value = calc + '"';
+        }
+    }
+}
+
+function overallNippleHeight(nippleHeightField, overallHeightField, factoryHeightField) {
+    var nippleHeight = this.getField(nippleHeightField);
+    var overallHeight = this.getField(overallHeightField);
+    var factoryHeight = this.getField(factoryHeightField).value;
+
+    if (nippleHeight.value != "") {
+        var overallHeightCalc = parseFloat(nippleHeight.value) + parseFloat(factoryHeight.replace(/[^0-9.]/g, ''));
+        if (overallHeightCalc <= 0) {
+            overallHeight.value = "ERROR";
+        }
+        else {
+            overallHeight.value = overallHeightCalc + '"';
+            nippleHeight.value = parseFloat(nippleHeight.value) + '"';
         }
     }
 }
