@@ -562,7 +562,6 @@ function materialReq() {
                 fittingsList.push(fittingMachine(size2, fittingA2));
                 fittingsList.push(fittingMachine(size2, fittingZ2));
             }
-            sizeList.push(sizeMachine(size2, material2, radius2));
             fittingsList.push(fittingMachine(size2, fittingA2));
             fittingsList.push(fittingMachine(size2, fittingZ2));
             fittingsList.push(fittingMachine(size2, fittingC2));
