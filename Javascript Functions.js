@@ -344,10 +344,10 @@ function materialReq() {
     function ductTapeRolls(ductTapeTotal) {
         var rolls = ductTapeTotal / 2160;
         var roundedRolls = Math.round(rolls);
-        if (rolls == 0) {
+        if (rolls < 0.5) {
             return 0;
         }
-        else if (roundedRolls < 1) {
+        else if (rolls <= 1 && rolls >= 0.5) {
             return 1;
         }
         else { return roundedRolls; }
@@ -404,10 +404,10 @@ function materialReq() {
     function dottieRolls(wrapTotal) {
         var rolls = wrapTotal / 1200;
         var roundedRolls = Math.round(rolls);
-        if (rolls == 0) {
+        if (rolls < 0.5) {
             return 0;
         }
-        else if (roundedRolls < 1) {
+        else if (rolls <= 1 && rolls >= 0.5) {
             return 1;
         }
         else { return roundedRolls; }
