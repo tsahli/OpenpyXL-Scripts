@@ -148,13 +148,13 @@ function fittingAZ(materialField, fittingField, sizeField) {
     else if (conduitMaterial.value == "GRC") {
         this.getField(fittingField).setItems([""]);
         if (size == '3/4"' || size == '1"' || size == '1-1/4"') {
-            this.getField(fittingField).setItems(["---", "GRC CPL", "PVC FA", "GRD INS BS", "GRC BELL", "RED DOT", "GRC TO EMT COMP CPL", "GRC TO EMT SS CPL"]);
+            this.getField(fittingField).setItems(["---", "GRC CPL", "PVC FA", "INS BOND BS", "GRC BELL", "RED DOT", "GRC TO EMT COMP CPL", "GRC TO EMT SS CPL"]);
         }
         else if (size == '1-1/2"' || size == '2"' || size == '2-1/2"' || size == '3"') {
-            this.getField(fittingField).setItems(["---", "GRC CPL", "PVC FA", "GRD INS BS", "GRC BELL", "RED DOT", "GRC TO EMT COMP CPL"]);
+            this.getField(fittingField).setItems(["---", "GRC CPL", "PVC FA", "INS BOND BS", "GRC BELL", "RED DOT", "GRC TO EMT COMP CPL"]);
         }
         else {
-            this.getField(fittingField).setItems(["---", "GRC CPL", "PVC FA", "GRD INS BS", "GRC BELL", "RED DOT"]);
+            this.getField(fittingField).setItems(["---", "GRC CPL", "PVC FA", "INS BOND BS", "GRC BELL", "RED DOT"]);
         }
     }
     else if (conduitMaterial.value == "PVC") {
@@ -199,13 +199,13 @@ function fittingCX(nippleMaterialField, fittingAZField, fittingCXField, sizeFiel
     }
     else if (nippleMaterial == "IMC") {
         if (size == '3/4"' || size == '1"' || size == '1-1/4"') {
-            this.getField(fittingCXField).setItems(["---", "GRC CPL", "GRD INS BS", "PVC FA", "PVC MA", "GRC BELL", "GRC CONN SS", "GRC CONN CMP", "GRC CONN RT", "GRC COUP CMP", "GRC COUP RT", "GRC TO EMT COMP CPL", "GRC TO EMT SS CPL"]);
+            this.getField(fittingCXField).setItems(["---", "GRC CPL", "INS BOND BS", "PVC FA", "PVC MA", "GRC BELL", "GRC CONN SS", "GRC CONN CMP", "GRC CONN RT", "GRC COUP CMP", "GRC COUP RT", "GRC TO EMT COMP CPL", "GRC TO EMT SS CPL"]);
         }
         else if (size == '1-1/2"' || size == '2"' || size == '2-1/2"' || size == '3"') {
-            this.getField(fittingCXField).setItems(["---", "GRC CPL", "GRD INS BS", "PVC FA", "PVC MA", "GRC BELL", "GRC CONN SS", "GRC CONN CMP", "GRC CONN RT", "GRC COUP CMP", "GRC COUP RT", "GRC TO EMT COMP CPL"]);
+            this.getField(fittingCXField).setItems(["---", "GRC CPL", "INS BOND BS", "PVC FA", "PVC MA", "GRC BELL", "GRC CONN SS", "GRC CONN CMP", "GRC CONN RT", "GRC COUP CMP", "GRC COUP RT", "GRC TO EMT COMP CPL"]);
         }
         else {
-            this.getField(fittingCXField).setItems(["---", "GRC CPL", "GRD INS BS", "PVC FA", "PVC MA", "GRC BELL", "GRC CONN SS", "GRC CONN CMP", "GRC CONN RT", "GRC COUP CMP", "GRC COUP RT"]);
+            this.getField(fittingCXField).setItems(["---", "GRC CPL", "INS BOND BS", "PVC FA", "PVC MA", "GRC BELL", "GRC CONN SS", "GRC CONN CMP", "GRC CONN RT", "GRC COUP CMP", "GRC COUP RT"]);
         }
     }
     else if (nippleMaterial == "EMT") {
@@ -213,13 +213,13 @@ function fittingCX(nippleMaterialField, fittingAZField, fittingCXField, sizeFiel
     }
     else if (nippleMaterial == "GRC") {
         if (size == '3/4"' || size == '1"' || size == '1-1/4"') {
-            this.getField(fittingCXField).setItems(["---", "GRC CPL", "GRD INS BS", "PVC FA", "PVC MA", "GRC BELL", "GRC CONN SS", "GRC CONN CMP", "GRC CONN RT", "GRC COUP CMP", "GRC COUP RT", "GRC TO EMT COMP CPL", "GRC TO EMT SS CPL"]);
+            this.getField(fittingCXField).setItems(["---", "GRC CPL", "INS BOND BS", "PVC FA", "PVC MA", "GRC BELL", "GRC CONN SS", "GRC CONN CMP", "GRC CONN RT", "GRC COUP CMP", "GRC COUP RT", "GRC TO EMT COMP CPL", "GRC TO EMT SS CPL"]);
         }
         else if (size == '1-1/2"' || size == '2"' || size == '2-1/2"' || size == '3"') {
-            this.getField(fittingCXField).setItems(["---", "GRC CPL", "GRD INS BS", "PVC FA", "PVC MA", "GRC BELL", "GRC CONN SS", "GRC CONN CMP", "GRC CONN RT", "GRC COUP CMP", "GRC COUP RT", "GRC TO EMT COMP CPL"]);
+            this.getField(fittingCXField).setItems(["---", "GRC CPL", "INS BOND BS", "PVC FA", "PVC MA", "GRC BELL", "GRC CONN SS", "GRC CONN CMP", "GRC CONN RT", "GRC COUP CMP", "GRC COUP RT", "GRC TO EMT COMP CPL"]);
         }
         else {
-            this.getField(fittingCXField).setItems(["---", "GRC CPL", "GRD INS BS", "PVC FA", "PVC MA", "GRC BELL", "GRC CONN SS", "GRC CONN CMP", "GRC CONN RT", "GRC COUP CMP", "GRC COUP RT"]);
+            this.getField(fittingCXField).setItems(["---", "GRC CPL", "INS BOND BS", "PVC FA", "PVC MA", "GRC BELL", "GRC CONN SS", "GRC CONN CMP", "GRC CONN RT", "GRC COUP CMP", "GRC COUP RT"]);
         }
     }
     else {
