@@ -139,6 +139,21 @@ function copy(copyFromField, copyToField) {
     }
 }
 
+function labelBacking(backingField, drilloutField) {
+    var backing = this.getField(backingField).value;
+    if (backing == "SCREW/RIVIT (DRILLED OUT)") {
+        this.getField(drilloutField).value = "DRILLED OUT";
+        this.getField(backingField).value = "SCREW/RIVIT";
+    }
+    else if (backing == "STICKY (DRILLED OUT)") {
+        this.getField(drilloutField).value = "DRILLED OUT";
+        this.getField(backingField).value = "STICKY";
+    }
+    else {
+        this.getField(drilloutField).value = "";
+    }
+}
+
 function fittingAZ(materialField, fittingField, sizeField) {
     var conduitMaterial = this.getField(materialField);
     var size = this.getField(sizeField).value;
