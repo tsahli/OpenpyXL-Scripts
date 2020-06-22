@@ -52,8 +52,8 @@ function toTitleCase() {
 } toTitleCase();
 
 
-function toAllCaps() {
-    var words = this.getField("Name");
+function toAllCaps(field) {
+    var words = this.getField(field);
     words.value = words.value.replace(/\w\S*/g, function (txt) { return txt.toUpperCase(); });
 } toAllCaps();
 
@@ -141,9 +141,9 @@ function copy(copyFromField, copyToField) {
 
 function labelBacking(backingField, drilloutField) {
     var backing = this.getField(backingField).value;
-    if (backing == "SCREW/RIVIT (DRILLED OUT)") {
+    if (backing == "SCREW/RIVET (DRILLED OUT)") {
         this.getField(drilloutField).value = "DRILLED OUT";
-        this.getField(backingField).value = "SCREW/RIVIT";
+        this.getField(backingField).value = "SCREW/RIVET";
     }
     else if (backing == "STICKY (DRILLED OUT)") {
         this.getField(drilloutField).value = "DRILLED OUT";
