@@ -19,7 +19,7 @@ function conduitMaterial(sizeField, materialField) {
             "EMT",
             "KwikFit EMT",
             "KwikFit Comp EMT",
-            "KwikFit RT RMC",
+            "KwikFit RT EMT",
             "IMC",
             "KwikCoup RT IMC",
             "RIGID",
@@ -120,7 +120,7 @@ function fittingA(sizeField, materialField, fittingAField) {
             ]);
         }
     }
-    else if (conduitMaterial == 'KwikFit RT RMC') {
+    else if (conduitMaterial == 'KwikFit RT EMT') {
         if (conduitSize != '5"' && conduitSize != '6"') {
             this.getField(fittingAField).setItems([
                 "---",
@@ -246,7 +246,7 @@ function fittingZ(sizeField, materialField, fittingAField, fittingZField) {
             }
         }
     }
-    else if (conduitMaterial == 'KwikFit RT RMC') {
+    else if (conduitMaterial == 'KwikFit RT EMT') {
         if (conduitSize != '5"' && conduitSize != '6"') {
             if (fittingA != 'KwikFit Fitting') {
                 this.getField(fittingZField).setItems([
