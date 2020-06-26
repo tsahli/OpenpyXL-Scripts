@@ -426,3 +426,23 @@ function addBusinessDays(startingDateField, resultingDateField, daysToAdjust) {
         this.getField(resultingDateField).value = util.printd("mm/dd/yy", tmp);
     }
 }
+
+// SIZE - MATERIAL - 'WITH' FITTING A '&' FITTING Z - HEIGHT - IDENTIFIER
+function setDesc(descField, sizeField, materialField, fittingAField, fittingZField, heightField, idField) {
+    var desc = this.getField(descField);
+    var size = this.getField(sizeField).value;
+    var material = this.getField(materialField).value;
+    var fittingA = this.getField(fittingAField).value;
+    var fittingZ = this.getField(fittingZField).value;
+    var height = this.getField(heightField).value;
+    var id = this.getField(idField).value;
+
+    desc.value = "";
+
+    if (size == "---" || material == "---" || fittingA == "---" || fittingZ == "---" || height == "---" || id == "") {
+        desc.value = "SELECT ID, SIZE, MATERIAL, FITTINGS A & Z, AND HEIGHT"
+    }
+    else {
+        desc.value = size + " " + material + " W/ " + fittingA + " & " + fittingZ + " FITTINGS - " + height + " HIGH - " + id;
+    }
+}
