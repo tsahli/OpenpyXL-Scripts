@@ -1,5 +1,3 @@
-#! python
-# labelMaker.py - Creates number needed of labels in Excel.
 # first column is # needed, second column is label text
 
 import openpyxl, pprint
