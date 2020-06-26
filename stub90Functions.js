@@ -85,7 +85,7 @@ function fittingA(sizeField, materialField, fittingAField) {
             ]);
         }
     }
-    else if (conduitMaterial == 'IMC' || conduitMaterial == 'GRC') {
+    else if (conduitMaterial == 'IMC' || conduitMaterial == 'RIGID') {
         if (conduitSize != '5"' && conduitSize != '6"') {
             this.getField(fittingAField).setItems([
                 "---",
@@ -96,6 +96,19 @@ function fittingA(sizeField, materialField, fittingAField) {
                 "BOND BS",
                 "GROUND BS"
             ]);
+        }
+        else if (conduitMaterial == 'RIGID') {
+            if (conduitSize == '5"') {
+                this.getField(fittingAField).setItems([
+                    "---",
+                    "KwikFit Fitting"
+                ]);
+            }
+            else {
+                this.getField(fittingAField).setItems([
+                    "---"
+                ]);
+            }
         }
     }
     else if (conduitMaterial == 'KwikFit EMT') {
@@ -191,7 +204,7 @@ function fittingZ(sizeField, materialField, fittingAField, fittingZField) {
             ]);
         }
     }
-    else if (conduitMaterial == 'IMC' || conduitMaterial == 'GRC') {
+    else if (conduitMaterial == 'IMC' || conduitMaterial == 'RIGID') {
         if (conduitSize != '5"' && conduitSize != '6"') {
             this.getField(fittingZField).setItems([
                 "---",
@@ -202,6 +215,19 @@ function fittingZ(sizeField, materialField, fittingAField, fittingZField) {
                 "BOND BS",
                 "GROUND BS"
             ]);
+        }
+        else if (conduitMaterial == 'RIGID') {
+            if (conduitSize == '5"' && fittingA != 'KwikFit Fitting') {
+                this.getField(fittingZField).setItems([
+                    "---",
+                    "KwikFit Fitting"
+                ]);
+            }
+            else {
+                this.getField(fittingZField).setItems([
+                    "---"
+                ]);
+            }
         }
     }
     else if (conduitMaterial == 'KwikFit EMT') {
