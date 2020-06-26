@@ -427,6 +427,11 @@ function addBusinessDays(startingDateField, resultingDateField, daysToAdjust) {
     }
 }
 
+function toAllCaps(field) {
+    var words = this.getField(field);
+    words.value = words.value.replace(/\w\S*/g, function (txt) { return txt.toUpperCase(); });
+}
+
 // SIZE - MATERIAL - 'WITH' FITTING A '&' FITTING Z - HEIGHT - IDENTIFIER
 function setDesc(descField, sizeField, materialField, fittingAField, fittingZField, heightField, idField) {
     var desc = this.getField(descField);
