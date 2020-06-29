@@ -122,7 +122,7 @@ function fittingA(sizeField, materialField, fittingAField) {
             ]);
         }
     }
-    else if (conduitMaterial == 'KiwkFit Comp EMT') {
+    else if (conduitMaterial == 'KwikFit Comp EMT') {
         if (conduitSize != '5"' && conduitSize != '6"') {
             this.getField(fittingAField).setItems([
                 "---",
@@ -251,7 +251,7 @@ function fittingZ(sizeField, materialField, fittingAField, fittingZField) {
             }
         }
     }
-    else if (conduitMaterial == 'KiwkFit Comp EMT') {
+    else if (conduitMaterial == 'KwikFit Comp EMT') {
         if (conduitSize != '5"' && conduitSize != '6"') {
             if (fittingA != 'KwikFit Fitting') {
                 this.getField(fittingZField).setItems([
@@ -444,7 +444,7 @@ function setDesc(descField, sizeField, materialField, fittingAField, fittingZFie
 
     desc.value = "";
 
-    if (size == "---" || material == "---" || fittingA == "---" || fittingZ == "---" || height == "---" || id == "") {
+    if (size == "---" || material == "---" || fittingA == "---" || fittingZ == "---" || height == "" || id == "") {
         desc.value = "SELECT ID, SIZE, MATERIAL, FITTINGS A & Z, AND HEIGHT"
     }
     else {
