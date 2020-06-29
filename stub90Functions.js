@@ -444,10 +444,22 @@ function setDesc(descField, sizeField, materialField, fittingAField, fittingZFie
 
     desc.value = "";
 
-    if (size == "---" || material == "---" || fittingA == "---" || fittingZ == "---" || height == "" || id == "") {
-        desc.value = "SELECT ID, SIZE, MATERIAL, FITTINGS A & Z, AND HEIGHT"
+    if (size == "---" || material == "---" || height == "" || id == "") {
+        desc.value = "SELECT ID, SIZE, MATERIAL, AND HEIGHT"
+    }
+    // ONLY FITTING A
+    else if (fittingA != "---" && fittingZ == "---") {
+        desc.value = size + " " + material + " W/ " + fittingA + " - " + height + " HIGH - " + id;
+    }
+    // ONLY FITTING Z
+    else if (fittingZ != "---" && fittingA == "---") {
+        desc.value = size + " " + material + " W/ " + fittingZ + " - " + height + " HIGH - " + id;
+    }
+    // NO FITTINGS
+    else if (fittingZ == "---" && fittingA == "---") {
+        desc.value = size + " " + material + " W/ NO FITTINGS - " + height + " HIGH - " + id;
     }
     else {
-        desc.value = size + " " + material + " W/ " + fittingA + " & " + fittingZ + " FITTINGS - " + height + " HIGH - " + id;
+        desc.value = size + " " + material + " W/ " + fittingA + " & " + fittingZ + " - " + height + " HIGH - " + id;
     }
 }
