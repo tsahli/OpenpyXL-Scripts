@@ -432,6 +432,13 @@ function toAllCaps(field) {
     words.value = words.value.replace(/\w\S*/g, function (txt) { return txt.toUpperCase(); });
 }
 
+function copy(copyFromField, copyToField) {
+    var copyData = this.getField(copyFromField).value;
+    if (this.getField(copyToField).value == "") {
+        this.getField(copyToField).value = copyData;
+    }
+}
+
 // SIZE - MATERIAL - 'WITH' FITTING A '&' FITTING Z - HEIGHT - IDENTIFIER
 function setDesc(descField, sizeField, materialField, fittingAField, fittingZField, heightField, idField) {
     var desc = this.getField(descField);
@@ -461,5 +468,156 @@ function setDesc(descField, sizeField, materialField, fittingAField, fittingZFie
     }
     else {
         desc.value = size + " " + material + " W/ " + fittingA + " & " + fittingZ + " - " + height + " HIGH - " + id;
+    }
+}
+
+function matReq() {
+    function countInArray(array) {
+        var count = 0;
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] === '---') {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    function conduitMachine(color, size, material) {
+        var arr = [color, size, material];
+        var count = countInArray(arr);
+        if (count == 0) {
+            if (color == 'SILVER') {
+                return size.toString() + " " + material;
+            }
+            return color + " " + size.toString() + " " + material;
+        }
+        else { return null; }
+    }
+
+    function fittingMachine(color, size, fitting) {
+        var arr = [color, size, fitting];
+        var count = countInArray(arr);
+        if (count == 0) {
+            if (color == 'SILVER') {
+                return size.toString() + " " + fitting;
+            }
+            return color + " " + size.toString() + " " + fitting;
+        }
+        else { return null; }
+    }
+
+    var qty1 = this.getField('TYPE 1 QTY').value;
+    var qty2 = this.getField('TYPE 2 QTY').value;
+    var qty3 = this.getField('TYPE 3 QTY').value;
+    var qty4 = this.getField('TYPE 4 QTY').value;
+    var qty5 = this.getField('TYPE 5 QTY').value;
+    var size1 = this.getField('TYPE 1 CONDUIT SIZE').value;
+    var size2 = this.getField('TYPE 2 CONDUIT SIZE').value;
+    var size3 = this.getField('TYPE 3 CONDUIT SIZE').value;
+    var size4 = this.getField('TYPE 4 CONDUIT SIZE').value;
+    var size5 = this.getField('TYPE 5 CONDUIT SIZE').value;
+    var material1 = this.getField('TYPE 1 MATERIAL').value;
+    var material2 = this.getField('TYPE 2 MATERIAL').value;
+    var material3 = this.getField('TYPE 3 MATERIAL').value;
+    var material4 = this.getField('TYPE 4 MATERIAL').value;
+    var material5 = this.getField('TYPE 5 MATERIAL').value;
+    var conduitColor1 = this.getField('TYPE 1 CONDUIT COLOR').value;
+    var conduitColor2 = this.getField('TYPE 2 CONDUIT COLOR').value;
+    var conduitColor3 = this.getField('TYPE 3 CONDUIT COLOR').value;
+    var conduitColor4 = this.getField('TYPE 4 CONDUIT COLOR').value;
+    var conduitColor5 = this.getField('TYPE 5 CONDUIT COLOR').value;
+    var fittingA1 = this.getField('TYPE 1 FITTING A').value;
+    var fittingA2 = this.getField('TYPE 2 FITTING A').value;
+    var fittingA3 = this.getField('TYPE 3 FITTING A').value;
+    var fittingA4 = this.getField('TYPE 4 FITTING A').value;
+    var fittingA5 = this.getField('TYPE 5 FITTING A').value;
+    var fittingZ1 = this.getField('TYPE 1 FITTING Z').value;
+    var fittingZ2 = this.getField('TYPE 2 FITTING Z').value;
+    var fittingZ3 = this.getField('TYPE 3 FITTING Z').value;
+    var fittingZ4 = this.getField('TYPE 4 FITTING Z').value;
+    var fittingZ5 = this.getField('TYPE 5 FITTING Z').value;
+    var fittingColor1 = this.getField('TYPE 1 FITTING COLOR').value;
+    var fittingColor2 = this.getField('TYPE 2 FITTING COLOR').value;
+    var fittingColor3 = this.getField('TYPE 3 FITTING COLOR').value;
+    var fittingColor4 = this.getField('TYPE 4 FITTING COLOR').value;
+    var fittingColor5 = this.getField('TYPE 5 FITTING COLOR').value;
+
+    var sizeList = []; // color, size, material
+    var fittingList = []; // color, size, fitting
+
+    if (qty1 != '' && qty1 != '0') {
+        var count = 0;
+        while (count < qty1) {
+            sizeList.push(conduitMachine(conduitColor1, size1, material1));
+            fittingList.push(fittingMachine(fittingColor1, size1, fittingA1));
+            fittingList.push(fittingMachine(fittingColor1, size1, fittingZ1));
+            count++;
+        }
+    }
+
+    if (qty2 != '' && qty2 != '0') {
+        var count = 0;
+        while (count < qty2) {
+            sizeList.push(conduitMachine(conduitColor2, size2, material2));
+            fittingList.push(fittingMachine(fittingColor2, size2, fittingA2));
+            fittingList.push(fittingMachine(fittingColor2, size2, fittingZ2));
+            count++;
+        }
+    }
+
+    if (qty3 != '' && qty3 != '0') {
+        var count = 0;
+        while (count < qty3) {
+            sizeList.push(conduitMachine(conduitColor3, size3, material3));
+            fittingList.push(fittingMachine(fittingColor3, size3, fittingA3));
+            fittingList.push(fittingMachine(fittingColor3, size3, fittingZ3));
+            count++;
+        }
+    }
+
+    if (qty4 != '' && qty4 != '0') {
+        var count = 0;
+        while (count < qty4) {
+            sizeList.push(conduitMachine(conduitColor4, size4, material4));
+            fittingList.push(fittingMachine(fittingColor4, size4, fittingA4));
+            fittingList.push(fittingMachine(fittingColor4, size4, fittingZ4));
+            count++;
+        }
+    }
+
+    if (qty5 != '' && qty5 != '0') {
+        var count = 0;
+        while (count < qty5) {
+            sizeList.push(conduitMachine(conduitColor5, size5, material5));
+            fittingList.push(fittingMachine(fittingColor5, size5, fittingA5));
+            fittingList.push(fittingMachine(fittingColor5, size5, fittingZ5));
+            count++;
+        }
+    }
+
+    sizeList.sort();
+    fittingList.sort();
+
+    var sizeCount = {};
+    sizeList.forEach(function (i) { sizeCount[i] = (sizeCount[i] || 0) + 1; });
+
+    var fittingCount = {};
+    fittingList.forEach(function (i) { fittingCount[i] = (fittingCount[i] || 0) + 1; });
+
+    var i = 0;
+    for (var element in sizeCount) {
+        if (element != 'null') {
+            this.getField('DESC ' + i).value = element;
+            this.getField('QTY ' + i).value = sizeCount[element];
+            i++;
+        }
+    }
+
+    for (var element in fittingCount) {
+        if (element != 'null') {
+            this.getField('DESC ' + i).value = element;
+            this.getField('QTY ' + i).value = fittingCount[element];
+            i++;
+        }
     }
 }
