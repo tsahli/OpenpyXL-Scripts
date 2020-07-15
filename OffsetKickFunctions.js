@@ -167,7 +167,7 @@ function fittingA(sizeField, materialField, fittingAField) {
                 "GRC SS COUPLING",
                 "GRC SS CONN",
                 "GRC SS COUPLING",
-                "BOND BS",--
+                "BOND BS",
                 "GROUND BS"
             ]);
         }
@@ -182,5 +182,90 @@ function fittingA(sizeField, materialField, fittingAField) {
         this.getField(fittingAField).setItems([
             "---"
         ]);
+    }
+}
+
+function date(dateField) {
+    var fld = this.getField(dateField);
+    var empt = this.getField(dateField).value;
+    if (empt == "") {
+        fld.value = util.printd("mm/dd/yy", new Date());
+    }
+}
+
+function addBusinessDays(startingDateField, resultingDateField, daysToAdjust) {
+    var startingDate = new Date();
+    var counter = 0;
+    while (daysToAdjust > 0) {
+        var tmp = new Date();
+        tmp.setDate(startingDate.getDate() + counter++);
+        switch (tmp.getDay()) {
+            case 0: case 6: break;
+            default:
+                daysToAdjust--;
+        }
+    }
+    if (this.getField(resultingDateField).value == "") {
+        this.getField(resultingDateField).value = util.printd("mm/dd/yy", tmp);
+    }
+}
+
+function toAllCaps(field) {
+    var words = this.getField(field);
+    words.value = words.value.replace(/\w\S*/g, function (txt) { return txt.toUpperCase(); });
+}
+
+function copy(copyFromField, copyToField) {
+    var copyData = this.getField(copyFromField).value;
+    if (this.getField(copyToField).value == "") {
+        this.getField(copyToField).value = copyData;
+    }
+}
+
+function inchMarks(inchField) {
+    var inchFieldValue = this.getField(inchField).value;
+    var inchValue = this.getField(inchField);
+
+    if (inchFieldValue != "") {
+        parsedValue = parseInt(inchFieldValue);
+        if (parsedValue <= 0 || isNaN(parsedValue)) {
+            inchValue.value = "ERROR";
+        }
+        else {
+            inchValue.value = parsedValue + '"';
+        }
+    }
+}
+
+function degreeMarks(degreeField) {
+    var degreeFieldValue = this.getField(degreeField).value;
+    var degreeValue = this.getField(degreeField);
+
+    if (degreeFieldValue != "") {
+        parsedValue = parseInt(degreeFieldValue);
+        if (parsedValue < 0 || isNaN(parsedValue)) {
+            degreeValue.value = "ERROR";
+        }
+        else {
+            degreeValue.value = parsedValue + '°';
+        }
+    }
+}
+
+function overallLength(topLenField, bottomLenField, overallLenField) {
+    var topLen = this.getField(topLenField).value;
+    var bottomLen = this.getField(bottomLenField).value;
+    var overallLen = this.getField(overallLenField);
+
+    if (topLen != "" && bottomLen != "") {
+        topLenInt = parseInt(topLen);
+        bottomLenInt = parseInt(bottomLen);
+        var overallLenInt = topLenInt + bottomLenInt;
+        if (overallLenInt <= 0 || isNaN(overallLenInt)) {
+            overallLen.value = "ERROR";
+        }
+        else {
+            overallLen.value = overallLenInt + '"';
+        }
     }
 }
