@@ -252,15 +252,22 @@ function degreeMarks(degreeField) {
     }
 }
 
-function overallLength(topLenField, bottomLenField, overallLenField) {
+function overallLength(radioGroup, heightField, topLenField, bottomLenField, overallLenField, degreeField) {
+    function toDegrees(angle) {
+        return angle * (180 / Math.PI);
+    }
+    function toRadians(angle) {
+        return angle * (Math.PI / 180);
+    }
+    var radioValue = this.getField(radioGroup).value; // Off, OFFSET, KICK
+    var height = this.getField(heightField).value;
     var topLen = this.getField(topLenField).value;
     var bottomLen = this.getField(bottomLenField).value;
     var overallLen = this.getField(overallLenField);
+    var degree = this.getField(degreeField).value;
 
-    if (topLen != "" && bottomLen != "") {
-        topLenInt = parseInt(topLen);
-        bottomLenInt = parseInt(bottomLen);
-        var overallLenInt = topLenInt + bottomLenInt;
+    if (radioValue == "KICK" && topLen != "" && bottomLen != "") {
+        var overallLenInt = parseInt(topLen) + parseInt(bottomLen);
         if (overallLenInt <= 0 || isNaN(overallLenInt)) {
             overallLen.value = "ERROR";
         }
@@ -268,4 +275,101 @@ function overallLength(topLenField, bottomLenField, overallLenField) {
             overallLen.value = overallLenInt + '"';
         }
     }
+    else if (radioValue == "KICK" && bottomLen != "" && degree != "") {
+        var degreeInRadians = toRadians(parseInt(degree));
+        var hypotenuse = 120 - parseInt(bottomLen);
+        var missingWidth = hypotenuse * Math.cos(degreeInRadians);
+        var overallCalc = 120 - (hypotenuse - missingWidth);
+        overallCalc = Math.round(overallCalc * 100) / 100;
+        if (overallCalc <= 0 || isNaN(overallCalc)) {
+            overallLen.value = "ERROR";
+        }
+        else {
+            overallLen.value = overallCalc + '"';
+        }
+    }
+    else if (radioValue == "OFFSET" && topLen != "" && bottomLen != "" && height != "") {
+        var hypotenuse = 120 - (parseInt(topLen) + parseInt(bottomLen));
+        var bottomDegree = toDegrees(Math.asin(parseInt(height) / hypotenuse));
+        var missingWidth = hypotenuse * Math.cos(toRadians(bottomDegree));
+        missingWidth = Math.round(missingWidth * 100) / 100;
+        var overallCalc = 120 - (hypotenuse - missingWidth);
+        overallCalc = Math.round(overallCalc * 100) / 100;
+        if (overallCalc <= 0 || isNaN(overallCalc)) {
+            overallLen.value = "ERROR";
+        }
+        else {
+            overallLen.value = overallCalc + '"';
+            bottomDegree = Math.round(bottomDegree * 100) / 100;
+            this.getField(degreeField).value = bottomDegree + '°';
+        }
+    }
+    else if (radioValue == "OFFSET" && degree != "" && height != "") {
+        var degreeInRadians = toRadians(parseInt(degree));
+        var missingWidth = parseInt(height) / Math.tan(degreeInRadians);
+        missingWidth = Math.round(missingWidth * 100) / 100;
+        var hypotenuse = parseInt(height) / Math.sin(degreeInRadians);
+        var overallCalc = 120 - (hypotenuse - missingWidth);
+        overallCalc = Math.round(overallCalc * 100) / 100;
+        if (overallCalc <= 0 || isNaN(overallCalc)) {
+            overallLen.value = "ERROR";
+        }
+        else {
+            overallLen.value = overallCalc + '"';
+        }
+    }
 }
+
+// function setDesc(descField, sizeField, conduitColorField, materialField, radioGroup, fittingAField, fittingZField, fittingColorField) {
+//     var desc = this.getField(descField);
+//     var size = this.getField(sizeField).value;
+//     var conduitColor = this.getField(conduitColorField).value;
+//     var material = this.getField(materialField).value;
+//     var radioValue = this.getField(radioGroup).value; // Off, OFFSET, KICK
+//     var fittingA = this.getField(fittingAField).value;
+//     var fittingZ = this.getField(fittingZField).value;
+//     var fittingColor = this.getField(fittingColorField).value;
+
+//     desc.value = "";
+
+//     if (size == "---" || material == "---" || fittingA == "---" || fittingZ == "---" || radioValue == "Off") {
+//         desc.value = "SELECT SIZE, MATERIAL, OFFSET OR KICK, FITTING A, AND FITTING Z";
+//     }
+//     // ONLY FITTING A
+//     else if (fittingA != "---" && fittingZ == "---") {
+//         if (conduitColor == "---" || conduitColor == "SILVER") {
+
+//         }        
+//     }
+// }
+
+// function setDesc(descField, sizeField, materialField, fittingAField, fittingZField, heightField, idField) {
+//     var desc = this.getField(descField);
+//     var size = this.getField(sizeField).value;
+//     var material = this.getField(materialField).value;
+//     var fittingA = this.getField(fittingAField).value;
+//     var fittingZ = this.getField(fittingZField).value;
+//     var height = this.getField(heightField).value;
+//     var id = this.getField(idField).value;
+
+//     desc.value = "";
+
+//     if (size == "---" || material == "---" || height == "" || id == "") {
+//         desc.value = "SELECT ID, SIZE, MATERIAL, AND HEIGHT"
+//     }
+//     // ONLY FITTING A
+//     else if (fittingA != "---" && fittingZ == "---") {
+//         desc.value = size + " " + material + " W/ " + fittingA + " - " + height + " HIGH - " + id;
+//     }
+//     // ONLY FITTING Z
+//     else if (fittingZ != "---" && fittingA == "---") {
+//         desc.value = size + " " + material + " W/ " + fittingZ + " - " + height + " HIGH - " + id;
+//     }
+//     // NO FITTINGS
+//     else if (fittingZ == "---" && fittingA == "---") {
+//         desc.value = size + " " + material + " W/ NO FITTINGS - " + height + " HIGH - " + id;
+//     }
+//     else {
+//         desc.value = size + " " + material + " W/ " + fittingA + " & " + fittingZ + " - " + height + " HIGH - " + id;
+//     }
+// }
