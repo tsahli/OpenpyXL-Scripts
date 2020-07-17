@@ -279,6 +279,7 @@ function overallLength(radioGroup, heightField, topLenField, bottomLenField, ove
         var degreeInRadians = toRadians(parseInt(degree));
         var hypotenuse = 120 - parseInt(bottomLen);
         var missingWidth = hypotenuse * Math.cos(degreeInRadians);
+        var heightCalc = missingWidth * Math.tan(degreeInRadians);
         var overallCalc = 120 - (hypotenuse - missingWidth);
         overallCalc = Math.round(overallCalc * 100) / 100;
         if (overallCalc <= 0 || isNaN(overallCalc)) {
@@ -286,6 +287,9 @@ function overallLength(radioGroup, heightField, topLenField, bottomLenField, ove
         }
         else {
             overallLen.value = overallCalc + '"';
+            heightCalc = Math.round(heightCalc * 100) / 100;
+            this.getField(heightField).value = heightCalc + '"';
+            this.getField(topLenField).value = hypotenuse + '"';
         }
     }
     else if (radioValue == "OFFSET" && topLen != "" && bottomLen != "" && height != "") {
