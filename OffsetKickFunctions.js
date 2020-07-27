@@ -275,6 +275,21 @@ function overallLength(radioGroup, heightField, topLenField, bottomLenField, ove
             overallLen.value = overallLenInt + '"';
         }
     }
+    else if (radioValue == "KICK" && bottomLen !="" && degree != "" && height != "") {
+        var degreeInRadians = toRadians(parseInt(degree));
+        var hypotenuse = 120 - parseInt(bottomLen);
+        var missingWidth = hypotenuse * Math.cos(degreeInRadians);
+        var overallCalc = 120 - (hypotenuse - missingWidth);
+        overallCalc = Math.round(overallCalc * 100) / 100;
+        if (overallCalc <= 0 || isNaN(overallCalc)) {
+            overallLen.value = "ERROR";
+        }
+        else {
+            overallLen.value = overallCalc + '"';
+            missingWidth = Math.round(missingWidth * 100) / 100;
+            this.getField(topLenField).value = missingWidth + '"';
+        }
+    }
     else if (radioValue == "KICK" && bottomLen != "" && degree != "") {
         var degreeInRadians = toRadians(parseInt(degree));
         var hypotenuse = 120 - parseInt(bottomLen);
@@ -289,7 +304,26 @@ function overallLength(radioGroup, heightField, topLenField, bottomLenField, ove
             overallLen.value = overallCalc + '"';
             heightCalc = Math.round(heightCalc * 100) / 100;
             this.getField(heightField).value = heightCalc + '"';
-            this.getField(topLenField).value = hypotenuse + '"';
+            missingWidth = Math.round(missingWidth * 100) / 100;
+            this.getField(topLenField).value = missingWidth + '"';
+        }
+    }
+    else if (radioValue == "KICK" && height != "" && degree !="") {
+        var degreeInRadians = toRadians(parseInt(degree));
+        var hypotenuse = parseInt(height) / Math.sin(degreeInRadians);
+        var missingWidth = parseInt(height) / Math.tan(degreeInRadians);
+        var overallCalc = 120 - (hypotenuse - missingWidth);
+        overallCalc = Math.round(overallCalc * 100) / 100;
+        if (overallCalc <= 0 || isNaN(overallCalc)) {
+            overallLen.value = "ERROR";
+        }
+        else {
+            overallLen.value = overallCalc + '"';
+            missingWidth = Math.round(missingWidth * 100) / 100;
+            this.getField(topLenField).value = missingWidth + '"';
+            var bottomLen = 120 - hypotenuse;
+            bottomLen = Math.round(bottomLen * 100) / 100;
+            this.getField(bottomLenField).value = bottomLen + '"';
         }
     }
     else if (radioValue == "OFFSET" && topLen != "" && bottomLen != "" && height != "") {
@@ -324,28 +358,92 @@ function overallLength(radioGroup, heightField, topLenField, bottomLenField, ove
     }
 }
 
-// function setDesc(descField, sizeField, conduitColorField, materialField, radioGroup, fittingAField, fittingZField, fittingColorField) {
-//     var desc = this.getField(descField);
-//     var size = this.getField(sizeField).value;
-//     var conduitColor = this.getField(conduitColorField).value;
-//     var material = this.getField(materialField).value;
-//     var radioValue = this.getField(radioGroup).value; // Off, OFFSET, KICK
-//     var fittingA = this.getField(fittingAField).value;
-//     var fittingZ = this.getField(fittingZField).value;
-//     var fittingColor = this.getField(fittingColorField).value;
+function alert(msg) {
+    app.alert(msg);
+}
 
-//     desc.value = "";
+function setDesc(descField, sizeField, conduitColorField, materialField, radioGroup, fittingAField, fittingZField, fittingColorField) {
+    var desc = this.getField(descField);
+    var size = this.getField(sizeField).value;
+    var conduitColor = this.getField(conduitColorField).value;
+    var material = this.getField(materialField).value;
+    var radioValue = this.getField(radioGroup).value; // Off, OFFSET, KICK
+    var fittingA = this.getField(fittingAField).value;
+    var fittingZ = this.getField(fittingZField).value;
+    var fittingColor = this.getField(fittingColorField).value;
 
-//     if (size == "---" || material == "---" || fittingA == "---" || fittingZ == "---" || radioValue == "Off") {
-//         desc.value = "SELECT SIZE, MATERIAL, OFFSET OR KICK, FITTING A, AND FITTING Z";
-//     }
-//     // ONLY FITTING A
-//     else if (fittingA != "---" && fittingZ == "---") {
-//         if (conduitColor == "---" || conduitColor == "SILVER") {
+    desc.value = "";
 
-//         }        
-//     }
-// }
+    if (size == "---" || material == "---" || radioValue == "Off") {
+        desc.value = "SELECT SIZE, MATERIAL, OFFSET OR KICK, AND FITTINGS";
+    }
+    // ONLY FITTING A
+    else if (fittingA != "---" && fittingZ == "---") {
+        if (conduitColor == "---" || conduitColor == "SILVER") {
+            if (fittingColor == "---" || fittingColor == "SILVER") {
+                desc.value = size + " " + material + " " + radioValue + " W/ " + fittingA;
+            }
+            else {
+                desc.value = size + " " + material + " " + radioValue + " W/ " + fittingColor + " " + fittingA;
+            }
+        }
+        else {
+            if (fittingColor == "---" || fittingColor == "SILVER") {
+                desc.value = conduitColor + " " + size + " " + material + " " + radioValue + " W/ " + fittingA;
+            }
+            else {
+                desc.value = conduitColor + " " + size + " " + material + " " + radioValue + " W/ " + fittingColor + " " + fittingA;
+            }
+        }
+    }    
+    // ONLY FITTING Z
+    else if (fittingA == "---" && fittingZ != "---") {
+        if (conduitColor == "---" || conduitColor == "SILVER") {
+            if (fittingColor == "---" || fittingColor == "SILVER") {
+                desc.value = size + " " + material + " " + radioValue + " W/ " + fittingZ;
+            }
+            else {
+                desc.value = size + " " + material + " " + radioValue + " W/ " + fittingColor + " " + fittingZ;
+            }
+        }
+        else {
+            if (fittingColor == "---" || fittingColor == "SILVER") {
+                desc.value = conduitColor + " " + size + " " + material + " " + radioValue + " W/ " + fittingZ;
+            }
+            else {
+                desc.value = conduitColor + " " + size + " " + material + " " + radioValue + " W/ " + fittingColor + " " + fittingZ;
+            }
+        }
+    }    
+    // NO FITTINGS
+    else if (fittingA == "---" && fittingZ == "---") {
+        if (conduitColor == "---" || conduitColor == "SILVER") {
+            desc.value = size + " " + material + " " + radioValue + " W/ NO FITTINGS";
+        }
+        else {
+            desc.value = conduitColor + " " + size + " " + material + " " + radioValue + " W/ NO FITTINGS";
+        }
+    }    
+    // BOTH FITTINGS
+    else if (fittingA != "---" && fittingZ != "---") {
+        if (conduitColor == "---" || conduitColor == "SILVER") {
+            if (fittingColor == "---" || fittingColor == "SILVER") {
+                desc.value = size + " " + material + " " + radioValue + " W/ " + fittingA + " & " + fittingZ;
+            }
+            else {
+                desc.value = size + " " + material + " " + radioValue + " W/ " + fittingColor + " " + fittingA + " & " + fittingZ;
+            }
+        }
+        else {
+            if (fittingColor == "---" || fittingColor == "SILVER") {
+                desc.value = conduitColor + " " + size + " " + material + " " + radioValue + " W/ " + fittingA + " & " + fittingZ;
+            }
+            else {
+                desc.value = conduitColor + " " + size + " " + material + " " + radioValue + " W/ " + fittingColor + " " + fittingA + " & " + fittingZ;
+            }
+        }
+    }
+}
 
 // function setDesc(descField, sizeField, materialField, fittingAField, fittingZField, heightField, idField) {
 //     var desc = this.getField(descField);
