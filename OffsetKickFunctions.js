@@ -253,6 +253,9 @@ function degreeMarks(degreeField) {
 }
 
 function overallLength(radioGroup, heightField, topLenField, bottomLenField, overallLenField, degreeField) {
+    function roundToQuarter(num) {
+        return (Math.round(num * 4) / 4).toFixed(2);
+    }
     function toDegrees(angle) {
         return angle * (180 / Math.PI);
     }
@@ -272,7 +275,7 @@ function overallLength(radioGroup, heightField, topLenField, bottomLenField, ove
             overallLen.value = "ERROR";
         }
         else {
-            overallLen.value = overallLenInt + '"';
+            overallLen.value = roundToQuarter(overallLenInt) + '"';
         }
     }
     else if (radioValue == "KICK" && bottomLen !="" && degree != "" && height != "") {
@@ -285,9 +288,9 @@ function overallLength(radioGroup, heightField, topLenField, bottomLenField, ove
             overallLen.value = "ERROR";
         }
         else {
-            overallLen.value = overallCalc + '"';
+            overallLen.value = roundToQuarter(overallCalc) + '"';
             missingWidth = Math.round(missingWidth * 100) / 100;
-            this.getField(topLenField).value = missingWidth + '"';
+            this.getField(topLenField).value = roundToQuarter(missingWidth) + '"';
         }
     }
     else if (radioValue == "KICK" && bottomLen != "" && degree != "") {
@@ -301,11 +304,11 @@ function overallLength(radioGroup, heightField, topLenField, bottomLenField, ove
             overallLen.value = "ERROR";
         }
         else {
-            overallLen.value = overallCalc + '"';
+            overallLen.value = roundToQuarter(overallCalc) + '"';
             heightCalc = Math.round(heightCalc * 100) / 100;
-            this.getField(heightField).value = heightCalc + '"';
+            this.getField(heightField).value = roundToQuarter(heightCalc) + '"';
             missingWidth = Math.round(missingWidth * 100) / 100;
-            this.getField(topLenField).value = missingWidth + '"';
+            this.getField(topLenField).value = roundToQuarter(missingWidth) + '"';
         }
     }
     else if (radioValue == "KICK" && height != "" && degree !="") {
@@ -320,12 +323,24 @@ function overallLength(radioGroup, heightField, topLenField, bottomLenField, ove
         else {
             overallLen.value = overallCalc + '"';
             missingWidth = Math.round(missingWidth * 100) / 100;
-            this.getField(topLenField).value = missingWidth + '"';
+            this.getField(topLenField).value = roundToQuarter(missingWidth) + '"';
             var bottomLen = 120 - hypotenuse;
             bottomLen = Math.round(bottomLen * 100) / 100;
-            this.getField(bottomLenField).value = bottomLen + '"';
+            this.getField(bottomLenField).value = roundToQuarter(bottomLen) + '"';
         }
     }
+    // else if (radioValue == "OFFSET" && topLen != "" && bottomLen != "" && height != "" &&  degree != "") {
+    //     degreeInRadians = toRadians(parseInt(degree));
+    //     var missingWidth = parseInt(height) / Math.tan(degreeInRadians);
+    //     var overallCalc = parseInt(topLen) + parseInt(bottomLen) + missingWidth;
+    //     overallCalc = Math.round(overallCalc * 100) / 100;
+    //     if (overallCalc <= 0 || isNaN(overallCalc)) {
+    //         overallLen.value = "ERROR";
+    //     }
+    //     else {
+    //         overallLen.value = overallCalc + '"';
+    //     }
+    // }
     else if (radioValue == "OFFSET" && topLen != "" && bottomLen != "" && height != "") {
         var hypotenuse = 120 - (parseInt(topLen) + parseInt(bottomLen));
         var bottomDegree = toDegrees(Math.asin(parseInt(height) / hypotenuse));
@@ -337,9 +352,9 @@ function overallLength(radioGroup, heightField, topLenField, bottomLenField, ove
             overallLen.value = "ERROR";
         }
         else {
-            overallLen.value = overallCalc + '"';
+            overallLen.value = roundToQuarter(overallCalc) + '"';
             bottomDegree = Math.round(bottomDegree * 100) / 100;
-            this.getField(degreeField).value = bottomDegree + '°';
+            this.getField(degreeField).value = roundToQuarter(bottomDegree) + '°';
         }
     }
     else if (radioValue == "OFFSET" && degree != "" && height != "") {
@@ -353,7 +368,7 @@ function overallLength(radioGroup, heightField, topLenField, bottomLenField, ove
             overallLen.value = "ERROR";
         }
         else {
-            overallLen.value = overallCalc + '"';
+            overallLen.value = roundToQuarter(overallCalc) + '"';
         }
     }
 }
@@ -395,7 +410,7 @@ function setDesc(descField, sizeField, conduitColorField, materialField, radioGr
                 desc.value = conduitColor + " " + size + " " + material + " " + radioValue + " W/ " + fittingColor + " " + fittingA;
             }
         }
-    }    
+    }
     // ONLY FITTING Z
     else if (fittingA == "---" && fittingZ != "---") {
         if (conduitColor == "---" || conduitColor == "SILVER") {
@@ -414,7 +429,7 @@ function setDesc(descField, sizeField, conduitColorField, materialField, radioGr
                 desc.value = conduitColor + " " + size + " " + material + " " + radioValue + " W/ " + fittingColor + " " + fittingZ;
             }
         }
-    }    
+    }
     // NO FITTINGS
     else if (fittingA == "---" && fittingZ == "---") {
         if (conduitColor == "---" || conduitColor == "SILVER") {
