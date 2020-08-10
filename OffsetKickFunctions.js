@@ -252,7 +252,7 @@ function degreeMarks(degreeField) {
     }
 }
 
-function overallLength(radioGroup, heightField, topLenField, bottomLenField, overallLenField, degreeField) {
+function overallLength(radioGroup, heightField, topLenField, bottomLenField, overallLenField, degreeField, cutMarkField) {
     function roundToQuarter(num) {
         return (Math.round(num * 4) / 4).toFixed(2);
     }
@@ -268,6 +268,7 @@ function overallLength(radioGroup, heightField, topLenField, bottomLenField, ove
     var bottomLen = this.getField(bottomLenField).value;
     var overallLen = this.getField(overallLenField);
     var degree = this.getField(degreeField).value;
+    var cutMarks = this.getField(cutMarkField);
 
     if (radioValue == "KICK" && topLen != "" && bottomLen != "") {
         var overallLenInt = parseInt(topLen) + parseInt(bottomLen);
@@ -321,7 +322,7 @@ function overallLength(radioGroup, heightField, topLenField, bottomLenField, ove
             overallLen.value = "ERROR";
         }
         else {
-            overallLen.value = overallCalc + '"';
+            overallLen.value = roundToQuarter(overallCalc) + '"';
             missingWidth = Math.round(missingWidth * 100) / 100;
             this.getField(topLenField).value = roundToQuarter(missingWidth) + '"';
             var bottomLen = 120 - hypotenuse;
@@ -329,18 +330,22 @@ function overallLength(radioGroup, heightField, topLenField, bottomLenField, ove
             this.getField(bottomLenField).value = roundToQuarter(bottomLen) + '"';
         }
     }
-    // else if (radioValue == "OFFSET" && topLen != "" && bottomLen != "" && height != "" &&  degree != "") {
-    //     degreeInRadians = toRadians(parseInt(degree));
-    //     var missingWidth = parseInt(height) / Math.tan(degreeInRadians);
-    //     var overallCalc = parseInt(topLen) + parseInt(bottomLen) + missingWidth;
-    //     overallCalc = Math.round(overallCalc * 100) / 100;
-    //     if (overallCalc <= 0 || isNaN(overallCalc)) {
-    //         overallLen.value = "ERROR";
-    //     }
-    //     else {
-    //         overallLen.value = overallCalc + '"';
-    //     }
-    // }
+    else if (radioValue == "OFFSET" && topLen != "" && bottomLen != "" && height != "" &&  degree != "") {
+        degreeInRadians = toRadians(parseInt(degree));
+        var missingWidth = parseInt(height) / Math.tan(degreeInRadians);
+        var hypotenuseSquared = Math.pow(parseInt(height), 2) + Math.pow(missingWidth, 2);
+        var hypotenuse = Math.sqrt(hypotenuseSquared);
+        var overallCalc = parseInt(topLen) + parseInt(bottomLen) + missingWidth;
+        overallCalc = Math.round(overallCalc * 100) / 100;
+        var shrink = hypotenuse - missingWidth;
+        if (overallCalc <= 0 || isNaN(overallCalc)) {
+            overallLen.value = "ERROR";
+        }
+        else {
+            overallLen.value = roundToQuarter(overallCalc) + '"';
+            cutMarks.value = roundToQuarter(shrink + overallCalc) + '"';
+        }
+    }
     else if (radioValue == "OFFSET" && topLen != "" && bottomLen != "" && height != "") {
         var hypotenuse = 120 - (parseInt(topLen) + parseInt(bottomLen));
         var bottomDegree = toDegrees(Math.asin(parseInt(height) / hypotenuse));
@@ -459,34 +464,3 @@ function setDesc(descField, sizeField, conduitColorField, materialField, radioGr
         }
     }
 }
-
-// function setDesc(descField, sizeField, materialField, fittingAField, fittingZField, heightField, idField) {
-//     var desc = this.getField(descField);
-//     var size = this.getField(sizeField).value;
-//     var material = this.getField(materialField).value;
-//     var fittingA = this.getField(fittingAField).value;
-//     var fittingZ = this.getField(fittingZField).value;
-//     var height = this.getField(heightField).value;
-//     var id = this.getField(idField).value;
-
-//     desc.value = "";
-
-//     if (size == "---" || material == "---" || height == "" || id == "") {
-//         desc.value = "SELECT ID, SIZE, MATERIAL, AND HEIGHT"
-//     }
-//     // ONLY FITTING A
-//     else if (fittingA != "---" && fittingZ == "---") {
-//         desc.value = size + " " + material + " W/ " + fittingA + " - " + height + " HIGH - " + id;
-//     }
-//     // ONLY FITTING Z
-//     else if (fittingZ != "---" && fittingA == "---") {
-//         desc.value = size + " " + material + " W/ " + fittingZ + " - " + height + " HIGH - " + id;
-//     }
-//     // NO FITTINGS
-//     else if (fittingZ == "---" && fittingA == "---") {
-//         desc.value = size + " " + material + " W/ NO FITTINGS - " + height + " HIGH - " + id;
-//     }
-//     else {
-//         desc.value = size + " " + material + " W/ " + fittingA + " & " + fittingZ + " - " + height + " HIGH - " + id;
-//     }
-// }
