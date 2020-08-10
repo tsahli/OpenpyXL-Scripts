@@ -330,8 +330,7 @@ function overallLength(radioGroup, heightField, topLenField, bottomLenField, ove
     else if (radioValue == "OFFSET" && topLen != "" && bottomLen != "" && height != "" &&  degree != "") {
         degreeInRadians = toRadians(parseInt(degree));
         var missingWidth = parseInt(height) / Math.tan(degreeInRadians);
-        var hypotenuseSquared = Math.pow(parseInt(height), 2) + Math.pow(missingWidth, 2);
-        var hypotenuse = Math.sqrt(hypotenuseSquared);
+        var hypotenuse = Math.sqrt(parseInt(height)*parseInt(height) + missingWidth*missingWidth);
         var overallCalc = parseInt(topLen) + parseInt(bottomLen) + missingWidth;
         var shrink = hypotenuse - missingWidth;
         if (overallCalc <= 0 || isNaN(overallCalc)) {
