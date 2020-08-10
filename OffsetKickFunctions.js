@@ -284,7 +284,6 @@ function overallLength(radioGroup, heightField, topLenField, bottomLenField, ove
         var hypotenuse = 120 - parseInt(bottomLen);
         var missingWidth = hypotenuse * Math.cos(degreeInRadians);
         var overallCalc = 120 - (hypotenuse - missingWidth);
-        overallCalc = Math.round(overallCalc * 100) / 100;
         if (overallCalc <= 0 || isNaN(overallCalc)) {
             overallLen.value = "ERROR";
         }
@@ -300,7 +299,6 @@ function overallLength(radioGroup, heightField, topLenField, bottomLenField, ove
         var missingWidth = hypotenuse * Math.cos(degreeInRadians);
         var heightCalc = missingWidth * Math.tan(degreeInRadians);
         var overallCalc = 120 - (hypotenuse - missingWidth);
-        overallCalc = Math.round(overallCalc * 100) / 100;
         if (overallCalc <= 0 || isNaN(overallCalc)) {
             overallLen.value = "ERROR";
         }
@@ -317,7 +315,6 @@ function overallLength(radioGroup, heightField, topLenField, bottomLenField, ove
         var hypotenuse = parseInt(height) / Math.sin(degreeInRadians);
         var missingWidth = parseInt(height) / Math.tan(degreeInRadians);
         var overallCalc = 120 - (hypotenuse - missingWidth);
-        overallCalc = Math.round(overallCalc * 100) / 100;
         if (overallCalc <= 0 || isNaN(overallCalc)) {
             overallLen.value = "ERROR";
         }
@@ -336,7 +333,6 @@ function overallLength(radioGroup, heightField, topLenField, bottomLenField, ove
         var hypotenuseSquared = Math.pow(parseInt(height), 2) + Math.pow(missingWidth, 2);
         var hypotenuse = Math.sqrt(hypotenuseSquared);
         var overallCalc = parseInt(topLen) + parseInt(bottomLen) + missingWidth;
-        overallCalc = Math.round(overallCalc * 100) / 100;
         var shrink = hypotenuse - missingWidth;
         if (overallCalc <= 0 || isNaN(overallCalc)) {
             overallLen.value = "ERROR";
@@ -352,7 +348,6 @@ function overallLength(radioGroup, heightField, topLenField, bottomLenField, ove
         var missingWidth = hypotenuse * Math.cos(toRadians(bottomDegree));
         missingWidth = Math.round(missingWidth * 100) / 100;
         var overallCalc = 120 - (hypotenuse - missingWidth);
-        overallCalc = Math.round(overallCalc * 100) / 100;
         if (overallCalc <= 0 || isNaN(overallCalc)) {
             overallLen.value = "ERROR";
         }
@@ -368,7 +363,6 @@ function overallLength(radioGroup, heightField, topLenField, bottomLenField, ove
         missingWidth = Math.round(missingWidth * 100) / 100;
         var hypotenuse = parseInt(height) / Math.sin(degreeInRadians);
         var overallCalc = 120 - (hypotenuse - missingWidth);
-        overallCalc = Math.round(overallCalc * 100) / 100;
         if (overallCalc <= 0 || isNaN(overallCalc)) {
             overallLen.value = "ERROR";
         }
