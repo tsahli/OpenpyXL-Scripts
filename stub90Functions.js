@@ -439,6 +439,49 @@ function copy(copyFromField, copyToField) {
     }
 }
 
+function cutLength(conduitSizeField, HeightField, LengthField, cutLengthField) {
+    var conduitSize = this.getField(conduitSizeField).value;
+    var height = this.getField(HeightField).value;
+    var length = this.getField(LengthField).value;
+    var cutLength = this.getField(cutLengthField);
+
+    function sizeToFloat(conduitSize) {
+        if (conduitSize == '3/4"') {
+            return 0.75;
+        }
+        else if (conduitSize == '1-1/4"') {
+            return 1.25;
+        }
+        else if (conduitSize == '1-1/2"') {
+            return 1.50;
+        }
+        else if (conduitSize == '2-1/2"') {
+            return 2.50;
+        }
+        else if (conduitSize == '3-1/2"') {
+            return 3.50;
+        }
+        else {
+            return parseFloat(conduitSize);
+        }
+    }
+
+    function roundToEighth(num) {
+        return (Math.round(num * 8) / 8).toFixed(2);
+    }
+
+    if (conduitSize != "---" && height != "" && length != "") {
+        var radius = 8 * sizeToFloat(conduitSize);
+        var developedLength = radius * 1.57;
+        var shrink = (2 * radius) - developedLength;
+        var cut = (parseFloat(height) + parseFloat(length)) - shrink
+        cutLength.value = roundToEighth(cut).toString() + '"';
+    }
+    else {
+        cutLength.value = "";
+    }
+}
+
 // SIZE - MATERIAL - 'WITH' FITTING A '&' FITTING Z - HEIGHT - IDENTIFIER
 function setDesc(descField, sizeField, materialField, fittingAField, fittingZField, heightField, idField) {
     var desc = this.getField(descField);
