@@ -444,6 +444,10 @@ function cutLength(conduitSizeField, HeightField, LengthField, cutLengthField) {
     var height = this.getField(HeightField).value;
     var length = this.getField(LengthField).value;
     var cutLength = this.getField(cutLengthField);
+    
+    // Radius = 8 * Conduit Size
+    // DL = Radius * 1.57
+    // Shrink = 2(Radius) - DL
 
     function sizeToFloat(conduitSize) {
         if (conduitSize == '3/4"') {
