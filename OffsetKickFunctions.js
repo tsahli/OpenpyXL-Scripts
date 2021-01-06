@@ -2447,166 +2447,240 @@ function overallLength(conduitSizeField, conduitMaterialField, radioGroup, heigh
     };
 
     function offsetBendMarks(size, material, angle, height, bottomLen, missingWidth) {
-        lengthToEndOfSecondBend = bottomLen + missingWidth
+        function findLenToEndOfSecondBend(size, angle, bottomLen, missingWidth) {
+            let missingMeasurements = {
+                '3/4"' : 1.47,
+                '1"' : 1.88,
+                '1-1/4"' : 2.21,
+                '1-1/2"' : 2.24,
+                '2"' : 2.48,
+                '2-1/2"' : 3.72,
+                '3"' : 4.42,
+                '3-1/2"' : 5.14,
+                '4"' : 5.76,
+                '5"' : 7.18,
+                '6"' : 8.93,
+            }
+            var parsedAngle = parseFloat(angle);
+            var multiplier = parsedAngle / 30;
+            var measurement = missingMeasurements[size];
+            var computedMeasurement = (multiplier * measurement) * 2;
+            return computedMeasurement + parseFloat(bottomLen) + missingWidth;
+        }
+
         if (size == '3/4"') {
             if (material.indexOf('EMT') !== -1) {
-                l = offsetThreeQuarterInch[angle][height];
-                z = parseFloat(l[0]);
-                l1 = parseFloat(l[1]);
-                firstBendMark = lengthToEndOfSecondBend - z;
-                secondBendMark = firstBendMark + l1;
+                var l = offsetThreeQuarterInch[angle][height];
+                var z = parseFloat(l[0]);
+                var l1 = parseFloat(l[1]);
+                var firstBendMark = findLenToEndOfSecondBend(size, angle, bottomLen, missingWidth) - z;
+                if (firstBendMark < 0) {
+                    firstBendMark = Math.abs(firstBendMark) + 2;
+                }
+                var secondBendMark = firstBendMark + l1;
                 return [firstBendMark, secondBendMark];
             }
             else {
-                l = offsetRigidThreeQuarterInch[angle][height];
-                z = parseFloat(l[0]);
-                l1 = parseFloat(l[1]);
-                firstBendMark = lengthToEndOfSecondBend - z;
-                secondBendMark = firstBendMark + l1;
+                var l = offsetRigidThreeQuarterInch[angle][height];
+                var z = parseFloat(l[0]);
+                var l1 = parseFloat(l[1]);
+                var firstBendMark = findLenToEndOfSecondBend(size, angle, bottomLen, missingWidth) - z;
+                if (firstBendMark < 0) {
+                    firstBendMark = Math.abs(firstBendMark) + 2;
+                }
+                var secondBendMark = firstBendMark + l1;
                 return [firstBendMark, secondBendMark];
             }
         }
         else if (size == '1"') {
             if (material.indexOf('EMT') !== -1) {
-                l = offsetOneInch[angle][height];
-                z = parseFloat(l[0]);
-                l1 = parseFloat(l[1]);
-                firstBendMark = lengthToEndOfSecondBend - z;
-                secondBendMark = firstBendMark + l1;
+                var l = offsetOneInch[angle][height];
+                var z = parseFloat(l[0]);
+                var l1 = parseFloat(l[1]);
+                var firstBendMark = findLenToEndOfSecondBend(size, angle, bottomLen, missingWidth) - z;
+                if (firstBendMark < 0) {
+                    firstBendMark = Math.abs(firstBendMark) + 2;
+                }
+                var secondBendMark = firstBendMark + l1;
                 return [firstBendMark, secondBendMark];
             }
             else {
-                l = offsetRigidOneInch[angle][height];
-                z = parseFloat(l[0]);
-                l1 = parseFloat(l[1]);
-                firstBendMark = lengthToEndOfSecondBend - z;
-                secondBendMark = firstBendMark + l1;
+                var l = offsetRigidOneInch[angle][height];
+                var z = parseFloat(l[0]);
+                var l1 = parseFloat(l[1]);
+                var firstBendMark = findLenToEndOfSecondBend(size, angle, bottomLen, missingWidth) - z;
+                if (firstBendMark < 0) {
+                    firstBendMark = Math.abs(firstBendMark) + 2;
+                }
+                var secondBendMark = firstBendMark + l1;
                 return [firstBendMark, secondBendMark];
             }
         }
         else if (size == '1-1/4"') {
             if (material.indexOf('EMT') !== -1) {
-                l = offsetOneAndOneQuarterInch[angle][height];
-                z = parseFloat(l[0]);
-                l1 = parseFloat(l[1]);
-                firstBendMark = lengthToEndOfSecondBend - z;
-                secondBendMark = firstBendMark + l1;
+                var l = offsetOneAndOneQuarterInch[angle][height];
+                var z = parseFloat(l[0]);
+                var l1 = parseFloat(l[1]);
+                var firstBendMark = findLenToEndOfSecondBend(size, angle, bottomLen, missingWidth) - z;
+                if (firstBendMark < 0) {
+                    firstBendMark = Math.abs(firstBendMark) + 2;
+                }
+                var secondBendMark = firstBendMark + l1;
                 return [firstBendMark, secondBendMark];
             }
             else {
-                l = offsetRigidOneAndOneQuarterInch[angle][height];
-                z = parseFloat(l[0]);
-                l1 = parseFloat(l[1]);
-                firstBendMark = lengthToEndOfSecondBend - z;
-                secondBendMark = firstBendMark + l1;
+                var l = offsetRigidOneAndOneQuarterInch[angle][height];
+                var z = parseFloat(l[0]);
+                var l1 = parseFloat(l[1]);
+                var firstBendMark = findLenToEndOfSecondBend(size, angle, bottomLen, missingWidth) - z;
+                if (firstBendMark < 0) {
+                    firstBendMark = Math.abs(firstBendMark) + 2;
+                }
+                var secondBendMark = firstBendMark + l1;
                 return [firstBendMark, secondBendMark];
             }
         }
         else if (size == '1-1/2"') {
             if (material.indexOf('EMT') !== -1) {
-                l = offsetOneAndOneHalfInch[angle][height];
-                z = parseFloat(l[0]);
-                l1 = parseFloat(l[1]);
-                firstBendMark = lengthToEndOfSecondBend - z;
-                secondBendMark = firstBendMark + l1;
+                var l = offsetOneAndOneHalfInch[angle][height];
+                var z = parseFloat(l[0]);
+                var l1 = parseFloat(l[1]);
+                var firstBendMark = findLenToEndOfSecondBend(size, angle, bottomLen, missingWidth) - z;
+                if (firstBendMark < 0) {
+                    firstBendMark = Math.abs(firstBendMark) + 2;
+                }
+                var secondBendMark = firstBendMark + l1;
                 return [firstBendMark, secondBendMark];
             }
             else {
-                l = offsetRigidOneAndOneHalfInch[angle][height];
-                z = parseFloat(l[0]);
-                l1 = parseFloat(l[1]);
-                firstBendMark = lengthToEndOfSecondBend - z;
-                secondBendMark = firstBendMark + l1;
+                var l = offsetRigidOneAndOneHalfInch[angle][height];
+                var z = parseFloat(l[0]);
+                var l1 = parseFloat(l[1]);
+                var firstBendMark = findLenToEndOfSecondBend(size, angle, bottomLen, missingWidth) - z;
+                if (firstBendMark < 0) {
+                    firstBendMark = Math.abs(firstBendMark) + 2;
+                }
+                var secondBendMark = firstBendMark + l1;
                 return [firstBendMark, secondBendMark];
             }
         }
         else if (size == '2"') {
             if (material.indexOf('EMT') !== -1) {
-                l = offsetTwoInch[angle][height];
-                z = parseFloat(l[0]);
-                l1 = parseFloat(l[1]);
-                firstBendMark = lengthToEndOfSecondBend - z;
-                secondBendMark = firstBendMark + l1;
+                var l = offsetTwoInch[angle][height];
+                var z = parseFloat(l[0]);
+                var l1 = parseFloat(l[1]);
+                var firstBendMark = findLenToEndOfSecondBend(size, angle, bottomLen, missingWidth) - z;
+                if (firstBendMark < 0) {
+                    firstBendMark = Math.abs(firstBendMark) + 2;
+                }
+                var secondBendMark = firstBendMark + l1;
                 return [firstBendMark, secondBendMark];
             }
             else {
-                l = offsetRigidTwoInch[angle][height];
-                z = parseFloat(l[0]);
-                l1 = parseFloat(l[1]);
-                firstBendMark = lengthToEndOfSecondBend - z;
-                secondBendMark = firstBendMark + l1;
+                var l = offsetRigidTwoInch[angle][height];
+                var z = parseFloat(l[0]);
+                var l1 = parseFloat(l[1]);
+                var firstBendMark = findLenToEndOfSecondBend(size, angle, bottomLen, missingWidth) - z;
+                if (firstBendMark < 0) {
+                    firstBendMark = Math.abs(firstBendMark) + 2;
+                }
+                var secondBendMark = firstBendMark + l1;
                 return [firstBendMark, secondBendMark];
             }
         }
         else if (size == '2-1/2"') {
             if (material.indexOf('EMT') !== -1) {
-                l = offsetTwoAndHalfInch[angle][height];
-                z = parseFloat(l[0]);
-                l1 = parseFloat(l[1]);
-                firstBendMark = lengthToEndOfSecondBend - z;
-                secondBendMark = firstBendMark + l1;
+                var l = offsetTwoAndHalfInch[angle][height];
+                var z = parseFloat(l[0]);
+                var l1 = parseFloat(l[1]);
+                var firstBendMark = findLenToEndOfSecondBend(size, angle, bottomLen, missingWidth) - z;
+                if (firstBendMark < 0) {
+                    firstBendMark = Math.abs(firstBendMark) + 2;
+                }
+                var secondBendMark = firstBendMark + l1;
                 return [firstBendMark, secondBendMark];
             }
             else {
-                l = offsetRigidTwoAndOneHalfInch[angle][height];
-                z = parseFloat(l[0]);
-                l1 = parseFloat(l[1]);
-                firstBendMark = lengthToEndOfSecondBend - z;
-                secondBendMark = firstBendMark + l1;
+                var l = offsetRigidTwoAndOneHalfInch[angle][height];
+                var z = parseFloat(l[0]);
+                var l1 = parseFloat(l[1]);
+                var firstBendMark = findLenToEndOfSecondBend(size, angle, bottomLen, missingWidth) - z;
+                if (firstBendMark < 0) {
+                    firstBendMark = Math.abs(firstBendMark) + 2;
+                }
+                var secondBendMark = firstBendMark + l1;
                 return [firstBendMark, secondBendMark];
             }
         }
         else if (size == '3"') {
             if (material.indexOf('EMT') !== -1) {
-                l = offsetThreeInch[angle][height];
-                z = parseFloat(l[0]);
-                l1 = parseFloat(l[1]);
-                firstBendMark = lengthToEndOfSecondBend - z;
-                secondBendMark = firstBendMark + l1;
+                var l = offsetThreeInch[angle][height];
+                var z = parseFloat(l[0]);
+                var l1 = parseFloat(l[1]);
+                var firstBendMark = findLenToEndOfSecondBend(size, angle, bottomLen, missingWidth) - z;
+                if (firstBendMark < 0) {
+                    firstBendMark = Math.abs(firstBendMark) + 2;
+                }
+                var secondBendMark = firstBendMark + l1;
                 return [firstBendMark, secondBendMark];
             }
             else {
-                l = offsetRigidThreeInch[angle][height];
-                z = parseFloat(l[0]);
-                l1 = parseFloat(l[1]);
-                firstBendMark = lengthToEndOfSecondBend - z;
-                secondBendMark = firstBendMark + l1;
+                var l = offsetRigidThreeInch[angle][height];
+                var z = parseFloat(l[0]);
+                var l1 = parseFloat(l[1]);
+                var firstBendMark = findLenToEndOfSecondBend(size, angle, bottomLen, missingWidth) - z;
+                if (firstBendMark < 0) {
+                    firstBendMark = Math.abs(firstBendMark) + 2;
+                }
+                var secondBendMark = firstBendMark + l1;
                 return [firstBendMark, secondBendMark];
             }
         }
         else if (size == '3-1/2"') {
             if (material.indexOf('EMT') !== -1) {
-                l = offsetThreeAndOneHalfInch[angle][height];
-                z = parseFloat(l[0]);
-                l1 = parseFloat(l[1]);
-                firstBendMark = lengthToEndOfSecondBend - z;
-                secondBendMark = firstBendMark + l1;
+                var l = offsetThreeAndOneHalfInch[angle][height];
+                var z = parseFloat(l[0]);
+                var l1 = parseFloat(l[1]);
+                var firstBendMark = findLenToEndOfSecondBend(size, angle, bottomLen, missingWidth) - z;
+                if (firstBendMark < 0) {
+                    firstBendMark = Math.abs(firstBendMark) + 2;
+                }
+                var secondBendMark = firstBendMark + l1;
                 return [firstBendMark, secondBendMark];
             }
             else {
-                l = offsetRigidThreeAndOneHalfInch[angle][height];
-                z = parseFloat(l[0]);
-                l1 = parseFloat(l[1]);
-                firstBendMark = lengthToEndOfSecondBend - z;
-                secondBendMark = firstBendMark + l1;
+                var l = offsetRigidThreeAndOneHalfInch[angle][height];
+                var z = parseFloat(l[0]);
+                var l1 = parseFloat(l[1]);
+                var firstBendMark = findLenToEndOfSecondBend(size, angle, bottomLen, missingWidth) - z;
+                if (firstBendMark < 0) {
+                    firstBendMark = Math.abs(firstBendMark) + 2;
+                }
+                var secondBendMark = firstBendMark + l1;
                 return [firstBendMark, secondBendMark];
             }
         }
         else if (size == '4"') {
             if (material.indexOf('EMT') !== -1) {
-                l = offsetFourInch[angle][height];
-                z = parseFloat(l[0]);
-                l1 = parseFloat(l[1]);
-                firstBendMark = lengthToEndOfSecondBend - z;
-                secondBendMark = firstBendMark + l1;
+                var l = offsetFourInch[angle][height];
+                var z = parseFloat(l[0]);
+                var l1 = parseFloat(l[1]);
+                var firstBendMark = findLenToEndOfSecondBend(size, angle, bottomLen, missingWidth) - z;
+                if (firstBendMark < 0) {
+                    firstBendMark = Math.abs(firstBendMark) + 2;
+                }
+                var secondBendMark = firstBendMark + l1;
                 return [firstBendMark, secondBendMark];
             }
             else {
-                l = offsetRigidFourInch[angle][height];
-                z = parseFloat(l[0]);
-                l1 = parseFloat(l[1]);
-                firstBendMark = lengthToEndOfSecondBend - z;
-                secondBendMark = firstBendMark + l1;
+                var l = offsetRigidFourInch[angle][height];
+                var z = parseFloat(l[0]);
+                var l1 = parseFloat(l[1]);
+                var firstBendMark = findLenToEndOfSecondBend(size, angle, bottomLen, missingWidth) - z;
+                if (firstBendMark < 0) {
+                    firstBendMark = Math.abs(firstBendMark) + 2;
+                }
+                var secondBendMark = firstBendMark + l1;
                 return [firstBendMark, secondBendMark];
             }
         }
@@ -2769,63 +2843,77 @@ function overallLength(conduitSizeField, conduitMaterialField, radioGroup, heigh
         }
     }
     else if (radioValue == "OFFSET" && height != "" && overallLen.value != "" && degree != "" && topLen != "" && bottomLen != "") {
-        // CANT RELIABLY CALCULATE CUTS WHEN GIVEN TOP & BOTTOM LEN
-        cutMarks.value = "CANNOT CALCULATE";
+        var degreeInRadians = toRadians(parseInt(degree));
+        var missingWidth = parseInt(height) / Math.tan(degreeInRadians);
+        var bendMarkList = offsetBendMarks(size, material, degree, height, bottomLen, missingWidth)
+        cutMarks.value = roundToQuarter(bendMarkList[0]).toString() + '" // ' + roundToQuarter(bendMarkList[1]).toString() + '"';
     }
     else if (radioValue == "OFFSET" && height != "" && overallLen.value != "" && degree != "") {
-        degreeInRadians = toRadians(parseInt(degree));
+        var degreeInRadians = toRadians(parseInt(degree));
         var missingWidth = parseInt(height) / Math.tan(degreeInRadians);
         var hypotenuse = Math.sqrt(parseInt(height)*parseInt(height) + missingWidth*missingWidth);
         var shrink = hypotenuse - missingWidth;
-        cutMarks.value = roundToQuarter(shrink + parseInt(overallLen.value)) + '"';
-        // bendMarkList cannot be reliably calculated because of missing bottomLen
-        // bendMarkList = offsetBendMarks(size, material, degree, height, bottomLen, missingWidth)
-        // app.alert(bendMarkList)
+        // cut marks = missingWidth + missingMeasurements + topLen + bottomLen + shrink
+        var bendMarkList = offsetBendMarks(size, material, degree, height, 2, missingWidth);
+        cutMarks.value = roundToQuarter(bendMarkList[0]).toString() + '" // ' + roundToQuarter(bendMarkList[1]).toString() + '"';
     }
     else if (radioValue == "OFFSET" && topLen != "" && bottomLen != "" && height != "" &&  degree != "") {
-        degreeInRadians = toRadians(parseInt(degree));
+        var degreeInRadians = toRadians(parseInt(degree));
         var missingWidth = parseInt(height) / Math.tan(degreeInRadians);
         var hypotenuse = Math.sqrt(parseInt(height)*parseInt(height) + missingWidth*missingWidth);
-        var overallCalc = parseInt(topLen) + parseInt(bottomLen) + missingWidth;
         var shrink = hypotenuse - missingWidth;
-        if (overallCalc <= 0 || isNaN(overallCalc)) {
-            overallLen.value = "ERROR";
-        }
-        else {
-            overallLen.value = roundToQuarter(overallCalc) + '"';
-            cutMarks.value = roundToQuarter(shrink + overallCalc) + '"';
-        }
+        var bendMarkList = offsetBendMarks(size, material, degree, height, bottomLen, missingWidth);
+        cutMarks.value = roundToQuarter(bendMarkList[0]).toString() + '" // ' + roundToQuarter(bendMarkList[1]).toString() + '"';
     }
-    else if (radioValue == "OFFSET" && topLen != "" && bottomLen != "" && height != "") {
-        var hypotenuse = 120 - (parseInt(topLen) + parseInt(bottomLen));
-        var bottomDegree = toDegrees(Math.asin(parseInt(height) / hypotenuse));
-        var missingWidth = hypotenuse * Math.cos(toRadians(bottomDegree));
-        missingWidth = Math.round(missingWidth * 100) / 100;
-        var overallCalc = 120 - (hypotenuse - missingWidth);
-        if (overallCalc <= 0 || isNaN(overallCalc)) {
-            overallLen.value = "ERROR";
-        }
-        else {
-            overallLen.value = roundToQuarter(overallCalc) + '"';
-            bottomDegree = Math.round(bottomDegree * 100) / 100;
-            this.getField(degreeField).value = roundToQuarter(bottomDegree) + '°';
-            bendMarkList = offsetBendMarks(size, material, degree, height, bottomLen, missingWidth);
-            app.alert(bendMarkList);
-        }
+    // else if (radioValue == "OFFSET" && topLen != "" && bottomLen != "" && height != "") {
+    //     // calculation for hypotenuse must take into account missing measurements for top/bottom len
+    // }
+    else if (radioValue == "OFFSET" && bottomLen != "" && height != "" && degree != "") {
+        var degreeInRadians = toRadians(parseInt(degree));
+        var missingWidth = parseInt(height) / Math.tan(degreeInRadians);
+        var bendMarkList = offsetBendMarks(size, material, degree, height, bottomLen, missingWidth);
+        cutMarks.value = roundToQuarter(bendMarkList[0]).toString() + '" // ' + roundToQuarter(bendMarkList[1]).toString() + '"';
     }
-    else if (radioValue == "OFFSET" && degree != "" && height != "") {
+    else if(radioValue == "OFFSET" && degree != "" && height != "") {
         var degreeInRadians = toRadians(parseInt(degree));
         var missingWidth = parseInt(height) / Math.tan(degreeInRadians);
         missingWidth = Math.round(missingWidth * 100) / 100;
         var hypotenuse = parseInt(height) / Math.sin(degreeInRadians);
-        var overallCalc = 120 - (hypotenuse - missingWidth);
-        if (overallCalc <= 0 || isNaN(overallCalc)) {
-            overallLen.value = "ERROR";
-        }
-        else {
-            overallLen.value = roundToQuarter(overallCalc) + '"';
-        }
+        // overall len calc must take into account missing measurements for top/bottom len
+        var bendMarkList = offsetBendMarks(size, material, degree, height, 2, missingWidth);
+        cutMarks.value = roundToQuarter(bendMarkList[0]).toString() + '" // ' + roundToQuarter(bendMarkList[1]).toString() + '"';
     }
+
+    // else if (radioValue == "OFFSET" && topLen != "" && bottomLen != "" && height != "") {
+    //     var hypotenuse = 120 - (parseInt(topLen) + parseInt(bottomLen));
+    //     var bottomDegree = toDegrees(Math.asin(parseInt(height) / hypotenuse));
+    //     var missingWidth = hypotenuse * Math.cos(toRadians(bottomDegree));
+    //     missingWidth = Math.round(missingWidth * 100) / 100;
+    //     var overallCalc = 120 - (hypotenuse - missingWidth);
+    //     if (overallCalc <= 0 || isNaN(overallCalc)) {
+    //         overallLen.value = "ERROR";
+    //     }
+    //     else {
+    //         overallLen.value = roundToQuarter(overallCalc) + '"';
+    //         bottomDegree = Math.round(bottomDegree * 100) / 100;
+    //         this.getField(degreeField).value = roundToQuarter(bottomDegree) + '°';
+    //         bendMarkList = offsetBendMarks(size, material, degree, height, bottomLen, missingWidth);
+    //         app.alert(bendMarkList);
+    //     }
+    // }
+    // else if (radioValue == "OFFSET" && degree != "" && height != "") {
+    //     var degreeInRadians = toRadians(parseInt(degree));
+    //     var missingWidth = parseInt(height) / Math.tan(degreeInRadians);
+    //     missingWidth = Math.round(missingWidth * 100) / 100;
+    //     var hypotenuse = parseInt(height) / Math.sin(degreeInRadians);
+    //     var overallCalc = 120 - (hypotenuse - missingWidth);
+    //     if (overallCalc <= 0 || isNaN(overallCalc)) {
+    //         overallLen.value = "ERROR";
+    //     }
+    //     else {
+    //         overallLen.value = roundToQuarter(overallCalc) + '"';
+    //     }
+    // }
 }
 
 function alert(msg) {
