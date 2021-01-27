@@ -225,15 +225,8 @@ function copy(copyFromField, copyToField) {
 function inchMarks(inchField) {
     var inchFieldValue = this.getField(inchField).value;
     var inchValue = this.getField(inchField);
-
-    if (inchFieldValue != "") {
-        parsedValue = parseFloat(inchFieldValue);
-        if (parsedValue <= 0 || isNaN(parsedValue)) {
-            inchValue.value = "ERROR";
-        }
-        else {
-            inchValue.value = parsedValue + '"';
-        }
+    if (inchFieldValue != "" && inchFieldValue.toString().indexOf('"') == -1) {
+        inchValue.value = inchFieldValue + '"';
     }
 }
 
