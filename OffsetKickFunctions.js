@@ -185,6 +185,183 @@ function fittingA(sizeField, materialField, fittingAField) {
     }
 }
 
+function fittingZ(sizeField, materialField, fittingAField, fittingZField) {
+    var conduitSize = this.getField(sizeField).value;
+    var conduitMaterial = this.getField(materialField).value;
+    var fittingA = this.getField(fittingAField).value;
+
+    if (conduitMaterial == 'EMT') {
+        if (conduitSize != '5"' && conduitSize != '6"') {
+            this.getField(fittingZField).setItems([
+                "---",
+                "EMT SS COUP",
+                "EMT SS CONN",
+                "EMT COMP COUP",
+                "EMT RT COUP",
+                "EMT COMP CONN",
+                "EMT RT CONN",
+                "POUND ON BS"
+            ]);
+        }
+    }
+    else if (conduitMaterial == 'IMC' || conduitMaterial == 'RIGID') {
+        if (conduitSize != '5"' && conduitSize != '6"') {
+            this.getField(fittingZField).setItems([
+                "---",
+                "GRC COUP",
+                "GRC SS COUPLING",
+                "GRC SS CONN",
+                "GRC SS COUPLING",
+                "BOND BS",
+                "GROUND BS"
+            ]);
+        }
+        else if (conduitMaterial == 'RIGID') {
+            if (conduitSize == '5"' && fittingA != 'KwikFit Fitting') {
+                this.getField(fittingZField).setItems([
+                    "---",
+                    "KwikFit Fitting"
+                ]);
+            }
+            else {
+                this.getField(fittingZField).setItems([
+                    "---"
+                ]);
+            }
+        }
+    }
+    else if (conduitMaterial == 'KwikFit EMT') {
+        if (conduitSize != '5"' && conduitSize != '6"') {
+            if (fittingA != 'KwikFit Fitting') {
+                this.getField(fittingZField).setItems([
+                    "---",
+                    "KwikFit Fitting",
+                    "EMT SS COUP",
+                    "EMT SS CONN",
+                    "POUND ON BS"
+                ]);
+            }
+            else {
+                this.getField(fittingZField).setItems([
+                    "---",
+                    "EMT SS COUP",
+                    "EMT SS CONN",
+                    "POUND ON BS"
+                ]);
+            }
+        }
+    }
+    else if (conduitMaterial == 'KwikFit Comp EMT') {
+        if (conduitSize != '5"' && conduitSize != '6"') {
+            if (fittingA != 'KwikFit Fitting') {
+                this.getField(fittingZField).setItems([
+                    "---",
+                    "KwikFit Fitting",
+                    "EMT COMP COUP",
+                    "EMT COMP CONN",
+                    "POUND ON BS"
+                ]);
+            }
+            else {
+                this.getField(fittingZField).setItems([
+                    "---",
+                    "EMT COMP COUP",
+                    "EMT COMP CONN",
+                    "POUND ON BS"
+                ]);
+            }
+        }
+    }
+    else if (conduitMaterial == 'KwikFit RT EMT') {
+        if (conduitSize != '5"' && conduitSize != '6"') {
+            if (fittingA != 'KwikFit Fitting') {
+                this.getField(fittingZField).setItems([
+                    "---",
+                    "KwikFit Fitting",
+                    "EMT RT COUP",
+                    "EMT RT CONN",
+                    "POUND ON BS"
+                ]);
+            }
+            else {
+                this.getField(fittingZField).setItems([
+                    "---",
+                    "EMT RT COUP",
+                    "EMT RT CONN",
+                    "POUND ON BS"
+                ]);
+            }
+        }
+    }
+    else if (conduitMaterial == 'KwikCoup RT IMC') {
+        if (conduitSize != '5"' && conduitSize != '6"') {
+            if (fittingA != 'KwikFit Fitting') {
+                this.getField(fittingZField).setItems([
+                    "---",
+                    "KwikFit Fitting",
+                    "GRC COUP",
+                    "GRC SS COUPLING",
+                    "GRC SS CONN",
+                    "GRC SS COUPLING",
+                    "BOND BS",
+                    "GROUND BS"
+                ]);
+            }
+            else {
+                this.getField(fittingZField).setItems([
+                    "---",
+                    "GRC COUP",
+                    "GRC SS COUPLING",
+                    "GRC SS CONN",
+                    "GRC SS COUPLING",
+                    "BOND BS",
+                    "GROUND BS"
+                ]);
+            }
+        }
+    }
+    else if (conduitMaterial == 'KwikCoup RT GRC') {
+        if (conduitSize != '5"' && conduitSize != '6"') {
+            if (fittingA != 'KwikFit Fitting') {
+                this.getField(fittingZField).setItems([
+                    "---",
+                    "KiwkFit Fitting",
+                    "GRC COUP",
+                    "GRC SS COUPLING",
+                    "GRC SS CONN",
+                    "GRC SS COUPLING",
+                    "BOND BS",
+                    "GROUND BS"
+                ]);
+            }
+            else {
+                this.getField(fittingZField).setItems([
+                    "---",
+                    "GRC COUP",
+                    "GRC SS COUPLING",
+                    "GRC SS CONN",
+                    "GRC SS COUPLING",
+                    "BOND BS",
+                    "GROUND BS"
+                ]);
+            }
+        }
+        else if (conduitSize == '5"') {
+            if (fittingA != 'KwikFit Fitting') {
+                this.getField(fittingZField).setItems([
+                    "---",
+                    "KwikFit Fitting"
+                ]);
+            }
+        }
+    }
+    else {
+        this.getField(fittingZField).setItems([
+            "---"
+        ]);
+    }
+}
+
 function date(dateField) {
     var fld = this.getField(dateField);
     var empt = this.getField(dateField).value;
