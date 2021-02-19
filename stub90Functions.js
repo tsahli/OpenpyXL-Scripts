@@ -563,11 +563,62 @@ function bendMarks(conduitSizeField, conduitMaterialField, heightField, stubChec
     }
 }
 
-function cutLength(conduitSizeField, HeightField, LengthField, cutLengthField) {
+function cutLength(conduitSizeField, conduitMaterialField, HeightField, stubCheckbox, LengthField, cutLengthField) {
     var conduitSize = this.getField(conduitSizeField).value;
+    var conduitMaterial = this.getField(conduitMaterialField).value;
     var height = this.getField(HeightField).value;
+    var stubCheckbox = this.getField(stubCheckbox).value; // Off, Yes
     var length = this.getField(LengthField).value;
     var cutLength = this.getField(cutLengthField);
+
+    let minimumStubHeightTable = {
+        // MINIMUM STUB LENGTH
+        '3/4"': {
+            'RIGID': 11.875,
+            'EMT': 11.6875,
+            'IMC': 11.875
+        },
+        '1"': {
+            'RIGID': 13.875,
+            'EMT': 13.8125,
+            'IMC': 13.875
+        },
+        '1-1/4"': {
+            'RIGID': 16.375,
+            'EMT': 16.25,
+            'IMC': 16.375
+        },
+        '1-1/2"': {
+            'RIGID': 17.375,
+            'EMT': 17.3125,
+            'IMC': 17.375
+        },
+        '2"': {
+            'RIGID': 18.625,
+            'EMT': 18.75,
+            'IMC': 18.625
+        },
+        '2-1/2"': {
+            'RIGID': 24,
+            'EMT': 24,
+            'IMC': 24
+        },
+        '3"': {
+            'RIGID': 26.75,
+            'EMT': 27,
+            'IMC': 26.75
+        },
+        '3-1/2"': {
+            'RIGID': 30.75,
+            'EMT': 31.25,
+            'IMC': 30.75
+        },
+        '4"': {
+            'RIGID': 35,
+            'EMT': 36.25,
+            'IMC': 35
+        }
+    }
     
     // Radius = 8 * Conduit Size
     // DL = Radius * 1.57
@@ -598,11 +649,24 @@ function cutLength(conduitSizeField, HeightField, LengthField, cutLengthField) {
         return (Math.round(num * 8) / 8).toFixed(2);
     }
 
-    if (conduitSize != "---" && height != "" && length != "") {
+    if (conduitSize != "---" && height != "" && length != "" && stubCheckbox == "Off") {
         var radius = 8 * sizeToFloat(conduitSize);
         var developedLength = radius * 1.57;
         var shrink = (2 * radius) - developedLength;
-        var cut = (parseFloat(height) + parseFloat(length)) - shrink
+        var cut = (parseFloat(height) + parseFloat(length)) - shrink;
+        cutLength.value = roundToEighth(cut).toString() + '"';
+    }
+    else if (conduitSize != "---" && conduitMaterial != "---" && length != "" && stubCheckbox == "Yes") {
+        var radius = 8 * sizeToFloat(conduitSize);
+        var developedLength = radius * 1.57;
+        var shrink = (2 * radius) - developedLength;
+        if (conduitMaterial.indexOf('EMT') !== -1) {
+            var height = minimumStubHeightTable[conduitSize]['EMT'];
+        }
+        else {
+            var height = minimumStubHeightTable[conduitSize]['RIGID'];
+        }
+        var cut = (height + parseFloat(length)) - shrink;
         cutLength.value = roundToEighth(cut).toString() + '"';
     }
     else {
@@ -639,6 +703,14 @@ function setDesc(descField, sizeField, materialField, fittingAField, fittingZFie
     }
     else {
         desc.value = size + " " + material + " W/ " + fittingA + " & " + fittingZ + " - " + height + " HIGH - " + id;
+    }
+}
+
+function checkBoxClearing(checkboxField, textField) {
+    var checkbox = this.getField(checkboxField).value.toString();
+    var textField = this.getField(textField);
+    if (checkbox == "Yes" && textField.value != "") {
+        this.getField(checkboxField).value = "Off";
     }
 }
 
@@ -811,18 +883,22 @@ function matReq() {
     var fullWrap2 = this.getField('TYPE 2 FULL WRAP').value;
     var fullWrap3 = this.getField('TYPE 3 FULL WRAP').value;
     var fullWrap4 = this.getField('TYPE 4 FULL WRAP').value;
+    var fullWrap5 = this.getField('TYPE 5 FULL WRAP').value;
     var customWrap1 = this.getField('TYPE 1 CUSTOM WRAP HEIGHT').value;
     var customWrap2 = this.getField('TYPE 2 CUSTOM WRAP HEIGHT').value;
     var customWrap3 = this.getField('TYPE 3 CUSTOM WRAP HEIGHT').value;
     var customWrap4 = this.getField('TYPE 4 CUSTOM WRAP HEIGHT').value;
+    var customWrap5 = this.getField('TYPE 5 CUSTOM WRAP HEIGHT').value;
     var ductTapeTop1 = this.getField('TYPE 1 TOP').value;
     var ductTapeTop2 = this.getField('TYPE 2 TOP').value;
     var ductTapeTop3 = this.getField('TYPE 3 TOP').value;
     var ductTapeTop4 = this.getField('TYPE 4 TOP').value;
+    var ductTapeTop5 = this.getField('TYPE 5 TOP').value;
     var ductTapeBottom1 = this.getField('TYPE 1 BOTTOM').value;
     var ductTapeBottom2 = this.getField('TYPE 2 BOTTOM').value;
     var ductTapeBottom3 = this.getField('TYPE 3 BOTTOM').value;
     var ductTapeBottom4 = this.getField('TYPE 4 BOTTOM').value;
+    var ductTapeBottom5 = this.getField('TYPE 5 BOTTOM').value;
 
     var sizeList = []; // color, size, material
     var fittingList = []; // color, size, fitting
