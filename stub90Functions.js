@@ -90,18 +90,28 @@ function fittingA(sizeField, materialField, fittingAField) {
             this.getField(fittingAField).setItems([
                 "---",
                 "GRC COUP",
-                "GRC SS COUPLING",
+                "PVC FA",
                 "GRC SS CONN",
                 "GRC SS COUPLING",
                 "BOND BS",
-                "GROUND BS"
+                "GROUND BS",
+                "GRC COUP/EMT CONN"
             ]);
         }
         else if (conduitMaterial == 'RIGID') {
             if (conduitSize == '5"') {
                 this.getField(fittingAField).setItems([
                     "---",
-                    "KwikFit Fitting"
+                    "KwikFit Fitting",
+                    "GRC COUP",
+                    "PVC FA"
+                ]);
+            }
+            else if (conduitSize == '6"') {
+                this.getField(fittingAField).setItems([
+                    "---",
+                    "GRC COUP",
+                    "PVC FA"
                 ]);
             }
             else {
@@ -150,11 +160,12 @@ function fittingA(sizeField, materialField, fittingAField) {
                 "---",
                 "KwikFit Fitting",
                 "GRC COUP",
-                "GRC SS COUPLING",
+                "PVC FA",
                 "GRC SS CONN",
                 "GRC SS COUPLING",
                 "BOND BS",
-                "GROUND BS"
+                "GROUND BS",
+                "GRC COUP/EMT CONN"
             ]);
         }
     }
@@ -164,17 +175,20 @@ function fittingA(sizeField, materialField, fittingAField) {
                 "---",
                 "KiwkFit Fitting",
                 "GRC COUP",
-                "GRC SS COUPLING",
+                "PVC FA",
                 "GRC SS CONN",
                 "GRC SS COUPLING",
                 "BOND BS",
-                "GROUND BS"
+                "GROUND BS",
+                "GRC COUP/EMT CONN"
             ]);
         }
         else if (conduitSize == '5"') {
             this.getField(fittingAField).setItems([
                 "---",
-                "KwikFit Fitting"
+                "KwikFit Fitting",
+                "GRC COUP",
+                "PVC FA"
             ]);
         }
     }
@@ -209,23 +223,37 @@ function fittingZ(sizeField, materialField, fittingAField, fittingZField) {
             this.getField(fittingZField).setItems([
                 "---",
                 "GRC COUP",
-                "GRC SS COUPLING",
+                "PVC FA",
                 "GRC SS CONN",
                 "GRC SS COUPLING",
                 "BOND BS",
-                "GROUND BS"
+                "GROUND BS",
+                "GRC COUP/EMT CONN"
             ]);
         }
         else if (conduitMaterial == 'RIGID') {
-            if (conduitSize == '5"' && fittingA != 'KwikFit Fitting') {
+            if (conduitSize == '5"') {
+                if (fittingA != 'KwikFit Fitting') {
+                    this.getField(fittingZField).setItems([
+                        "---",
+                        "KwikFit Fitting",
+                        "GRC COUP",
+                        "PVC FA"
+                    ]);
+                }
+                else {
+                    this.getField(fittingZField).setItems([
+                        "---",
+                        "GRC COUP",
+                        "PVC FA"
+                    ]);
+                }
+            }
+            else if (conduitSize == '6"') {
                 this.getField(fittingZField).setItems([
                     "---",
-                    "KwikFit Fitting"
-                ]);
-            }
-            else {
-                this.getField(fittingZField).setItems([
-                    "---"
+                    "GRC COUP",
+                    "PVC FA"
                 ]);
             }
         }
@@ -300,24 +328,33 @@ function fittingZ(sizeField, materialField, fittingAField, fittingZField) {
                     "---",
                     "KwikFit Fitting",
                     "GRC COUP",
-                    "GRC SS COUPLING",
+                    "PVC FA",
                     "GRC SS CONN",
                     "GRC SS COUPLING",
                     "BOND BS",
-                    "GROUND BS"
+                    "GROUND BS",
+                    "GRC COUP/EMT CONN"
                 ]);
             }
             else {
                 this.getField(fittingZField).setItems([
                     "---",
                     "GRC COUP",
-                    "GRC SS COUPLING",
+                    "PVC FA",
                     "GRC SS CONN",
                     "GRC SS COUPLING",
                     "BOND BS",
-                    "GROUND BS"
+                    "GROUND BS",
+                    "GRC COUP/EMT CONN"
                 ]);
             }
+        }
+        else if (conduitSize == '5"' || conduitSize == '6"') {
+            this.getField(fittingZField).setItems([
+                "---",
+                "GRC COUP",
+                "PVC FA"
+            ]);
         }
     }
     else if (conduitMaterial == 'KwikCoup RT GRC') {
@@ -327,22 +364,24 @@ function fittingZ(sizeField, materialField, fittingAField, fittingZField) {
                     "---",
                     "KiwkFit Fitting",
                     "GRC COUP",
-                    "GRC SS COUPLING",
+                    "PVC FA",
                     "GRC SS CONN",
                     "GRC SS COUPLING",
                     "BOND BS",
-                    "GROUND BS"
+                    "GROUND BS",
+                    "GRC COUP/EMT CONN"
                 ]);
             }
             else {
                 this.getField(fittingZField).setItems([
                     "---",
                     "GRC COUP",
-                    "GRC SS COUPLING",
+                    "PVC FA",
                     "GRC SS CONN",
                     "GRC SS COUPLING",
                     "BOND BS",
-                    "GROUND BS"
+                    "GROUND BS",
+                    "GRC COUP/EMT CONN"
                 ]);
             }
         }
@@ -350,7 +389,16 @@ function fittingZ(sizeField, materialField, fittingAField, fittingZField) {
             if (fittingA != 'KwikFit Fitting') {
                 this.getField(fittingZField).setItems([
                     "---",
-                    "KwikFit Fitting"
+                    "KwikFit Fitting",
+                    "GRC COUP",
+                    "PVC FA"
+                ]);
+            }
+            else {
+                this.getField(fittingZField).setItems([
+                    "---",
+                    "GRC COUP",
+                    "PVC FA"
                 ]);
             }
         }
@@ -390,15 +438,8 @@ function fittingColor(fittingAField, fittingZField, fittingColorField) {
 function inchMarks(inchField) {
     var inchFieldValue = this.getField(inchField).value;
     var inchValue = this.getField(inchField);
-
-    if (inchFieldValue != "") {
-        parsedValue = parseInt(inchFieldValue);
-        if (parsedValue <= 0 || isNaN(parsedValue)) {
-            inchValue.value = "ERROR";
-        }
-        else {
-            inchValue.value = parsedValue + '"';
-        }
+    if (inchFieldValue != "" && inchFieldValue.toString().indexOf('"') == -1) {
+        inchValue.value = inchFieldValue + '"';
     }
 }
 
@@ -436,6 +477,89 @@ function copy(copyFromField, copyToField) {
     var copyData = this.getField(copyFromField).value;
     if (this.getField(copyToField).value == "") {
         this.getField(copyToField).value = copyData;
+    }
+}
+
+function bendMarks(conduitSizeField, conduitMaterialField, heightField, stubCheckbox, bendMarkField) {
+    function roundToQuarter(num) {
+        return (Math.round(num * 4) / 4).toFixed(2);
+    }
+    var conduitSize = this.getField(conduitSizeField).value;
+    var conduitMaterial = this.getField(conduitMaterialField).value;
+    var stubHeight = this.getField(heightField).value;
+    var stubCheckbox = this.getField(stubCheckbox).value; // Off, Yes
+    var bendMarks = this.getField(bendMarkField);
+
+    let deductTable = {
+        // DEDUCT, MINIMUM STUB LENGTH
+        '3/4"': {
+            'RIGID': [9.875, 11.875],
+            'EMT': [9.6875, 11.6875],
+            'IMC': [9.875, 11.875]
+        },
+        '1"': {
+            'RIGID': [11.875, 13.875],
+            'EMT': [11.8125, 13.8125],
+            'IMC': [11.875, 13.875]
+        },
+        '1-1/4"': {
+            'RIGID': [14.375, 16.375],
+            'EMT': [14.25, 16.25],
+            'IMC': [14.375, 16.375]
+        },
+        '1-1/2"': {
+            'RIGID': [15.375, 17.375],
+            'EMT': [15.3125, 17.3125],
+            'IMC': [15.375, 17.375]
+        },
+        '2"': {
+            'RIGID': [16.625, 18.625],
+            'EMT': [16.75, 18.75],
+            'IMC': [16.625, 18.625]
+        },
+        '2-1/2"': {
+            'RIGID': [21.5, 24],
+            'EMT': [21.5, 24],
+            'IMC': [21.5, 24]
+        },
+        '3"': {
+            'RIGID': [24.25, 26.75],
+            'EMT': [24, 27],
+            'IMC': [24.25, 26.75]
+        },
+        '3-1/2"': {
+            'RIGID': [28.25, 30.75],
+            'EMT': [27.75, 31.25],
+            'IMC': [28.25, 30.75]
+        },
+        '4"': {
+            'RIGID': [32.5, 35],
+            'EMT': [32.25, 36.25],
+            'IMC': [32.5, 35]
+        }
+    }
+
+    if (stubCheckbox != 'Yes' && conduitSizeField != '---' && conduitMaterial != '---' && stubHeight != '') {
+        if (conduitMaterial.indexOf('EMT') !== -1) {
+            var l = deductTable[conduitSize]['EMT'];
+            var deduct = l[0];
+            var minimumStubHeight = l[1];
+        }
+        else {
+            var l = deductTable[conduitSize]['RIGID']; // IMC & RIGID have same deducts, so just assume rigid
+            var deduct = l[0];
+            var minimumStubHeight = l[1];
+        }
+        bendMark = parseFloat(stubHeight) - deduct;
+        if (bendMark <= 0 || stubHeight < minimumStubHeight) {
+            bendMarks.value = "Minimum Distance Error";
+        }
+        else {
+            bendMarks.value = roundToQuarter(bendMark).toString() + '"';
+        }
+    }
+    else {
+        bendMarks.value = "";
     }
 }
 
@@ -530,6 +654,9 @@ function matReq() {
     }
 
     function conduitMachine(color, size, material) {
+        if (color == '---') {
+            color = 'SILVER';
+        }
         var arr = [color, size, material];
         var count = countInArray(arr);
         if (count == 0) {
@@ -542,6 +669,9 @@ function matReq() {
     }
 
     function fittingMachine(color, size, fitting) {
+        if (color == '---') {
+            color = 'SILVER';
+        }
         var arr = [color, size, fitting];
         var count = countInArray(arr);
         if (count == 0) {

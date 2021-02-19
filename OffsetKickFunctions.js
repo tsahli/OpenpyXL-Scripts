@@ -3205,6 +3205,9 @@ function matReq() {
     }
 
     function conduitMachine(color, size, material) {
+        if (color == '---') {
+            color = 'SILVER';
+        }
         var arr = [color, size, material];
         var count = countInArray(arr);
         if (count == 0) {
@@ -3217,6 +3220,9 @@ function matReq() {
     }
 
     function fittingMachine(color, size, fitting) {
+        if (color == '---') {
+            color = 'SILVER';
+        }
         var arr = [color, size, fitting];
         var count = countInArray(arr);
         if (count == 0) {
