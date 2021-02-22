@@ -493,39 +493,39 @@ function bendMarks(conduitSizeField, conduitMaterialField, heightField, stubChec
     let deductTable = {
         // [DEDUCT, MINIMUM STUB LENGTH]
         '3/4"': {
-            'RIGID': [9.875, 11.875],
-            'EMT': [9.6875, 11.6875],
-            'IMC': [9.875, 11.875]
+            'RIGID': [9.875, 10.5],
+            'EMT': [9.6875, 10.5],
+            'IMC': [9.875, 10.5]
         },
         '1"': {
-            'RIGID': [11.875, 13.875],
-            'EMT': [11.8125, 13.8125],
-            'IMC': [11.875, 13.875]
+            'RIGID': [11.875, 12.5],
+            'EMT': [11.8125, 12.5],
+            'IMC': [11.875, 12.5]
         },
         '1-1/4"': {
-            'RIGID': [14.375, 16.375],
-            'EMT': [14.25, 16.25],
-            'IMC': [14.375, 16.375]
+            'RIGID': [14.375, 15],
+            'EMT': [14.25, 15],
+            'IMC': [14.375, 15]
         },
         '1-1/2"': {
-            'RIGID': [15.375, 17.375],
-            'EMT': [15.3125, 17.3125],
-            'IMC': [15.375, 17.375]
+            'RIGID': [15.375, 16],
+            'EMT': [15.3125, 16],
+            'IMC': [15.375, 16]
         },
         '2"': {
-            'RIGID': [16.625, 18.625],
-            'EMT': [16.75, 18.75],
-            'IMC': [16.625, 18.625]
+            'RIGID': [16.625, 17.25],
+            'EMT': [16.75, 17.25],
+            'IMC': [16.625, 17.25]
         },
         '2-1/2"': {
-            'RIGID': [21.5, 24],
-            'EMT': [21.5, 24],
-            'IMC': [21.5, 24]
+            'RIGID': [21.5, 23.75],
+            'EMT': [21.5, 23.75],
+            'IMC': [21.5, 23.75]
         },
         '3"': {
-            'RIGID': [24.25, 26.75],
-            'EMT': [24, 27],
-            'IMC': [24.25, 26.75]
+            'RIGID': [24.25, 26.5],
+            'EMT': [24, 26.5],
+            'IMC': [24.25, 26.5]
         },
         '3-1/2"': {
             'RIGID': [28.25, 30.75],
@@ -533,9 +533,9 @@ function bendMarks(conduitSizeField, conduitMaterialField, heightField, stubChec
             'IMC': [28.25, 30.75]
         },
         '4"': {
-            'RIGID': [32.5, 35],
-            'EMT': [32.25, 36.25],
-            'IMC': [32.5, 35]
+            'RIGID': [32.5, 35.25],
+            'EMT': [32.25, 35.25],
+            'IMC': [32.5, 35.25]
         }
     }
 
@@ -551,7 +551,7 @@ function bendMarks(conduitSizeField, conduitMaterialField, heightField, stubChec
             var minimumStubHeight = l[1];
         }
         bendMark = parseFloat(stubHeight) - deduct;
-        if (bendMark <= 0 || stubHeight < minimumStubHeight) {
+        if (stubHeight < minimumStubHeight) {
             bendMarks.value = "Minimum Distance Error";
         }
         else {
@@ -574,39 +574,39 @@ function cutLength(conduitSizeField, conduitMaterialField, HeightField, stubChec
     let minimumStubHeightTable = {
         // MINIMUM STUB LENGTH
         '3/4"': {
-            'RIGID': 11.875,
-            'EMT': 11.6875,
-            'IMC': 11.875
+            'RIGID': 10.5,
+            'EMT': 10.5,
+            'IMC': 10.5
         },
         '1"': {
-            'RIGID': 13.875,
-            'EMT': 13.8125,
-            'IMC': 13.875
+            'RIGID': 12.5,
+            'EMT': 12.5,
+            'IMC': 12.5
         },
         '1-1/4"': {
-            'RIGID': 16.375,
-            'EMT': 16.25,
-            'IMC': 16.375
+            'RIGID': 15,
+            'EMT': 15,
+            'IMC': 15
         },
         '1-1/2"': {
-            'RIGID': 17.375,
-            'EMT': 17.3125,
-            'IMC': 17.375
+            'RIGID': 16,
+            'EMT': 16,
+            'IMC': 16
         },
         '2"': {
-            'RIGID': 18.625,
-            'EMT': 18.75,
-            'IMC': 18.625
+            'RIGID': 17.25,
+            'EMT': 17.25,
+            'IMC': 17.25
         },
         '2-1/2"': {
-            'RIGID': 24,
-            'EMT': 24,
-            'IMC': 24
+            'RIGID': 23.75,
+            'EMT': 23.75,
+            'IMC': 23.75
         },
         '3"': {
-            'RIGID': 26.75,
-            'EMT': 27,
-            'IMC': 26.75
+            'RIGID': 26.5,
+            'EMT': 26.5,
+            'IMC': 26.5
         },
         '3-1/2"': {
             'RIGID': 30.75,
@@ -614,9 +614,9 @@ function cutLength(conduitSizeField, conduitMaterialField, HeightField, stubChec
             'IMC': 30.75
         },
         '4"': {
-            'RIGID': 35,
-            'EMT': 36.25,
-            'IMC': 35
+            'RIGID': 35.25,
+            'EMT': 35.25,
+            'IMC': 35.25
         }
     }
     
