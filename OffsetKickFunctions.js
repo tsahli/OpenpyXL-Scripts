@@ -422,7 +422,7 @@ function degreeMarks(degreeField) {
     }
 }
 
-function overallLength(conduitSizeField, conduitMaterialField, radioGroup, heightField, topLenField, bottomLenField, overallLenField, degreeField, cutMarkField, realCutMarkField) {
+function overallLength(conduitSizeField, conduitMaterialField, radioGroup, heightField, topLenField, bottomLenField, overallLenField, degreeField, bendMark1Field, bendMark2Field, realCutMarkField) {
 
     let stubThreeQuarterInch = {
         '15°': {
@@ -2970,12 +2970,11 @@ function overallLength(conduitSizeField, conduitMaterialField, radioGroup, heigh
     function roundToQuarter(num) {
         return (Math.round(num * 4) / 4).toFixed(2);
     }
-    function toDegrees(angle) {
-        return angle * (180 / Math.PI);
-    }
+
     function toRadians(angle) {
         return angle * (Math.PI / 180);
     }
+
     function findTopOrBottomLen(overallLen, knownLen, missingWidth, angle) {
         let missingMeasurements = {
             '3/4"': 1.47,
@@ -3006,7 +3005,8 @@ function overallLength(conduitSizeField, conduitMaterialField, radioGroup, heigh
     var bottomLen = this.getField(bottomLenField).value;
     var overallLen = this.getField(overallLenField).value;
     var degree = this.getField(degreeField).value;
-    var cutMarks = this.getField(cutMarkField);
+    var bendMark1 = this.getField(bendMark1Field);
+    var bendMark2 = this.getField(bendMark2Field);
     var realCutMarks = this.getField(realCutMarkField);
 
     // KICK, overallLen, degree, height
@@ -3017,15 +3017,15 @@ function overallLength(conduitSizeField, conduitMaterialField, radioGroup, heigh
         var shrink = hypotenuse - missingWidth;
         var cuts = parseFloat(overallLen) + parseFloat(shrink);
         realCutMarks.value = roundToQuarter(cuts).toString() + '"';
-        cutMarks.value = stubBendMarks(size, material, degree, height);
+        bendMark1.value = stubBendMarks(size, material, degree, height);
     }
     // KICK, height, degree
     else if (radioValue == "KICK" && height != "" && degree !="") {
-        cutMarks.value = stubBendMarks(size, material, degree, height);
+        bendMark1.value = stubBendMarks(size, material, degree, height);
     }
     // 90 degree offset
     else if(radioValue == "OFFSET" && degree == "90°") {
-        cutMarks.value = "";
+        bendMark1.value = "";
         realCutMarks.value = "";
     }
     // OFFSET, height, degree, topLen, overallLen
@@ -3042,7 +3042,8 @@ function overallLength(conduitSizeField, conduitMaterialField, radioGroup, heigh
         var hypotenuse = Math.sqrt(parseInt(height)*parseInt(height) + missingWidth*missingWidth);
         var shrink = hypotenuse - missingWidth;
         var cuts = parseFloat(overallLen) + parseFloat(shrink);
-        cutMarks.value = roundToQuarter(bendMarkList[0]).toString() + '" // ' + roundToQuarter(bendMarkList[1]).toString() + '"';
+        bendMark1.value = roundToQuarter(bendMarkList[0]).toString() + '"';
+        bendMark2.value = roundToQuarter(bendMarkList[1]).toString() + '"';
         realCutMarks.value = roundToQuarter(cuts).toString() + '"';
     }
     // OFFSET, height, degree, bottomLen, overallLen
@@ -3059,7 +3060,8 @@ function overallLength(conduitSizeField, conduitMaterialField, radioGroup, heigh
         var hypotenuse = Math.sqrt(parseInt(height)*parseInt(height) + missingWidth*missingWidth);
         var shrink = hypotenuse - missingWidth;
         var cuts = parseFloat(overallLen) + parseFloat(shrink);
-        cutMarks.value = roundToQuarter(bendMarkList[0]).toString() + '" // ' + roundToQuarter(bendMarkList[1]).toString() + '"';
+        bendMark1.value = roundToQuarter(bendMarkList[0]).toString() + '"';
+        bendMark2.value = roundToQuarter(bendMarkList[1]).toString() + '"';
         realCutMarks.value = roundToQuarter(cuts).toString() + '"';
     }
     // OFFSET, height, degree, topLen, bottomLen, overallLen
@@ -3073,7 +3075,8 @@ function overallLength(conduitSizeField, conduitMaterialField, radioGroup, heigh
         var hypotenuse = Math.sqrt(parseInt(height)*parseInt(height) + missingWidth*missingWidth);
         var shrink = hypotenuse - missingWidth;
         var cuts = parseFloat(overallLen) + parseFloat(shrink);
-        cutMarks.value = roundToQuarter(bendMarkList[0]).toString() + '" // ' + roundToQuarter(bendMarkList[1]).toString() + '"';
+        bendMark1.value = roundToQuarter(bendMarkList[0]).toString() + '"';
+        bendMark2.value = roundToQuarter(bendMarkList[1]).toString() + '"';
         realCutMarks.value = roundToQuarter(cuts).toString() + '"';
     }
     else if (radioValue == "OFFSET" && height != "" && degree != "" && topLen != "" && bottomLen != "") {
@@ -3083,114 +3086,35 @@ function overallLength(conduitSizeField, conduitMaterialField, radioGroup, heigh
         var degreeInRadians = toRadians(parseFloat(degree));
         var missingWidth = parseInt(height) / Math.tan(degreeInRadians);
         var bendMarkList = offsetBendMarks(size, material, degree, height, bottomLen, missingWidth);
-        cutMarks.value = roundToQuarter(bendMarkList[0]).toString() + '" // ' + roundToQuarter(bendMarkList[1]).toString() + '"';
+        bendMark1.value = roundToQuarter(bendMarkList[0]).toString() + '"';
+        bendMark2.value = roundToQuarter(bendMarkList[1]).toString() + '"';
     }
     else if (radioValue == "OFFSET" && height != "" && degree != "" && bottomLen != "") {
         var degreeInRadians = toRadians(parseFloat(degree));
         var missingWidth = parseInt(height) / Math.tan(degreeInRadians);
         var bendMarkList = offsetBendMarks(size, material, degree, height, bottomLen, missingWidth);
-        cutMarks.value = roundToQuarter(bendMarkList[0]).toString() + '" // ' + roundToQuarter(bendMarkList[1]).toString() + '"';
+        bendMark1.value = roundToQuarter(bendMarkList[0]).toString() + '"';
+        bendMark2.value = roundToQuarter(bendMarkList[1]).toString() + '"';
     }
     else if (radioValue == "OFFSET" && height != "" && degree != "" && topLen != "") {
         var degreeInRadians = toRadians(parseFloat(degree));
         var missingWidth = parseInt(height) / Math.tan(degreeInRadians);
         var bendMarkList = offsetBendMarks(size, material, degree, height, topLen, missingWidth);
-        cutMarks.value = roundToQuarter(bendMarkList[0]).toString() + '" // ' + roundToQuarter(bendMarkList[1]).toString() + '"';
+        bendMark1.value = roundToQuarter(bendMarkList[0]).toString() + '"';
+        bendMark2.value = roundToQuarter(bendMarkList[1]).toString() + '"';
     }
     else if (radioValue == "OFFSET" && height != "" && degree != "") {
         var degreeInRadians = toRadians(parseFloat(degree));
         var missingWidth = parseInt(height) / Math.tan(degreeInRadians);
         var bottomLen = null; // this will return a 1st cut mark of 2", since bottomLen doesn't matter
         var bendMarkList = offsetBendMarks(size, material, degree, height, bottomLen, missingWidth);
-        cutMarks.value = roundToQuarter(bendMarkList[0]).toString() + '" // ' + roundToQuarter(bendMarkList[1]).toString() + '"';
+        bendMark1.value = roundToQuarter(bendMarkList[0]).toString() + '"';
+        bendMark2.value = roundToQuarter(bendMarkList[1]).toString() + '"';
     }
 }
 
 function alert(msg) {
     app.alert(msg);
-}
-
-function setDesc(descField, sizeField, conduitColorField, materialField, radioGroup, fittingAField, fittingZField, fittingColorField) {
-    var desc = this.getField(descField);
-    var size = this.getField(sizeField).value;
-    var conduitColor = this.getField(conduitColorField).value;
-    var material = this.getField(materialField).value;
-    var radioValue = this.getField(radioGroup).value; // Off, OFFSET, KICK
-    var fittingA = this.getField(fittingAField).value;
-    var fittingZ = this.getField(fittingZField).value;
-    var fittingColor = this.getField(fittingColorField).value;
-
-    desc.value = "";
-
-    if (size == "---" || material == "---" || radioValue == "Off") {
-        desc.value = "SELECT SIZE, MATERIAL, OFFSET OR KICK, AND FITTINGS";
-    }
-    // ONLY FITTING A
-    else if (fittingA != "---" && fittingZ == "---") {
-        if (conduitColor == "---" || conduitColor == "SILVER") {
-            if (fittingColor == "---" || fittingColor == "SILVER") {
-                desc.value = size + " " + material + " " + radioValue + " W/ " + fittingA;
-            }
-            else {
-                desc.value = size + " " + material + " " + radioValue + " W/ " + fittingColor + " " + fittingA;
-            }
-        }
-        else {
-            if (fittingColor == "---" || fittingColor == "SILVER") {
-                desc.value = conduitColor + " " + size + " " + material + " " + radioValue + " W/ " + fittingA;
-            }
-            else {
-                desc.value = conduitColor + " " + size + " " + material + " " + radioValue + " W/ " + fittingColor + " " + fittingA;
-            }
-        }
-    }
-    // ONLY FITTING Z
-    else if (fittingA == "---" && fittingZ != "---") {
-        if (conduitColor == "---" || conduitColor == "SILVER") {
-            if (fittingColor == "---" || fittingColor == "SILVER") {
-                desc.value = size + " " + material + " " + radioValue + " W/ " + fittingZ;
-            }
-            else {
-                desc.value = size + " " + material + " " + radioValue + " W/ " + fittingColor + " " + fittingZ;
-            }
-        }
-        else {
-            if (fittingColor == "---" || fittingColor == "SILVER") {
-                desc.value = conduitColor + " " + size + " " + material + " " + radioValue + " W/ " + fittingZ;
-            }
-            else {
-                desc.value = conduitColor + " " + size + " " + material + " " + radioValue + " W/ " + fittingColor + " " + fittingZ;
-            }
-        }
-    }
-    // NO FITTINGS
-    else if (fittingA == "---" && fittingZ == "---") {
-        if (conduitColor == "---" || conduitColor == "SILVER") {
-            desc.value = size + " " + material + " " + radioValue + " W/ NO FITTINGS";
-        }
-        else {
-            desc.value = conduitColor + " " + size + " " + material + " " + radioValue + " W/ NO FITTINGS";
-        }
-    }    
-    // BOTH FITTINGS
-    else if (fittingA != "---" && fittingZ != "---") {
-        if (conduitColor == "---" || conduitColor == "SILVER") {
-            if (fittingColor == "---" || fittingColor == "SILVER") {
-                desc.value = size + " " + material + " " + radioValue + " W/ " + fittingA + " & " + fittingZ;
-            }
-            else {
-                desc.value = size + " " + material + " " + radioValue + " W/ " + fittingColor + " " + fittingA + " & " + fittingZ;
-            }
-        }
-        else {
-            if (fittingColor == "---" || fittingColor == "SILVER") {
-                desc.value = conduitColor + " " + size + " " + material + " " + radioValue + " W/ " + fittingA + " & " + fittingZ;
-            }
-            else {
-                desc.value = conduitColor + " " + size + " " + material + " " + radioValue + " W/ " + fittingColor + " " + fittingA + " & " + fittingZ;
-            }
-        }
-    }
 }
 
 function matReq() {
@@ -3238,37 +3162,30 @@ function matReq() {
     var qty2 = this.getField('TYPE 2 QTY').value;
     var qty3 = this.getField('TYPE 3 QTY').value;
     var qty4 = this.getField('TYPE 4 QTY').value;
-    var qty5 = this.getField('TYPE 5 QTY').value;
     var size1 = this.getField('TYPE 1 CONDUIT SIZE').value;
     var size2 = this.getField('TYPE 2 CONDUIT SIZE').value;
     var size3 = this.getField('TYPE 3 CONDUIT SIZE').value;
     var size4 = this.getField('TYPE 4 CONDUIT SIZE').value;
-    var size5 = this.getField('TYPE 5 CONDUIT SIZE').value;
     var material1 = this.getField('TYPE 1 MATERIAL').value;
     var material2 = this.getField('TYPE 2 MATERIAL').value;
     var material3 = this.getField('TYPE 3 MATERIAL').value;
     var material4 = this.getField('TYPE 4 MATERIAL').value;
-    var material5 = this.getField('TYPE 5 MATERIAL').value;
     var conduitColor1 = this.getField('TYPE 1 CONDUIT COLOR').value;
     var conduitColor2 = this.getField('TYPE 2 CONDUIT COLOR').value;
     var conduitColor3 = this.getField('TYPE 3 CONDUIT COLOR').value;
     var conduitColor4 = this.getField('TYPE 4 CONDUIT COLOR').value;
-    var conduitColor5 = this.getField('TYPE 5 CONDUIT COLOR').value;
     var fittingA1 = this.getField('TYPE 1 FITTING TYPE A').value;
     var fittingA2 = this.getField('TYPE 2 FITTING TYPE A').value;
     var fittingA3 = this.getField('TYPE 3 FITTING TYPE A').value;
     var fittingA4 = this.getField('TYPE 4 FITTING TYPE A').value;
-    var fittingA5 = this.getField('TYPE 5 FITTING TYPE A').value;
     var fittingZ1 = this.getField('TYPE 1 FITTING TYPE Z').value;
     var fittingZ2 = this.getField('TYPE 2 FITTING TYPE Z').value;
     var fittingZ3 = this.getField('TYPE 3 FITTING TYPE Z').value;
     var fittingZ4 = this.getField('TYPE 4 FITTING TYPE Z').value;
-    var fittingZ5 = this.getField('TYPE 5 FITTING TYPE Z').value;
     var fittingColor1 = this.getField('TYPE 1 FITTING COLOR').value;
     var fittingColor2 = this.getField('TYPE 2 FITTING COLOR').value;
     var fittingColor3 = this.getField('TYPE 3 FITTING COLOR').value;
     var fittingColor4 = this.getField('TYPE 4 FITTING COLOR').value;
-    var fittingColor5 = this.getField('TYPE 5 FITTING COLOR').value;
 
     var sizeList = []; // color, size, material
     var fittingList = []; // color, size, fitting
@@ -3309,16 +3226,6 @@ function matReq() {
             sizeList.push(conduitMachine(conduitColor4, size4, material4));
             fittingList.push(fittingMachine(fittingColor4, size4, fittingA4));
             fittingList.push(fittingMachine(fittingColor4, size4, fittingZ4));
-            count++;
-        }
-    }
-
-    if (qty5 != '' && qty5 != '0') {
-        var count = 0;
-        while (count < qty5) {
-            sizeList.push(conduitMachine(conduitColor5, size5, material5));
-            fittingList.push(fittingMachine(fittingColor5, size5, fittingA5));
-            fittingList.push(fittingMachine(fittingColor5, size5, fittingZ5));
             count++;
         }
     }
