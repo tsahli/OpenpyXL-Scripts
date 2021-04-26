@@ -1628,76 +1628,161 @@ function bendMarkKick(size, material, height, angle, bendmark2) {
     var angle = this.getField(angle).value;
     var bendMark2Field = this.getField(bendmark2);
 
-    if (size == '3/4"') {
-        if (material.indexOf('EMT') !== -1) {
-            bendMark2Field.value = stubThreeQuarterInch[angle][height] + '"';
+    if (size != "---" && material != "---" && height != "" && angle != "") {
+        if (size == '3/4"') {
+            if (material.indexOf('EMT') !== -1) {
+                bendMark2Field.value = stubThreeQuarterInch[angle][height] + '"';
+            }
+            else {
+                bendMark2Field.value = stubRigidThreeQuarterInch[angle][height] + '"';
+            }
+        }
+        else if (size == '1"') {
+            if (material.indexOf('EMT') !== -1) {
+                bendMark2Field.value = stubOneInch[angle][height] + '"';
+            }
+            else {
+                bendMark2Field.value = stubRigidOneInch[angle][height] + '"';
+            }
+        }
+        else if (size == '1-1/4"') {
+            if (material.indexOf('EMT') !== -1) {
+                bendMark2Field.value = stubOneAndOneQuarterInch[angle][height] + '"';
+            }
+            else {
+                bendMark2Field.value = stubRigidOneAndOneQuarterInch[angle][height] + '"';
+            }
+        }
+        else if (size == '1-1/2"') {
+            if (material.indexOf('EMT') !== -1) {
+                bendMark2Field.value = stubOneAndOneHalfInch[angle][height] + '"';
+            }
+            else {
+                bendMark2Field.value = stubRigidOneAndOneHalfInch[angle][height] + '"';
+            }
+        }
+        else if (size == '2"') {
+            if (material.indexOf('EMT') !== -1) {
+                bendMark2Field.value = stubTwoInch[angle][height] + '"';
+            }
+            else {
+                bendMark2Field.value = stubRigidTwoInch[angle][height] + '"';
+            }
+        }
+        else if (size == '2-1/2"') {
+            if (material.indexOf('EMT') !== -1) {
+                bendMark2Field.value = stubTwoAndHalfInch[angle][height] + '"';
+            }
+            else {
+                bendMark2Field.value = stubRigidTwoAndHalfInch[angle][height] + '"';
+            }
+        }
+        else if (size == '3"') {
+            if (material.indexOf('EMT') !== -1) {
+                bendMark2Field.value = stubThreeInch[angle][height] + '"';
+            }
+            else {
+                bendMark2Field.value = stubRigidThreeInch[angle][height] + '"';
+            }
+        }
+        else if (size == '3-1/2"') {
+            if (material.indexOf('EMT') !== -1) {
+                bendMark2Field.value = stubThreeAndHalfInch[angle][height] + '"';
+            }
+            else {
+                bendMark2Field.value = stubRigidThreeAndHalfInch[angle][height] + '"';
+            }
+        }
+        else if (size == '4"') {
+            if (material.indexOf('EMT') !== -1) {
+                bendMark2Field.value = stubFourInch[angle][height] + '"';
+            }
+            else {
+                bendMark2Field.value = stubRigidFourInch[angle][height] + '"';
+            }
+        }
+    } else { bendMark2Field.value = ""; }
+}
+
+function cutMarks(conduitSizeField, HeightField, topLenTField, degreeField, overallLenField, kickLenNField, cutLengthField) {
+    function sizeToFloat(conduitSize) {
+        if (conduitSize == '3/4"') {
+            return 0.75;
+        }
+        else if (conduitSize == '1-1/4"') {
+            return 1.25;
+        }
+        else if (conduitSize == '1-1/2"') {
+            return 1.50;
+        }
+        else if (conduitSize == '2-1/2"') {
+            return 2.50;
+        }
+        else if (conduitSize == '3-1/2"') {
+            return 3.50;
         }
         else {
-            bendMark2Field.value = stubRigidThreeQuarterInch[angle][height] + '"';
+            return parseFloat(conduitSize);
         }
     }
-    else if (size == '1"') {
-        if (material.indexOf('EMT') !== -1) {
-            bendMark2Field.value = stubOneInch[angle][height] + '"';
+
+    function roundToEighth(num) {
+        return (Math.round(num * 8) / 8).toFixed(2);
+    }
+
+    function toRadians(angle) {
+        return angle * (Math.PI / 180);
+    }
+
+    var conduitSize = this.getField(conduitSizeField).value;
+    var height = this.getField(HeightField).value;
+    var topLenT = this.getField(topLenTField).value;
+    var degree = this.getField(degreeField).value;
+    var overallLen = this.getField(overallLenField).value;
+    var kickLenN = this.getField(kickLenNField).value;
+    var cutLength = this.getField(cutLengthField);
+
+    function shrink90(conduitSize) {
+        // Radius = 8 * Conduit Size
+        // DL = Radius * 1.57
+        // Shrink = 2(Radius) - DL
+        var radius = 8 * sizeToFloat(conduitSize);
+        var developedLength = radius * 1.57;
+        var shrink = (2 * radius) - developedLength;
+        return shrink;
+    }
+
+    function shrinkKick(missingWidth, lengthN) {
+        var shrink = parseFloat(lengthN) - parseFloat(missingWidth);
+        return shrink;
+    }
+
+    if (conduitSize != "---" && height != "" && degree != "" && overallLen != "" && kickLenN == "") {
+        var degreeInRadians = toRadians(parseFloat(degree));
+        var missingWidth = parseInt(height) / Math.tan(degreeInRadians);
+        var lengthN = Math.sqrt(parseInt(height) * parseInt(height) + missingWidth * missingWidth);
+        var combinedShrink = parseFloat(shrink90(conduitSize)) + parseFloat(shrinkKick(missingWidth, lengthN));
+        var cutMarks = parseFloat(overallLen) + parseFloat(topLenT) + parseFloat(combinedShrink);
+        if (shrink90(conduitSize) <= 0 || shrinkKick(missingWidth, lengthN) <= 0) {
+            cutLength.value = "Cut Not Possible";
         }
         else {
-            bendMark2Field.value = stubRigidOneInch[angle][height] + '"';
+            cutLength.value = roundToEighth(cutMarks).toString() + '"';
         }
     }
-    else if (size == '1-1/4"') {
-        if (material.indexOf('EMT') !== -1) {
-            bendMark2Field.value = stubOneAndOneQuarterInch[angle][height] + '"';
+    else if (conduitSize != "---" && height != "" && degree != "" && overallLen != "" && kickLenN != "") {
+        var degreeInRadians = toRadians(parseFloat(degree));
+        var missingWidth = parseInt(height) / Math.tan(degreeInRadians);
+        var combinedShrink = parseFloat(shrink90(conduitSize)) + parseFloat(shrinkKick(missingWidth, parseFloat(kickLenN)));
+        var cutMarks = parseFloat(overallLen) + parseFloat(topLenT) + parseFloat(combinedShrink);
+        if (shrink90(conduitSize) <= 0 || shrinkKick(missingWidth, kickLenN) <= 0) {
+            cutLength.value = "Cut Not Possible";
         }
         else {
-            bendMark2Field.value = stubRigidOneAndOneQuarterInch[angle][height] + '"';
+            cutLength.value = roundToEighth(cutMarks).toString() + '"';
         }
     }
-    else if (size == '1-1/2"') {
-        if (material.indexOf('EMT') !== -1) {
-            bendMark2Field.value = stubOneAndOneHalfInch[angle][height] + '"';
-        }
-        else {
-            bendMark2Field.value = stubRigidOneAndOneHalfInch[angle][height] + '"';
-        }
-    }
-    else if (size == '2"') {
-        if (material.indexOf('EMT') !== -1) {
-            bendMark2Field.value = stubTwoInch[angle][height] + '"';
-        }
-        else {
-            bendMark2Field.value = stubRigidTwoInch[angle][height] + '"';
-        }
-    }
-    else if (size == '2-1/2"') {
-        if (material.indexOf('EMT') !== -1) {
-            bendMark2Field.value = stubTwoAndHalfInch[angle][height] + '"';
-        }
-        else {
-            bendMark2Field.value = stubRigidTwoAndHalfInch[angle][height] + '"';
-        }
-    }
-    else if (size == '3"') {
-        if (material.indexOf('EMT') !== -1) {
-            bendMark2Field.value = stubThreeInch[angle][height] + '"';
-        }
-        else {
-            bendMark2Field.value = stubRigidThreeInch[angle][height] + '"';
-        }
-    }
-    else if (size == '3-1/2"') {
-        if (material.indexOf('EMT') !== -1) {
-            bendMark2Field.value = stubThreeAndHalfInch[angle][height] + '"';
-        }
-        else {
-            bendMark2Field.value = stubRigidThreeAndHalfInch[angle][height] + '"';
-        }
-    }
-    else if (size == '4"') {
-        if (material.indexOf('EMT') !== -1) {
-            bendMark2Field.value = stubFourInch[angle][height] + '"';
-        }
-        else {
-            bendMark2Field.value = stubRigidFourInch[angle][height] + '"';
-        }
+    else {
+        cutLength.value = "";
     }
 }
