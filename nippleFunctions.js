@@ -16,13 +16,13 @@ function conduitMaterial(sizeField, materialField) {
     else {
         this.getField(materialField).setItems([
             "---",
+            "IMC",
+            "RIGID",
             "EMT",
             "KwikFit EMT",
             "KwikFit Comp EMT",
             "KwikFit RT EMT",
-            "IMC",
             "KwikCoup RT IMC",
-            "RIGID",
             "KwikCoup RT GRC"
         ]);
     }
@@ -81,7 +81,8 @@ function fittingA(sizeField, materialField, fittingAField) {
                 "EMT RT COUP",
                 "EMT COMP CONN",
                 "EMT RT CONN",
-                "POUND ON BS"
+                "POUND ON BS",
+                "THREADLESS BOND BS"
             ]);
         }
     }
@@ -90,18 +91,27 @@ function fittingA(sizeField, materialField, fittingAField) {
             this.getField(fittingAField).setItems([
                 "---",
                 "GRC COUP",
-                "GRC SS COUPLING",
+                "PVC FA",
+                "GRC BOND BS",
+                "GRC BELL END",
+                "GRC TO EMT COMP CPL",
+                "RED DOT",
                 "GRC SS CONN",
-                "GRC SS COUPLING",
-                "BOND BS",
-                "GROUND BS"
+                "GRC SS COUP"
             ]);
         }
         else if (conduitMaterial == 'RIGID') {
-            if (conduitSize == '5"') {
+            if (conduitSize == '5"' || conduitSize == '6"') {
                 this.getField(fittingAField).setItems([
                     "---",
-                    "KwikFit Fitting"
+                    "GRC COUP",
+                    "PVC FA",
+                    "GRC BOND BS",
+                    "GRC BELL END",
+                    "GRC TO EMT COMP CPL",
+                    "RED DOT",
+                    "GRC SS CONN",
+                    "GRC SS COUP"
                 ]);
             }
             else {
@@ -150,31 +160,29 @@ function fittingA(sizeField, materialField, fittingAField) {
                 "---",
                 "KwikFit Fitting",
                 "GRC COUP",
-                "GRC SS COUPLING",
+                "PVC FA",
+                "GRC BOND BS",
+                "GRC BELL END",
+                "GRC TO EMT COMP CPL",
+                "RED DOT",
                 "GRC SS CONN",
-                "GRC SS COUPLING",
-                "BOND BS",
-                "GROUND BS"
+                "GRC SS COUP"
             ]);
         }
     }
     else if (conduitMaterial == 'KwikCoup RT GRC') {
-        if (conduitSize != '5"' && conduitSize != '6"') {
+        if (conduitSize != '6"') {
             this.getField(fittingAField).setItems([
                 "---",
-                "KiwkFit Fitting",
+                "KwikFit Fitting",
                 "GRC COUP",
-                "GRC SS COUPLING",
+                "PVC FA",
+                "GRC BOND BS",
+                "GRC BELL END",
+                "GRC TO EMT COMP CPL",
+                "RED DOT",
                 "GRC SS CONN",
-                "GRC SS COUPLING",
-                "BOND BS",
-                "GROUND BS"
-            ]);
-        }
-        else if (conduitSize == '5"') {
-            this.getField(fittingAField).setItems([
-                "---",
-                "KwikFit Fitting"
+                "GRC SS COUP"
             ]);
         }
     }
@@ -200,7 +208,8 @@ function fittingB(sizeField, materialField, fittingAField, fittingBField) {
                 "EMT RT COUP",
                 "EMT COMP CONN",
                 "EMT RT CONN",
-                "POUND ON BS"
+                "POUND ON BS",
+                "THREADLESS BOND BS"
             ]);
         }
     }
@@ -209,23 +218,27 @@ function fittingB(sizeField, materialField, fittingAField, fittingBField) {
             this.getField(fittingBField).setItems([
                 "---",
                 "GRC COUP",
-                "GRC SS COUPLING",
+                "PVC FA",
+                "GRC BOND BS",
+                "GRC BELL END",
+                "GRC TO EMT COMP CPL",
+                "RED DOT",
                 "GRC SS CONN",
-                "GRC SS COUPLING",
-                "BOND BS",
-                "GROUND BS"
+                "GRC SS COUP"
             ]);
         }
         else if (conduitMaterial == 'RIGID') {
-            if (conduitSize == '5"' && fittingA != 'KwikFit Fitting') {
+            if (conduitSize == '5"' || conduitSize == '6"') {
                 this.getField(fittingBField).setItems([
                     "---",
-                    "KwikFit Fitting"
-                ]);
-            }
-            else {
-                this.getField(fittingBField).setItems([
-                    "---"
+                    "GRC COUP",
+                    "PVC FA",
+                    "GRC BOND BS",
+                    "GRC BELL END",
+                    "GRC TO EMT COMP CPL",
+                    "RED DOT",
+                    "GRC SS CONN",
+                    "GRC SS COUP"
                 ]);
             }
         }
@@ -300,64 +313,64 @@ function fittingB(sizeField, materialField, fittingAField, fittingBField) {
                     "---",
                     "KwikFit Fitting",
                     "GRC COUP",
-                    "GRC SS COUPLING",
+                    "PVC FA",
+                    "GRC BOND BS",
+                    "GRC BELL END",
+                    "GRC TO EMT COMP COUP",
+                    "RED DOT",
                     "GRC SS CONN",
-                    "GRC SS COUPLING",
-                    "BOND BS",
-                    "GROUND BS"
+                    "GRC SS COUP"
                 ]);
             }
             else {
                 this.getField(fittingBField).setItems([
                     "---",
                     "GRC COUP",
-                    "GRC SS COUPLING",
+                    "PVC FA",
+                    "GRC BOND BS",
+                    "GRC BELL END",
+                    "GRC TO EMT COMP COUP",
+                    "RED DOT",
                     "GRC SS CONN",
-                    "GRC SS COUPLING",
-                    "BOND BS",
-                    "GROUND BS"
+                    "GRC SS COUP"
                 ]);
             }
         }
     }
     else if (conduitMaterial == 'KwikCoup RT GRC') {
-        if (conduitSize != '5"' && conduitSize != '6"') {
+        if (conduitSize != '6"') {
             if (fittingA != 'KwikFit Fitting') {
                 this.getField(fittingBField).setItems([
                     "---",
-                    "KiwkFit Fitting",
+                    "KwikFit Fitting",
                     "GRC COUP",
-                    "GRC SS COUPLING",
+                    "PVC FA",
+                    "GRC BOND BS",
+                    "GRC BELL END",
+                    "GRC TO EMT COMP COUP",
+                    "RED DOT",
                     "GRC SS CONN",
-                    "GRC SS COUPLING",
-                    "BOND BS",
-                    "GROUND BS"
+                    "GRC SS COUP"
                 ]);
             }
             else {
                 this.getField(fittingBField).setItems([
                     "---",
                     "GRC COUP",
-                    "GRC SS COUPLING",
+                    "PVC FA",
+                    "GRC BOND BS",
+                    "GRC BELL END",
+                    "GRC TO EMT COMP COUP",
+                    "RED DOT",
                     "GRC SS CONN",
-                    "GRC SS COUPLING",
-                    "BOND BS",
-                    "GROUND BS"
-                ]);
-            }
-        }
-        else if (conduitSize == '5"') {
-            if (fittingA != 'KwikFit Fitting') {
-                this.getField(fittingBField).setItems([
-                    "---",
-                    "KwikFit Fitting"
+                    "GRC SS COUP"
                 ]);
             }
         }
     }
     else {
         this.getField(fittingBField).setItems([
-            "---",
+            "---"
         ]);
     }
 }
