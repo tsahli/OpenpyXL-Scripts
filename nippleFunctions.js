@@ -581,6 +581,12 @@ function matReq() {
     var ductTapeCapB3 = this.getField('TYPE 3 DUCT TAPE CAP B').value;
     var ductTapeCapB4 = this.getField('TYPE 4 DUCT TAPE CAP B').value;
 
+    // overall len needed to calculate total quantity correctly
+    var overallLen1 = this.getField('TYPE 1 OVERALL LENGTH').value;
+    var overallLen2 = this.getField('TYPE 2 OVERALL LENGTH').value;
+    var overallLen3 = this.getField('TYPE 3 OVERALL LENGTH').value;
+    var overallLen4 = this.getField('TYPE 4 OVERALL LENGTH').value;
+
     var sizeList = []; // color, size, material
     var fittingList = []; // color, size, fitting
     var wrapHeightList = [];
@@ -588,8 +594,14 @@ function matReq() {
 
     if (qty1 != '' && qty1 != '0') {
         var count = 0;
-        while (count < qty1) {
+        var conduit_count = 0;
+        var conduit_len_in_feet = Math.ceil((qty1 * parseInt(overallLen1)) / 12);
+        var num_ten_ft_sticks = Math.ceil(conduit_len_in_feet / 10);
+        while (conduit_count < num_ten_ft_sticks) {
             sizeList.push(conduitMachine(conduitColor1, size1, material1));
+            conduit_count++;
+        }
+        while (count < qty1) {
             fittingList.push(fittingMachine(fittingColor1, size1, fittingA1));
             fittingList.push(fittingMachine(fittingColor1, size1, fittingZ1));
             wrapHeightList.push(dottieWrapAmount(size1, overallLen1, fullWrap1));
@@ -600,8 +612,14 @@ function matReq() {
 
     if (qty2 != '' && qty2 != '0') {
         var count = 0;
-        while (count < qty2) {
+        var conduit_count = 0;
+        var conduit_len_in_feet = Math.ceil((qty2 * parseInt(overallLen2)) / 12);
+        var num_ten_ft_sticks = Math.ceil(conduit_len_in_feet / 10);
+        while (conduit_count < num_ten_ft_sticks) {
             sizeList.push(conduitMachine(conduitColor2, size2, material2));
+            conduit_count++;
+        }
+        while (count < qty2) {
             fittingList.push(fittingMachine(fittingColor2, size2, fittingA2));
             fittingList.push(fittingMachine(fittingColor2, size2, fittingZ2));
             wrapHeightList.push(dottieWrapAmount(size2, overallLen2, fullWrap2));
@@ -612,8 +630,14 @@ function matReq() {
 
     if (qty3 != '' && qty3 != '0') {
         var count = 0;
-        while (count < qty3) {
+        var conduit_count = 0;
+        var conduit_len_in_feet = Math.ceil((qty3 * parseInt(overallLen3)) / 12);
+        var num_ten_ft_sticks = Math.ceil(conduit_len_in_feet / 10);
+        while (conduit_count < num_ten_ft_sticks) {
             sizeList.push(conduitMachine(conduitColor3, size3, material3));
+            conduit_count++;
+        }
+        while (count < qty3) {
             fittingList.push(fittingMachine(fittingColor3, size3, fittingA3));
             fittingList.push(fittingMachine(fittingColor3, size3, fittingZ3));
             wrapHeightList.push(dottieWrapAmount(size3, overallLen3, fullWrap3));
@@ -624,8 +648,14 @@ function matReq() {
 
     if (qty4 != '' && qty4 != '0') {
         var count = 0;
-        while (count < qty4) {
+        var conduit_count = 0;
+        var conduit_len_in_feet = Math.ceil((qty4 * parseInt(overallLen4)) / 12);
+        var num_ten_ft_sticks = Math.ceil(conduit_len_in_feet / 10);
+        while (conduit_count < num_ten_ft_sticks) {
             sizeList.push(conduitMachine(conduitColor4, size4, material4));
+            conduit_count++;
+        }
+        while (count < qty4) {
             fittingList.push(fittingMachine(fittingColor4, size4, fittingA4));
             fittingList.push(fittingMachine(fittingColor4, size4, fittingZ4));
             wrapHeightList.push(dottieWrapAmount(size4, overallLen4, fullWrap4));
@@ -638,7 +668,9 @@ function matReq() {
     fittingList.sort();
 
     var sizeCount = {};
-    sizeList.forEach(function (i) { sizeCount[i] = (sizeCount[i] || 0) + 10; });
+    app.alert(sizeList)
+    app.alert(sizeList.length)
+    sizeList.forEach(function (i) { sizeCount[i] = (sizeCount[i] || 0) + 1; });
 
     var fittingCount = {};
     fittingList.forEach(function (i) { fittingCount[i] = (fittingCount[i] || 0) + 1; });
