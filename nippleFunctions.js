@@ -593,6 +593,10 @@ function matReq() {
     var ductTapeLenList = [];
 
     if (qty1 != '' && qty1 != '0') {
+        if (overallLen1 == '' || overallLen1 == '0') {
+            app.alert('Overall Length (M) in column 1 is required.\nEnter Overall Length (M) and try again.')
+            return
+        }
         var count = 0;
         var conduit_count = 0;
         var conduit_len_in_feet = Math.ceil((qty1 * parseInt(overallLen1)) / 12);
@@ -611,6 +615,10 @@ function matReq() {
     }
 
     if (qty2 != '' && qty2 != '0') {
+        if (overallLen2 == '' || overallLen2 == '0') {
+            app.alert('Overall Length (M) in column 2 is required.\nEnter Overall Length (M) and try again.')
+            return
+        }
         var count = 0;
         var conduit_count = 0;
         var conduit_len_in_feet = Math.ceil((qty2 * parseInt(overallLen2)) / 12);
@@ -629,6 +637,10 @@ function matReq() {
     }
 
     if (qty3 != '' && qty3 != '0') {
+        if (overallLen3 == '' || overallLen3 == '0') {
+            app.alert('Overall Length (M) in column 3 is required.\nEnter Overall Length (M) and try again.')
+            return
+        }
         var count = 0;
         var conduit_count = 0;
         var conduit_len_in_feet = Math.ceil((qty3 * parseInt(overallLen3)) / 12);
@@ -647,6 +659,10 @@ function matReq() {
     }
 
     if (qty4 != '' && qty4 != '0') {
+        if (overallLen4 == '' || overallLen4 == '0') {
+            app.alert('Overall Length (M) in column 4 is required.\nEnter Overall Length (M) and try again.')
+            return
+        }
         var count = 0;
         var conduit_count = 0;
         var conduit_len_in_feet = Math.ceil((qty4 * parseInt(overallLen4)) / 12);
@@ -668,8 +684,6 @@ function matReq() {
     fittingList.sort();
 
     var sizeCount = {};
-    app.alert(sizeList)
-    app.alert(sizeList.length)
     sizeList.forEach(function (i) { sizeCount[i] = (sizeCount[i] || 0) + 1; });
 
     var fittingCount = {};
