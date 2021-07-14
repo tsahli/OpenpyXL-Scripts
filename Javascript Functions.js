@@ -290,7 +290,7 @@ function wrapClearing(fullWrapField, customWrapField) {
         this.getField(fullWrapField).value = "Off";
         customWrap.value = customWrap.value + '"';
     }
-    else {
+    else if (customWrap.value != "" && customWrap.value.toString().indexOf('"') == -1) {
         customWrap.value = customWrap.value + '"';
     }
 }

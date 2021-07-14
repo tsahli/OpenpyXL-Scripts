@@ -684,7 +684,7 @@ function matReq() {
     fittingList.sort();
 
     var sizeCount = {};
-    sizeList.forEach(function (i) { sizeCount[i] = (sizeCount[i] || 0) + 1; });
+    sizeList.forEach(function (i) { sizeCount[i] = (sizeCount[i] || 0) + 10; });
 
     var fittingCount = {};
     fittingList.forEach(function (i) { fittingCount[i] = (fittingCount[i] || 0) + 1; });
